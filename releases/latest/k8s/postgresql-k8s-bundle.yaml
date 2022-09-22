@@ -1,0 +1,24 @@
+bundle: kubernetes
+applications:
+  pgbouncer-k8s:
+    charm: pgbouncer-k8s
+    channel: edge
+    revision: 5
+    resources:
+      pgbouncer-image: 2
+    scale: 1
+    constraints: arch=amd64
+  postgresql-k8s:
+    charm: postgresql-k8s
+    channel: edge
+    revision: 19
+    resources:
+      postgresql-image: 18
+    scale: 1
+    constraints: arch=amd64
+    storage:
+      pgdata: kubernetes,1,1024
+    trust: true
+relations:
+- - pgbouncer-k8s:backend-database
+  - postgresql-k8s:database

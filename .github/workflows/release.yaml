@@ -1,0 +1,35 @@
+name: Release to latest/edge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  k8s-integration:
+    name: Integration tests
+    runs-on: ubuntu-latest
+    uses: ./.github/workflows/ci.yaml
+
+  release-to-charmhub:
+    name: Release to CharmHub
+    needs:
+      - k8s-integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Select charmhub channel
+        uses: canonical/charming-actions/channel@2.0.0-rc
+        id: channel
+      - name: Upload bundle to edge
+        uses: canonical/charming-actions/upload-bundle@1.0.0
+        with:
+          bundle-path: releases/latest/k8s/postgresql-k8s-bundle.yaml
+          credentials: "${{ secrets.CHARMHUB_TOKEN }}"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          channel: "${{ steps.channel.outputs.name }}"
+

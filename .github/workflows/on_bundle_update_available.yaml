@@ -1,0 +1,39 @@
+name: bundle update available
+on:
+  schedule:
+    - cron:  '0 12 * * 1'
+
+jobs:
+  update-bundles:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: check for updates
+        run: |
+          tree -fi releases/ | grep .yaml | while read BUNDLE
+          do
+            update_bundle.py $BUNDLE
+          done
+      - name: create pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: Update bundles
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: update-bundles
+          delete-branch: true
+          title: 'Update Bundles'
+          body: |
+            Update bundles with new revisions from Charmhub.
+          labels: |
+            automated pr
+          assignees: team-reviewers
+          reviewers: team-reviewers
+          team-reviewers: |
+            owners
+            maintainers
+          milestone: 1
+          draft: false
