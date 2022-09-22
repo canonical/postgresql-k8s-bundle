@@ -10,7 +10,7 @@ from charms.pgbouncer_k8s.v0 import pgb
 from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
-from k8s_constants import AUTH_FILE_PATH, INI_PATH, LOG_PATH
+from constants import AUTH_FILE_PATH, INI_PATH, LOG_PATH
 
 PGB = "pgbouncer-k8s"
 
