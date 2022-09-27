@@ -12,6 +12,7 @@ from pytest_operator.plugin import OpsTest
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
+    get_backend_relation,
     get_backend_user_pass,
     get_cfg,
     get_legacy_relation_username,
@@ -43,13 +44,7 @@ async def test_create_db_legacy_relation(ops_test: OpsTest):
             ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
         )
 
-        # TODO test adding both relations simultaneously
-        backend_relation = await ops_test.model.add_relation(
-            f"{PGB}:backend-database", f"{PG}:database"
-        )
-        wait_for_relation_joined_between(ops_test, PGB, PG)
-        await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=1000)
-
+        backend_relation = get_backend_relation(ops_test)
         pgb_user, pgb_password = await get_backend_user_pass(ops_test, backend_relation)
         await check_database_users_existence(
             ops_test,

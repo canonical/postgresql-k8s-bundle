@@ -14,6 +14,7 @@ from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
+    get_backend_relation,
     get_backend_user_pass,
     get_cfg,
     get_pgb_log,
@@ -39,14 +40,11 @@ async def test_relate_pgbouncer_to_postgres(ops_test: OpsTest):
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
         await deploy_postgres_k8s_bundle(ops_test)
-
-        relation = await ops_test.model.add_relation(f"{PGB}:{RELATION}", f"{PG}:database")
-        wait_for_relation_joined_between(ops_test, PG, PGB)
-        await ops_test.model.wait_for_idle(apps=[PGB, PG], status="active", timeout=1000),
+        backend_relation = get_backend_relation(ops_test)
 
         cfg = await get_cfg(ops_test, f"{PGB}/0")
         logging.info(cfg.render())
-        pgb_user, pgb_password = await get_backend_user_pass(ops_test, relation)
+        pgb_user, pgb_password = await get_backend_user_pass(ops_test, backend_relation)
         assert pgb_user in cfg["pgbouncer"]["admin_users"]
         assert cfg["pgbouncer"]["auth_query"]
 
@@ -57,7 +55,7 @@ async def test_relate_pgbouncer_to_postgres(ops_test: OpsTest):
             f"{PGB}:{RELATION}", f"{PG}:database"
         )
         pgb_unit = ops_test.model.applications[PGB].units[0]
-        logging.info(await get_app_relation_databag(ops_test, pgb_unit.name, relation.id))
+        logging.info(await get_app_relation_databag(ops_test, pgb_unit.name, backend_relation.id))
         wait_for_relation_removed_between(ops_test, PG, PGB)
         await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=1000),
 
@@ -85,8 +83,12 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
         relation = await ops_test.model.add_relation(f"{PGB}:{RELATION}", f"{PG}:database")
         wait_for_relation_joined_between(ops_test, PG, PGB)
         await asyncio.gather(
-            ops_test.model.wait_for_idle(apps=[PGB], status="active", timeout=1000, wait_for_exact_units=1),
-            ops_test.model.wait_for_idle(apps=[PG], status="active", timeout=1000, wait_for_exact_units=1),
+            ops_test.model.wait_for_idle(
+                apps=[PGB], status="active", timeout=1000, wait_for_exact_units=1
+            ),
+            ops_test.model.wait_for_idle(
+                apps=[PG], status="active", timeout=1000, wait_for_exact_units=1
+            ),
         )
 
         await scale_application(ops_test, PGB, 3)

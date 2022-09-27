@@ -18,8 +18,11 @@ PG = "postgresql-k8s"
 
 def get_backend_relation(ops_test: OpsTest):
     """Gets the backend-database relation used to connect pgbouncer to the backend."""
+    pgb_name = ops_test.model.applications[PGB].name
+
     for rel in ops_test.model.relations:
-        if "pgbouncer-k8s" in rel.endpoints and "postgresql-k8s" in rel.endpoints:
+        apps = [endpoint["application-name"] for endpoint in rel.data["endpoints"]]
+        if pgb_name in apps and "postgresql" in apps:
             return rel
 
     return None
