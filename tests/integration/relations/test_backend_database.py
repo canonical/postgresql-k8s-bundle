@@ -4,6 +4,7 @@
 import asyncio
 import logging
 from pathlib import Path
+from xml.etree.ElementPath import ops
 
 import pytest
 import yaml
@@ -11,6 +12,7 @@ from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
 from tests.integration.helpers.helpers import (
+    deploy_postgres_k8s_bundle,
     get_app_relation_databag,
     get_backend_user_pass,
     get_cfg,
@@ -20,9 +22,7 @@ from tests.integration.helpers.helpers import (
     wait_for_relation_joined_between,
     wait_for_relation_removed_between,
 )
-from tests.integration.helpers.postgresql_helpers import (
-    check_database_users_existence,
-)
+from tests.integration.helpers.postgresql_helpers import check_database_users_existence
 
 logger = logging.getLogger(__name__)
 
@@ -38,17 +38,7 @@ async def test_relate_pgbouncer_to_postgres(ops_test: OpsTest):
     """Test that the pgbouncer and postgres charms can relate to one another."""
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
-        await asyncio.gather(
-            ops_test.model.deploy(PGB, channel="edge", application_name=PGB),
-            # Edge 5 is the new postgres charm
-            ops_test.model.deploy(PG, channel="edge", trust=True, num_units=3),
-        )
-        await asyncio.gather(
-            ops_test.model.wait_for_idle(apps=[PGB], status="active", timeout=1000),
-            ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=1000, wait_for_exact_units=3
-            ),
-        )
+        await deploy_postgres_k8s_bundle(ops_test)
 
         relation = await ops_test.model.add_relation(f"{PGB}:{RELATION}", f"{PG}:database")
         wait_for_relation_joined_between(ops_test, PG, PGB)

@@ -10,6 +10,7 @@ import yaml
 from pytest_operator.plugin import OpsTest
 
 from tests.integration.helpers.helpers import (
+    deploy_postgres_k8s_bundle,
     get_backend_user_pass,
     get_legacy_relation_username,
     get_pgb_log,
@@ -37,8 +38,7 @@ async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
         await asyncio.gather(
-            ops_test.model.deploy(PGB, channel="edge"),
-            ops_test.model.deploy(PG, trust=True, num_units=3, channel="edge"),
+            deploy_postgres_k8s_bundle(ops_test),
             ops_test.model.deploy(
                 FIRST_DISCOURSE_APP_NAME, application_name=FIRST_DISCOURSE_APP_NAME
             ),
