@@ -183,6 +183,6 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
 async def deploy_postgres_k8s_bundle(ops_test: OpsTest):
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
-        await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml")
+        await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
         wait_for_relation_joined_between(ops_test, PG, PGB)
         await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=1000)
