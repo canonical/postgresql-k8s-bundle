@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  k8s-integration:
+  integration-test:
     name: Integration tests
     runs-on: ubuntu-latest
     uses: ./.github/workflows/ci.yaml
@@ -15,7 +15,7 @@ jobs:
   release-to-charmhub:
     name: Release to CharmHub
     needs:
-      - k8s-integration
+      - integration-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
