@@ -85,10 +85,8 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
         relation = await ops_test.model.add_relation(f"{PGB}:{RELATION}", f"{PG}:database")
         wait_for_relation_joined_between(ops_test, PG, PGB)
         await asyncio.gather(
-            ops_test.model.wait_for_idle(apps=[PGB], status="active", timeout=1000),
-            ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=1000, wait_for_exact_units=3
-            ),
+            ops_test.model.wait_for_idle(apps=[PGB], status="active", timeout=1000, wait_for_exact_units=1),
+            ops_test.model.wait_for_idle(apps=[PG], status="active", timeout=1000, wait_for_exact_units=1),
         )
 
         await scale_application(ops_test, PGB, 3)
@@ -97,7 +95,7 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
                 apps=[PGB], status="active", timeout=1000, wait_for_exact_units=3
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=1000, wait_for_exact_units=3
+                apps=[PG], status="active", timeout=1000, wait_for_exact_units=1
             ),
         )
 
@@ -126,6 +124,6 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
                 apps=[PGB], status="active", timeout=1000, wait_for_exact_units=1
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=1000, wait_for_exact_units=3
+                apps=[PG], status="active", timeout=1000, wait_for_exact_units=1
             ),
         )
