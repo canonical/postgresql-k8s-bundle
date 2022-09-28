@@ -3,12 +3,11 @@
 
 import asyncio
 import logging
-from pathlib import Path
 
 import pytest
-import yaml
 from pytest_operator.plugin import OpsTest
 
+from constants import DB_RELATION_NAME, PG, PGB
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
@@ -26,9 +25,6 @@ from tests.integration.helpers.postgresql_helpers import (
     check_database_users_existence,
 )
 
-METADATA = yaml.safe_load(Path("./metadata.yaml").read_text())
-PGB = "pgbouncer-k8s"
-PG = "postgresql-k8s"
 FINOS_WALTZ = "finos-waltz"
 ANOTHER_FINOS_WALTZ = "another-finos-waltz"
 
@@ -57,7 +53,9 @@ async def test_create_db_legacy_relation(ops_test: OpsTest):
             pg_user_password=pgb_password,
         )
 
-        finos_relation = await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
+        finos_relation = await ops_test.model.add_relation(
+            f"{PGB}:{DB_RELATION_NAME}", f"{FINOS_WALTZ}:{DB_RELATION_NAME}"
+        )
         wait_for_relation_joined_between(ops_test, PGB, FINOS_WALTZ)
         await ops_test.model.wait_for_idle(
             apps=[PG, PGB, FINOS_WALTZ], status="active", timeout=1000
@@ -77,7 +75,7 @@ async def test_create_db_legacy_relation(ops_test: OpsTest):
             timeout=1000,
         )
         another_finos_relation = await ops_test.model.add_relation(
-            f"{PGB}:db", f"{ANOTHER_FINOS_WALTZ}:db"
+            f"{PGB}:{DB_RELATION_NAME}", f"{ANOTHER_FINOS_WALTZ}:{DB_RELATION_NAME}"
         )
         wait_for_relation_joined_between(ops_test, PGB, ANOTHER_FINOS_WALTZ)
         await ops_test.model.wait_for_idle(

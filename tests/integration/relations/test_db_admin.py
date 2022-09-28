@@ -3,12 +3,11 @@
 
 import asyncio
 import logging
-from pathlib import Path
 
 import pytest
-import yaml
 from pytest_operator.plugin import OpsTest
 
+from constants import DB_ADMIN_RELATION_NAME, PG, PGB
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_backend_relation,
@@ -28,9 +27,6 @@ logger = logging.getLogger(__name__)
 FIRST_DISCOURSE_APP_NAME = "discourse-k8s"
 SECOND_DISCOURSE_APP_NAME = "discourse-charmers-discourse-k8s"
 REDIS_APP_NAME = "redis-k8s"
-METADATA = yaml.safe_load(Path("./metadata.yaml").read_text())
-PGB = "pgbouncer-k8s"
-PG = "postgresql-k8s"
 
 
 @pytest.mark.dev
@@ -71,7 +67,7 @@ async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
 
         # Add both relations to Discourse (PostgreSQL and Redis) and wait for it to be ready.
         first_discourse_relation = await ops_test.model.add_relation(
-            f"{PGB}:db-admin",
+            f"{PGB}:{DB_ADMIN_RELATION_NAME}",
             FIRST_DISCOURSE_APP_NAME,
         )
         wait_for_relation_joined_between(ops_test, PGB, FIRST_DISCOURSE_APP_NAME)
@@ -124,7 +120,7 @@ async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
 
         # Relate PostgreSQL and Discourse, waiting for Discourse to be ready.
         second_discourse_relation = await ops_test.model.add_relation(
-            f"{PGB}:db-admin",
+            f"{PGB}:{DB_ADMIN_RELATION_NAME}",
             SECOND_DISCOURSE_APP_NAME,
         )
         wait_for_relation_joined_between(ops_test, PGB, SECOND_DISCOURSE_APP_NAME)

@@ -5,10 +5,9 @@ import itertools
 from typing import List
 
 import psycopg2
-import yaml
 from pytest_operator.plugin import OpsTest
 
-PG = "postgresql-k8s"
+from constants import PG
 
 
 async def check_database_users_existence(

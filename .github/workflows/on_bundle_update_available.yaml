@@ -1,7 +1,7 @@
 name: bundle update available
 on:
   schedule:
-    - cron:  '0 12 * * 1'
+    - cron:  '0 12 * * 3'
 
 jobs:
   update-bundles:

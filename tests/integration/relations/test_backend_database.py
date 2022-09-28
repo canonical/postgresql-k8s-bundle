@@ -3,14 +3,12 @@
 
 import asyncio
 import logging
-from pathlib import Path
-from xml.etree.ElementPath import ops
 
 import pytest
-import yaml
 from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
+from constants import BACKEND_RELATION_NAME, PG, PGB
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
@@ -26,11 +24,6 @@ from tests.integration.helpers.helpers import (
 from tests.integration.helpers.postgresql_helpers import check_database_users_existence
 
 logger = logging.getLogger(__name__)
-
-METADATA = yaml.safe_load(Path("./metadata.yaml").read_text())
-PGB = "pgbouncer-k8s"
-PG = "postgresql-k8s"
-RELATION = "backend-database"
 
 
 @pytest.mark.backend
@@ -52,7 +45,7 @@ async def test_relate_pgbouncer_to_postgres(ops_test: OpsTest):
 
         # Remove relation but keep pg application because we're going to need it for future tests.
         await ops_test.model.applications[PG].remove_relation(
-            f"{PGB}:{RELATION}", f"{PG}:database"
+            f"{PGB}:{BACKEND_RELATION_NAME}", f"{PG}:database"
         )
         pgb_unit = ops_test.model.applications[PGB].units[0]
         logging.info(await get_app_relation_databag(ops_test, pgb_unit.name, backend_relation.id))
@@ -80,7 +73,9 @@ async def test_relate_pgbouncer_to_postgres(ops_test: OpsTest):
 @pytest.mark.backend
 async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
     async with ops_test.fast_forward():
-        relation = await ops_test.model.add_relation(f"{PGB}:{RELATION}", f"{PG}:database")
+        relation = await ops_test.model.add_relation(
+            f"{PGB}:{BACKEND_RELATION_NAME}", f"{PG}:database"
+        )
         wait_for_relation_joined_between(ops_test, PG, PGB)
         await asyncio.gather(
             ops_test.model.wait_for_idle(
