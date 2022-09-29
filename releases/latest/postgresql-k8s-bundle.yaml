@@ -1,4 +1,6 @@
 bundle: kubernetes
+name: postgresql-k8s-bundle
+type: bundle
 applications:
   pgbouncer-k8s:
     charm: pgbouncer-k8s
