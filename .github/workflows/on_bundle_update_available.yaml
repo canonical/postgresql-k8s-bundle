@@ -27,8 +27,8 @@ jobs:
             Update bundles with new revisions from Charmhub.
           labels: |
             automated pr
-          assignees: team-reviewers, WRFitch
-          reviewers: team-reviewers
+          assignees: team-reviewers, WRFitch, marceloneppel
+          reviewers: team-reviewers, marceloneppel
           team-reviewers: |
             owners
             maintainers
