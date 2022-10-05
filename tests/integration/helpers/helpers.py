@@ -5,7 +5,7 @@
 import json
 from multiprocessing import ProcessError
 from typing import Dict
-
+import asyncio
 from charms.pgbouncer_k8s.v0 import pgb
 from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
@@ -15,12 +15,20 @@ from constants import AUTH_FILE_PATH, INI_PATH, LOG_PATH, PG, PGB
 
 def get_backend_relation(ops_test: OpsTest):
     """Gets the backend-database relation used to connect pgbouncer to the backend."""
+    relations =  get_connecting_relations(ops_test, PGB, PG)
+    if len(relations) == 0:
+        return None
+    return relations[0]
+
+def get_connecting_relations(ops_test: OpsTest, app_1: str, app_2: str):
+    """Gets the relation that connects these two applications."""
+    relations = []
     for rel in ops_test.model.relations:
         apps = [endpoint["application-name"] for endpoint in rel.data["endpoints"]]
-        if PGB in apps and PG in apps:
-            return rel
+        if app_1 in apps and app_2 in apps:
+            relations.append(rel)
 
-    return None
+    return relations
 
 
 def get_legacy_relation_username(ops_test: OpsTest, relation_id: int):
@@ -178,9 +186,61 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
     )
 
 
-async def deploy_postgres_k8s_bundle(ops_test: OpsTest):
+async def deploy_postgres_k8s_bundle(ops_test: OpsTest, scale_pgbouncer: int = 1, scale_postgres: int = 1):
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
         await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
+        await asyncio.gather(
+            scale_application(ops_test, PGB, scale_pgbouncer),
+            scale_application(ops_test, PGB, scale_postgres)
+        )
         wait_for_relation_joined_between(ops_test, PG, PGB)
         await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=1000)
+
+
+async def deploy_and_relate_application_with_pgbouncer(
+    ops_test: OpsTest,
+    charm: str,
+    application_name: str,
+    number_of_units: int = 1,
+    config: dict = {},
+    channel: str = "stable",
+    relation: str = "db",
+):
+    """Helper function to deploy and relate application with pgbouncer.
+
+    This assumes pgbouncer already exists and is related to postgres
+
+    Args:
+        ops_test: The ops test framework.
+        charm: Charm identifier.
+        application_name: The name of the application to deploy.
+        number_of_units: The number of units to deploy.
+        config: Extra config options for the application.
+        channel: The channel to use for the charm.
+        relation: Name of the pgbouncer relation to relate
+            the application to.
+
+    Returns:
+        Relation object representing the  created relation.
+    """
+    # Deploy application.
+    await ops_test.model.deploy(
+        charm,
+        channel=channel,
+        application_name=application_name,
+        num_units=number_of_units,
+        config=config,
+    )
+    await ops_test.model.wait_for_idle(apps=[application_name], timeout=600)
+
+    # Relate application to pgbouncer.
+    relation = await ops_test.model.relate(application_name, f"{PGB}:{relation}")
+    wait_for_relation_joined_between(ops_test, PGB, application_name)
+    await ops_test.model.wait_for_idle(
+        apps=[application_name, PG, PGB],
+        status="active",
+        timeout=600,
+    )
+
+    return relation
