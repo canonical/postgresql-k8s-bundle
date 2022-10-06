@@ -73,8 +73,8 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     pgpass = backend_databag.get("password")
     user = backend_databag.get("username")
     host = backend_databag.get("endpoints")
-    dbname = backend_databag.get("database")
-    assert None not in [pgpass, user, host, dbname], "databag incorrectly populated"
+    assert None not in [pgpass, user, host], "databag incorrectly populated"
+    dbname = "pgbouncer"
 
     # Get postgres primary through action
     unit_name = ops_test.model.applications[PG].units[0].name
