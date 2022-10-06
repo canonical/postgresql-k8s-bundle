@@ -19,7 +19,10 @@ from tests.integration.helpers.helpers import (
     scale_application,
     wait_for_relation_joined_between,
 )
-from tests.integration.helpers.postgresql_helpers import execute_query_on_unit, get_unit_address
+from tests.integration.helpers.postgresql_helpers import (
+    execute_query_on_unit,
+    query_unit_address,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +48,7 @@ async def test_setup(ops_test: OpsTest):
             apps=[PG, PGB, FINOS_WALTZ], status="active", timeout=1000
         )
 
+
 @pytest.mark.bundle
 async def test_discover_dbs(ops_test: OpsTest):
     """Check that proxy discovers new members when scaling up postgres charm."""
@@ -55,8 +59,11 @@ async def test_discover_dbs(ops_test: OpsTest):
 
     await scale_application(ops_test, PG, 3)
 
-    updated_backend_databag = await get_app_relation_databag(ops_test, pgb_unit, backend_relation.id)
+    updated_backend_databag = await get_app_relation_databag(
+        ops_test, pgb_unit, backend_relation.id
+    )
     assert updated_backend_databag.get("read-only-endpoints") is not None
+
 
 @pytest.mark.bundle
 async def test_kill_pg_primary(ops_test: OpsTest):
@@ -76,7 +83,7 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     action = await ops_test.model.units.get(unit_name).run_action("get-primary")
     action = await action.wait()
     primary = action.results["primary"]
-    old_primary_address = await get_unit_address(ops_test, primary, user, pgpass, dbname)
+    old_primary_address = await query_unit_address(ops_test, primary, user, pgpass, dbname)
 
     async with ops_test.fast_forward():
         # Delete the primary pod.
@@ -93,7 +100,7 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     action = await ops_test.model.units.get(unit_name).run_action("get-primary")
     action = await action.wait()
     primary = action.results["primary"]
-    new_primary_address = await get_unit_address(ops_test, primary, user, pgpass, dbname)
+    new_primary_address = await query_unit_address(ops_test, primary, user, pgpass, dbname)
     assert new_primary_address != old_primary_address
 
 
@@ -114,14 +121,15 @@ async def test_read_distribution(ops_test: OpsTest):
     dbname = f"{dbname}_standby"
 
     pgb_unit = ops_test.model.applications[PGB].units[0]
-    first_ip = await get_unit_address(ops_test, pgb_unit.name, user, pgpass, dbname)
-    second_ip = await get_unit_address(ops_test, pgb_unit.name, user, pgpass, dbname)
+    first_ip = await query_unit_address(ops_test, pgb_unit.name, user, pgpass, dbname)
+    second_ip = await query_unit_address(ops_test, pgb_unit.name, user, pgpass, dbname)
     assert first_ip != second_ip
 
-async def get_unit_address(ops_test, unit_name, username, password, dbname):
+
+async def query_unit_address(ops_test, unit_name, username, password, dbname):
     query = "SELECT reset_val FROM pg_settings WHERE name='listen_addresses';"
     rtn, address, err = await execute_query_on_unit(
-        unit_address= await get_unit_address(ops_test, unit_name),
+        unit_address=await query_unit_address(ops_test, unit_name),
         user=username,
         password=password,
         query=query,

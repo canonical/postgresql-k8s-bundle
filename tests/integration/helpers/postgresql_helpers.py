@@ -29,7 +29,7 @@ async def check_database_users_existence(
         pg_user_password: password for `pg_user`
     """
     unit = ops_test.model.applications[PG].units[0]
-    unit_address = await get_unit_address(ops_test, unit.name)
+    unit_address = await query_unit_address(ops_test, unit.name)
 
     # Retrieve all users in the database.
     output = await execute_query_on_unit(
@@ -65,7 +65,7 @@ async def check_database_creation(
         password: password for `user`
     """
     for unit in ops_test.model.applications[PG].units:
-        unit_address = await get_unit_address(ops_test, unit.name)
+        unit_address = await query_unit_address(ops_test, unit.name)
 
         # Ensure database exists in PostgreSQL.
         output = await execute_query_on_unit(
@@ -113,7 +113,7 @@ async def execute_query_on_unit(
     return output
 
 
-async def get_unit_address(ops_test: OpsTest, unit_name: str) -> str:
+async def query_unit_address(ops_test: OpsTest, unit_name: str) -> str:
     """Get unit IP address.
 
     Args:

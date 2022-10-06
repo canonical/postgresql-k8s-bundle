@@ -19,7 +19,7 @@ from tests.integration.helpers.helpers import (
 from tests.integration.helpers.postgresql_helpers import (
     check_database_creation,
     check_database_users_existence,
-    get_unit_address,
+    query_unit_address,
 )
 
 logger = logging.getLogger(__name__)
@@ -99,7 +99,7 @@ async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
         # Test the second Discourse charm.
 
         # Get the Redis instance IP address.
-        redis_host = await get_unit_address(ops_test, f"{REDIS_APP_NAME}/0")
+        redis_host = await query_unit_address(ops_test, f"{REDIS_APP_NAME}/0")
 
         # Deploy Discourse and wait for it to be blocked waiting for database relation.
         await ops_test.model.deploy(
