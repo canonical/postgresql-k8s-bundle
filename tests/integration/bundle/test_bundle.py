@@ -45,7 +45,7 @@ async def test_setup(ops_test: OpsTest):
         await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
         wait_for_relation_joined_between(ops_test, PGB, FINOS_WALTZ)
         await ops_test.model.wait_for_idle(
-            apps=[PG, PGB, FINOS_WALTZ], status="active", timeout=1000
+            apps=[PG, PGB, FINOS_WALTZ], status="active", timeout=600
         )
 
 

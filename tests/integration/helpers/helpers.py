@@ -184,7 +184,7 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
         await ops_test.model.wait_for_idle(
             apps=[application_name],
             status="active",
-            timeout=1000,
+            timeout=600,
             wait_for_exact_units=scale,
         )
 
@@ -200,7 +200,7 @@ async def deploy_postgres_k8s_bundle(
             scale_application(ops_test, PG, scale_postgres),
         )
         wait_for_relation_joined_between(ops_test, PG, PGB)
-        await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=1000)
+        await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=600)
 
 
 async def deploy_and_relate_application_with_pgbouncer(
