@@ -1,3 +1,5 @@
+
+
 bundle: kubernetes
 name: postgresql-k8s-bundle
 type: bundle
@@ -5,7 +7,7 @@ applications:
   pgbouncer-k8s:
     charm: pgbouncer-k8s
     channel: edge
-    revision: 6
+    revision: 7
     scale: 1
     constraints: arch=amd64
   postgresql-k8s:

@@ -21,7 +21,7 @@ from tests.integration.helpers.helpers import (
 )
 from tests.integration.helpers.postgresql_helpers import (
     execute_query_on_unit,
-    get_unit_address
+    get_unit_address,
 )
 
 logger = logging.getLogger(__name__)
