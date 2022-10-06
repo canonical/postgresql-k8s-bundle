@@ -5,7 +5,8 @@ applications:
   pgbouncer-k8s:
     charm: pgbouncer-k8s
     channel: edge
-    revision: 6
+    constraints: arch=amd64
+    revision: 7
     scale: 1
     constraints: arch=amd64
   postgresql-k8s:
