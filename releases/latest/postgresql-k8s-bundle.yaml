@@ -1,5 +1,3 @@
-
-
 bundle: kubernetes
 name: postgresql-k8s-bundle
 type: bundle
