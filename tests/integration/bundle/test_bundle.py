@@ -21,7 +21,7 @@ from tests.integration.helpers.helpers import (
 )
 from tests.integration.helpers.postgresql_helpers import (
     execute_query_on_unit,
-    query_unit_address,
+    get_unit_address
 )
 
 logger = logging.getLogger(__name__)
@@ -70,13 +70,12 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     """Kill postgres primary, check that all proxy instances switched traffic for a new primary."""
     # get connection info
     backend_relation = get_backend_relation(ops_test)
-    backend_databag = get_app_relation_databag(ops_test, f"{PGB}/0", backend_relation.id)
+    backend_databag = await get_app_relation_databag(ops_test, f"{PGB}/0", backend_relation.id)
     pgpass = backend_databag.get("password")
     user = backend_databag.get("username")
     host = backend_databag.get("endpoints")
     dbname = backend_databag.get("database")
     assert None not in [pgpass, user, host, dbname], "databag incorrectly populated"
-    dbname = f"{dbname}_standby"
 
     # Get postgres primary through action
     unit_name = ops_test.model.applications[PG].units[0].name
@@ -129,7 +128,7 @@ async def test_read_distribution(ops_test: OpsTest):
 async def query_unit_address(ops_test, unit_name, username, password, dbname):
     query = "SELECT reset_val FROM pg_settings WHERE name='listen_addresses';"
     rtn, address, err = await execute_query_on_unit(
-        unit_address=await query_unit_address(ops_test, unit_name),
+        unit_address=await get_unit_address(ops_test, unit_name),
         user=username,
         password=password,
         query=query,
