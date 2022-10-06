@@ -196,7 +196,7 @@ async def deploy_postgres_k8s_bundle(
         await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
         await asyncio.gather(
             scale_application(ops_test, PGB, scale_pgbouncer),
-            scale_application(ops_test, PGB, scale_postgres),
+            scale_application(ops_test, PG, scale_postgres),
         )
         wait_for_relation_joined_between(ops_test, PG, PGB)
         await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=1000)

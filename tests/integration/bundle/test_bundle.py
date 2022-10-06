@@ -1,16 +1,18 @@
 # Copyright 2022 Canonical Ltd.
 # See LICENSE file for licensing details.
 
+import asyncio
 import logging
 
 import pytest
 from pytest_operator.plugin import OpsTest
 
-from constants import PGB
+from constants import PG, PGB
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
     get_connecting_relations,
+    wait_for_relation_joined_between,
 )
 from tests.integration.helpers.postgresql_helpers import execute_query_on_unit
 
@@ -23,16 +25,24 @@ FINOS_WALTZ = "finos-waltz"
 @pytest.mark.abort_on_fail
 async def test_setup(ops_test: OpsTest):
     """Deploy bundle and set up finos-waltz for testing.
+
     We're adding an application to ensure that related applications stay online during service
     interruptions.
     """
-    await deploy_postgres_k8s_bundle(ops_test, scale_pgbouncer=3, scale_postgres=3)
-    await ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
+    async with ops_test.fast_forward():
+        await asyncio.gather(
+            deploy_postgres_k8s_bundle(ops_test, scale_pgbouncer=3, scale_postgres=3),
+            ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
+        )
+        await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
+        wait_for_relation_joined_between(ops_test, PGB, FINOS_WALTZ)
+        await ops_test.model.wait_for_idle(apps=[PG, PGB, FINOS_WALTZ], status="active", timeout=1000)
 
 
 @pytest.mark.bundle
 async def test_kill_pg_primary(ops_test: OpsTest):
     """Kill postgres primary, check that all proxy instances switched traffic for a new primary."""
+
 
 
 @pytest.mark.bundle
@@ -53,8 +63,10 @@ async def test_read_distribution(ops_test: OpsTest):
     user = finos_databag.get("user")
     host = finos_databag.get("host")
     port = finos_databag.get("port")
-    dbname = f"{finos_databag.get('database')}_standby"
+    dbname = finos_databag.get("database")
+    logging.info([pgpass, user, host, port, dbname])
     assert None not in [pgpass, user, host, port, dbname], "databag incorrectly populated"
+    dbname = f"{dbname}_standby"
 
     user_command = "SELECT reset_val FROM pg_settings WHERE name='listen_addresses';"
 
