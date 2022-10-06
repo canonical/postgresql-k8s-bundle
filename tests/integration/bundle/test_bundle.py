@@ -14,7 +14,6 @@ from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
     get_backend_relation,
-    get_cfg,
     get_connecting_relations,
     scale_application,
     wait_for_relation_joined_between,
