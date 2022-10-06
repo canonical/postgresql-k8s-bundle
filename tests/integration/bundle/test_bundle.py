@@ -2,8 +2,10 @@
 # See LICENSE file for licensing details.
 
 import asyncio
+import itertools
 import logging
 
+import psycopg2
 import pytest
 from lightkube import AsyncClient
 from lightkube.resources.core_v1 import Pod
@@ -18,10 +20,7 @@ from tests.integration.helpers.helpers import (
     scale_application,
     wait_for_relation_joined_between,
 )
-from tests.integration.helpers.postgresql_helpers import (
-    execute_query_on_unit,
-    get_unit_address,
-)
+from tests.integration.helpers.postgresql_helpers import get_unit_address
 
 logger = logging.getLogger(__name__)
 
@@ -124,14 +123,11 @@ async def test_read_distribution(ops_test: OpsTest):
     assert first_ip != second_ip
 
 
-async def query_unit_address(ops_test, unit_name, username, password, dbname):
+async def query_unit_address(ops_test, unit_name, user, password, database):
     query = "SELECT reset_val FROM pg_settings WHERE name='listen_addresses';"
-    rtn, address, err = await execute_query_on_unit(
-        unit_address=await get_unit_address(ops_test, unit_name),
-        user=username,
-        password=password,
-        query=query,
-        database=dbname,
-    )
-    assert rtn == 0, f"failed to run admin command {query}, {err}"
-    return address
+    unit_address = await get_unit_address(ops_test, unit_name)
+    connstr = f"dbname='{database}' user='{user}' host='{unit_address}' password='{password}' connect_timeout=10 port=6432"
+    with psycopg2.connect(connstr) as connection, connection.cursor() as cursor:
+        cursor.execute(query)
+        output = list(itertools.chain(*cursor.fetchall()))
+    return output
