@@ -2,10 +2,11 @@
 # Copyright 2022 Canonical Ltd.
 # See LICENSE file for licensing details.
 
+import asyncio
 import json
 from multiprocessing import ProcessError
 from typing import Dict
-import asyncio
+
 from charms.pgbouncer_k8s.v0 import pgb
 from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
@@ -15,10 +16,11 @@ from constants import AUTH_FILE_PATH, INI_PATH, LOG_PATH, PG, PGB
 
 def get_backend_relation(ops_test: OpsTest):
     """Gets the backend-database relation used to connect pgbouncer to the backend."""
-    relations =  get_connecting_relations(ops_test, PGB, PG)
+    relations = get_connecting_relations(ops_test, PGB, PG)
     if len(relations) == 0:
         return None
     return relations[0]
+
 
 def get_connecting_relations(ops_test: OpsTest, app_1: str, app_2: str):
     """Gets the relation that connects these two applications."""
@@ -186,13 +188,15 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
     )
 
 
-async def deploy_postgres_k8s_bundle(ops_test: OpsTest, scale_pgbouncer: int = 1, scale_postgres: int = 1):
+async def deploy_postgres_k8s_bundle(
+    ops_test: OpsTest, scale_pgbouncer: int = 1, scale_postgres: int = 1
+):
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
         await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
         await asyncio.gather(
             scale_application(ops_test, PGB, scale_pgbouncer),
-            scale_application(ops_test, PGB, scale_postgres)
+            scale_application(ops_test, PGB, scale_postgres),
         )
         wait_for_relation_joined_between(ops_test, PG, PGB)
         await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=1000)
