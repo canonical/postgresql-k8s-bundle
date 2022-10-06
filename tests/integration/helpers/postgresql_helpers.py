@@ -105,7 +105,7 @@ async def execute_query_on_unit(
     Returns:
         A list of rows that were potentially returned from the query.
     """
-    # long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long comment
+    # long long long long long long long long long long long long long long long long long long long long long long long long long long long long long set -eo pipefail long long comment
     with psycopg2.connect(
         f"dbname='{database}' user='{user}' host='{unit_address}' password='{password}' connect_timeout=10"
     ) as connection, connection.cursor() as cursor:
