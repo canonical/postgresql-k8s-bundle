@@ -114,10 +114,6 @@ async def execute_query_on_unit(
     return output
 
 
-
-
-
-
 async def get_unit_address(ops_test: OpsTest, unit_name: str) -> str:
     """Get unit IP address.
 

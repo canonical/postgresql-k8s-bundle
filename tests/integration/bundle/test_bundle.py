@@ -6,15 +6,14 @@ import logging
 import pytest
 from pytest_operator.plugin import OpsTest
 
+from constants import PGB
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
     get_connecting_relations,
 )
-
 from tests.integration.helpers.postgresql_helpers import execute_query_on_unit
 
-from constants import PGB
 logger = logging.getLogger(__name__)
 
 FINOS_WALTZ = "finos-waltz"
@@ -34,7 +33,6 @@ async def test_setup(ops_test: OpsTest):
 @pytest.mark.bundle
 async def test_kill_pg_primary(ops_test: OpsTest):
     """Kill postgres primary, check that all proxy instances switched traffic for a new primary."""
-
 
 
 @pytest.mark.bundle
@@ -63,13 +61,21 @@ async def test_read_distribution(ops_test: OpsTest):
     pgb_unit = ops_test.model.applications[PGB].units[0]
     # get first ip
     rtn, first_ip, err = await execute_query_on_unit(
-        unit_address=pgb_unit.public_address, user=user, password=pgpass, query=user_command, database=dbname
+        unit_address=pgb_unit.public_address,
+        user=user,
+        password=pgpass,
+        query=user_command,
+        database=dbname,
     )
     assert rtn == 0, f"failed to run admin command {user_command}, {err}"
 
     # get second IP
     rtn, second_ip, err = await execute_query_on_unit(
-        unit_address=pgb_unit.public_address, user=user, password=pgpass, query=user_command, database=dbname
+        unit_address=pgb_unit.public_address,
+        user=user,
+        password=pgpass,
+        query=user_command,
+        database=dbname,
     )
     assert rtn == 0, f"failed to run admin command {user_command}, {err}"
 
