@@ -13,8 +13,10 @@ from constants import PG, PGB
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
+    get_backend_relation,
     get_cfg,
     get_connecting_relations,
+    scale_application,
     wait_for_relation_joined_between,
 )
 from tests.integration.helpers.postgresql_helpers import execute_query_on_unit, get_unit_address
@@ -34,7 +36,7 @@ async def test_setup(ops_test: OpsTest):
     """
     async with ops_test.fast_forward():
         await asyncio.gather(
-            deploy_postgres_k8s_bundle(ops_test, scale_pgbouncer=3, scale_postgres=3),
+            deploy_postgres_k8s_bundle(ops_test, scale_pgbouncer=3),
             ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
         )
         await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
@@ -43,6 +45,17 @@ async def test_setup(ops_test: OpsTest):
             apps=[PG, PGB, FINOS_WALTZ], status="active", timeout=1000
         )
 
+@pytest.mark.bundle
+async def test_discover_dbs(ops_test: OpsTest):
+    """Check that proxy discovers new members when scaling up postgres charm."""
+    pgb_unit = f"{PGB}/0"
+    backend_relation = get_backend_relation(ops_test)
+    backend_databag = await get_app_relation_databag(ops_test, pgb_unit, backend_relation.id)
+    assert backend_databag.get("read-only-endpoints") is None
+
+    await scale_application(ops_test, PG, 3)
+
+    assert backend_databag.get("read-only-endpoints") is not None
 
 @pytest.mark.bundle
 async def test_kill_pg_primary(ops_test: OpsTest):
@@ -52,8 +65,8 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     old_primary_address = None
     for unit in ops_test.model.applications[PGB].units:
         unit_cfg = await get_cfg(ops_test, unit.name)
-        if not old_primary_address:
-            unit_cfg["databases"]["waltz"]["host"] = old_primary_address
+        if old_primary_address is None:
+            old_primary_address = unit_cfg["databases"]["waltz"]["host"]
         assert unit_cfg["databases"]["waltz"]["host"] == old_primary_address
         assert unit_cfg["databases"]["waltz_standby"]["host"] != old_primary_address
 
@@ -73,20 +86,15 @@ async def test_kill_pg_primary(ops_test: OpsTest):
         )
 
     new_primary_address = None
-    assert new_primary_address != old_primary_address
     for unit in ops_test.model.applications[PGB].units:
         unit_cfg = await get_cfg(ops_test, unit.name)
-        if not new_primary_address:
-            unit_cfg["databases"]["waltz"]["host"] = new_primary_address
+        if new_primary_address is None:
+            new_primary_address = unit_cfg["databases"]["waltz"]["host"]
+            assert new_primary_address != old_primary_address
         assert unit_cfg["databases"]["waltz"]["host"] == new_primary_address
         assert unit_cfg["databases"]["waltz"]["host"] != old_primary_address
         assert unit_cfg["databases"]["waltz_standby"]["host"] != new_primary_address
         assert unit_cfg["databases"]["waltz_standby"]["host"] != old_primary_address
-
-
-@pytest.mark.bundle
-async def test_discover_dbs(ops_test: OpsTest):
-    """Check that proxy discovers new members when scaling up postgres charm."""
 
 
 @pytest.mark.bundle
@@ -103,7 +111,6 @@ async def test_read_distribution(ops_test: OpsTest):
     host = finos_databag.get("host")
     port = finos_databag.get("port")
     dbname = finos_databag.get("database")
-    logging.info([pgpass, user, host, port, dbname])
     assert None not in [pgpass, user, host, port, dbname], "databag incorrectly populated"
     dbname = f"{dbname}_standby"
 
@@ -112,7 +119,7 @@ async def test_read_distribution(ops_test: OpsTest):
     pgb_unit = ops_test.model.applications[PGB].units[0]
     # get first ip
     rtn, first_ip, err = await execute_query_on_unit(
-        unit_address=get_unit_address(pgb_unit.name),
+        unit_address= await get_unit_address(ops_test, pgb_unit.name),
         user=user,
         password=pgpass,
         query=query,
@@ -122,7 +129,7 @@ async def test_read_distribution(ops_test: OpsTest):
 
     # get second IP
     rtn, second_ip, err = await execute_query_on_unit(
-        unit_address=get_unit_address(pgb_unit.name),
+        unit_address= await get_unit_address(ops_test, pgb_unit.name),
         user=user,
         password=pgpass,
         query=query,
