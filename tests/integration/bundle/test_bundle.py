@@ -71,15 +71,13 @@ async def test_discover_dbs(ops_test: OpsTest):
     backend_databag = await get_app_relation_databag(ops_test, pgb_unit, backend_relation.id)
     assert backend_databag.get("read-only-endpoints") is None
 
-    await asyncio.gather(
-        scale_application(ops_test, PG, 3),
-        scale_application(ops_test, PGB, 3),
-    )
+    await scale_application(ops_test, PGB, 3)
+    await scale_application(ops_test, PG, 3)
 
     updated_backend_databag = await get_app_relation_databag(
         ops_test, pgb_unit, backend_relation.id
     )
-    assert updated_backend_databag.get("read-only-endpoints") is not None
+    assert updated_backend_databag.get("read-only-endpoints") is not None, f"read-only-endpoints not populated in updated backend databag - {updated_backend_databag}"
 
 
 @pytest.mark.bundle
