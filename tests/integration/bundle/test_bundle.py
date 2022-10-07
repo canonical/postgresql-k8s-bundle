@@ -19,6 +19,8 @@ from tests.integration.helpers.helpers import (
     get_backend_relation,
     get_backend_user_pass,
     get_connecting_relations,
+    get_leader,
+    get_unit_relation_databag,
     scale_application,
     wait_for_relation_joined_between,
 )
@@ -70,6 +72,7 @@ async def test_discover_dbs(ops_test: OpsTest):
     assert backend_databag.get("read-only-endpoints") is None
 
     await scale_application(ops_test, PGB, 3)
+    await ops_test.model.wait_for_idle()
     await scale_application(ops_test, PG, 3)
 
     updated_backend_databag = await get_app_relation_databag(
@@ -84,11 +87,17 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     # get connection info
     finos_unit_name = f"{FINOS_WALTZ}/0"
     finos_relation = get_connecting_relations(ops_test, PGB, FINOS_WALTZ)[0]
-    finos_databag = await get_app_relation_databag(ops_test, finos_unit_name, finos_relation.id)
-    connstr = finos_databag.get("standbys")
-    assert connstr is not None, "databag incorrectly populated"
+    finos_databag = await get_app_relation_databag(ops_test, f"{FINOS_WALTZ}/0", finos_relation.id)
+    connstr = finos_databag.get("master")
+    assert connstr is not None, f"databag incorrectly populated, \n {finos_databag}"
 
-    # Get postgres primary through action
+    pgb_unit = get_leader(ops_test, PGB).name
+    pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
+    conn_dict = pgb.parse_kv_string_to_dict(connstr)
+    conn_dict["host"] = pgb_unit_address
+    connstr = pgb.parse_dict_to_kv_string(conn_dict)
+
+    # Get postgres primary through action. Note that postgres primary != postgres leader.
     unit_name = ops_test.model.applications[PG].units[0].name
     action = await ops_test.model.units.get(unit_name).run_action("get-primary")
     action = await action.wait()
@@ -107,8 +116,13 @@ async def test_kill_pg_primary(ops_test: OpsTest):
 
     # get new address
     finos_databag = await get_app_relation_databag(ops_test, finos_unit_name, finos_relation.id)
-    connstr = finos_databag.get("standbys")
-    assert connstr is not None, "databag incorrectly populated"
+    connstr = finos_databag.get("master")
+    assert connstr is not None, f"databag incorrectly populated: \n{finos_databag}"
+    pgb_unit = get_leader(ops_test, PGB).name
+    pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
+    conn_dict = pgb.parse_kv_string_to_dict(connstr)
+    conn_dict["host"] = pgb_unit_address
+    connstr = pgb.parse_dict_to_kv_string(conn_dict)
     new_primary_address = await query_unit_address(connstr)
     assert new_primary_address != old_primary_address
 
@@ -120,11 +134,16 @@ async def test_read_distribution(ops_test: OpsTest):
     Each new read connection should connect to a new readonly node.
     """
     finos_relation = get_connecting_relations(ops_test, PGB, FINOS_WALTZ)[0]
-    finos_databag = await get_app_relation_databag(ops_test, f"{FINOS_WALTZ}/0", finos_relation.id)
+    pgb_unit = f"{PGB}/0"
+    finos_unit =  f"{FINOS_WALTZ}/0"
+    finos_databag = await get_unit_relation_databag(ops_test, finos_unit , pgb_unit, finos_relation.id)
+    if finos_databag is None:
+        # PGB/0 is the leader unit, so swap to PGB/1
+        pgb_unit = f"{PGB}/1"
+        finos_databag = await get_unit_relation_databag(ops_test,  finos_unit, pgb_unit, finos_relation.id)
     connstr = finos_databag.get("standbys")
     assert connstr is not None, f"databag incorrectly populated: \n{finos_databag}"
 
-    pgb_unit = f"{PGB}/0"
     pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
     conn_dict = pgb.parse_kv_string_to_dict(connstr)
     conn_dict["host"] = pgb_unit_address
@@ -139,10 +158,3 @@ async def query_unit_address(connstr):
     address_query = "SELECT inet_server_addr();"
     connstr += " connect_timeout=10"
     return await run_query(connstr, address_query)
-
-
-async def query_unit_name(connstr):
-    """Returns the unit name if this function is not a leader, or nothing if it is."""
-    primary_query = "SELECT reset_val FROM pg_settings WHERE name='primary_slot_name';"
-    connstr += " connect_timeout=10"
-    return await run_query(connstr, primary_query)

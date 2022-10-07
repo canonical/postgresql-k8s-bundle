@@ -14,6 +14,13 @@ from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 from constants import AUTH_FILE_PATH, INI_PATH, LOG_PATH, PG, PGB
 
 
+def get_leader(ops_test, application_name):
+    """Gets the leader unit for the given app name."""
+    for unit in ops_test.model.applications[application_name].units:
+        if unit.is_leader_from_status():
+            return unit
+
+
 def get_backend_relation(ops_test: OpsTest):
     """Gets the backend-database relation used to connect pgbouncer to the backend."""
     relations = get_connecting_relations(ops_test, PGB, PG)
@@ -77,6 +84,33 @@ async def get_app_relation_databag(ops_test: OpsTest, unit_name: str, relation_i
     for relation in relations:
         if relation["relation-id"] == relation_id:
             return relation.get("application-data", None)
+
+    return None
+
+
+async def get_unit_relation_databag(ops_test: OpsTest, unit_name: str, unit_databag_name:str, relation_id: int) -> Dict:
+    """Gets the app relation databag from the given relation.
+
+    Juju show-unit command is backwards, so you have to pass the unit_name of the unit to which the
+    data is presented, not the unit that presented the data.
+
+    Args:
+        ops_test: ops_test testing instance
+        unit_name: name of the unit to which this databag is presented
+        unit_databag_name: name of the unit whose databag we want to access.
+        relation_id: id of the required relation
+
+    Returns:
+        App databag for the relation with the given ID, or None if nothing can be found.
+    """
+    unit_data = await get_unit_info(ops_test, unit_name)
+    relations = unit_data["relation-info"]
+    for relation in relations:
+        if relation["relation-id"] == relation_id:
+            related_units = relation.get("related-units", None)
+            if not related_units:
+                continue
+            return related_units.get(unit_databag_name).get("data")
 
     return None
 
