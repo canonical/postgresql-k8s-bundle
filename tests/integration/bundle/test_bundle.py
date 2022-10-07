@@ -86,21 +86,17 @@ async def test_discover_dbs(ops_test: OpsTest):
 async def test_kill_pg_primary(ops_test: OpsTest):
     """Kill postgres primary, check that all proxy instances switched traffic for a new primary."""
     # get connection info
-    backend_relation = get_backend_relation(ops_test)
-    backend_databag = await get_app_relation_databag(ops_test, f"{PGB}/0", backend_relation.id)
-    pgpass = backend_databag.get("password")
-    user = backend_databag.get("username")
-    host = backend_databag.get("endpoints")
-    assert None not in [pgpass, user, host], "databag incorrectly populated"
-    dbname = "pgbouncer"
+    finos_unit_name = f"{FINOS_WALTZ}/0"
+    finos_relation = get_connecting_relations(ops_test, PGB, FINOS_WALTZ)[0]
+    finos_databag = await get_app_relation_databag(ops_test, finos_unit_name, finos_relation.id)
+    connstr = finos_databag.get("standbys")
+    assert connstr is not None, "databag incorrectly populated"
 
     # Get postgres primary through action
     unit_name = ops_test.model.applications[PG].units[0].name
     action = await ops_test.model.units.get(unit_name).run_action("get-primary")
     action = await action.wait()
     primary = action.results["primary"]
-    primary_unit_address = await get_unit_address(ops_test, primary)
-    connstr = f"dbname='{dbname}' user='{user}' host='{primary_unit_address}' password='{pgpass}' port=5432"
     old_primary_address = await query_unit_address(connstr)
 
     async with ops_test.fast_forward():
@@ -113,13 +109,10 @@ async def test_kill_pg_primary(ops_test: OpsTest):
             apps=[PG, PGB, FINOS_WALTZ], status="active", timeout=600
         )
 
-    # Get postgres primary through action
-    unit_name = ops_test.model.applications[PG].units[0].name
-    action = await ops_test.model.units.get(unit_name).run_action("get-primary")
-    action = await action.wait()
-    primary = action.results["primary"]
-    primary_unit_address = await get_unit_address(ops_test, primary)
-    connstr = f"dbname='{dbname}' user='{user}' host='{primary_unit_address}' password='{pgpass}' connect_timeout=10 port=5432"
+    # get new address
+    finos_databag = await get_app_relation_databag(ops_test, finos_unit_name, finos_relation.id)
+    connstr = finos_databag.get("standbys")
+    assert connstr is not None, "databag incorrectly populated"
     new_primary_address = await query_unit_address(connstr)
     assert new_primary_address != old_primary_address
 
@@ -130,15 +123,13 @@ async def test_read_distribution(ops_test: OpsTest):
 
     Each new read connection should connect to a new readonly node.
     """
-    unit_name = f"{FINOS_WALTZ}/0"
     finos_relation = get_connecting_relations(ops_test, PGB, FINOS_WALTZ)[0]
-    finos_databag = await get_app_relation_databag(ops_test, unit_name, finos_relation.id)
+    finos_databag = await get_app_relation_databag(ops_test, f"{FINOS_WALTZ}/0", finos_relation.id)
     connstr = finos_databag.get("standbys")
-    assert connstr is not None, "databag incorrectly populated"
+    assert connstr is not None, f"databag incorrectly populated: \n{finos_databag}"
 
     pgb_unit = f"{PGB}/0"
     pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
-    # TODO make sure we're only querying standbys.
     conn_dict = pgb.parse_kv_string_to_dict(connstr)
     conn_dict["host"] = pgb_unit_address
     connstr = pgb.parse_dict_to_kv_string(conn_dict)
