@@ -105,9 +105,15 @@ async def execute_query_on_unit(
     Returns:
         A list of rows that were potentially returned from the query.
     """
-    with psycopg2.connect(
-        f"dbname='{database}' user='{user}' host='{unit_address}' password='{password}' connect_timeout=10"
-    ) as connection, connection.cursor() as cursor:
+    return await run_query(
+        f"dbname='{database}' user='{user}' host='{unit_address}' password='{password}' connect_timeout=10",
+        query,
+    )
+
+
+async def run_query(connstr: str, query: str):
+    """Runs the query at the given connstr"""
+    with psycopg2.connect(connstr) as connection, connection.cursor() as cursor:
         cursor.execute(query)
         output = list(itertools.chain(*cursor.fetchall()))
     return output

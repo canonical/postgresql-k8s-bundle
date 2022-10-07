@@ -17,11 +17,16 @@ from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
     get_backend_relation,
+    get_backend_user_pass,
     get_connecting_relations,
     scale_application,
     wait_for_relation_joined_between,
 )
-from tests.integration.helpers.postgresql_helpers import get_unit_address
+from tests.integration.helpers.postgresql_helpers import (
+    check_database_creation,
+    get_unit_address,
+    run_query,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -41,11 +46,17 @@ async def test_setup(ops_test: OpsTest):
             deploy_postgres_k8s_bundle(ops_test, scale_pgbouncer=3),
             ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
         )
+        await ops_test.model.wait_for_idle(
+            apps=[PG, PGB, FINOS_WALTZ], timeout=600
+        )
         await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
         wait_for_relation_joined_between(ops_test, PGB, FINOS_WALTZ)
         await ops_test.model.wait_for_idle(
             apps=[PG, PGB, FINOS_WALTZ], status="active", timeout=600
         )
+        backend_relation = get_backend_relation(ops_test)
+        pgb_user, pgb_password = await get_backend_user_pass(ops_test, backend_relation)
+        await check_database_creation(ops_test, "waltz", pgb_user, pgb_password)
 
 
 @pytest.mark.bundle
@@ -120,6 +131,7 @@ async def test_read_distribution(ops_test: OpsTest):
 
     pgb_unit = f"{PGB}/0"
     pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
+    # TODO make sure we're only querying standbys.
     conn_dict = pgb.parse_kv_string_to_dict(connstr)
     conn_dict["host"] = pgb_unit_address
     connstr = pgb.parse_dict_to_kv_string(conn_dict)
@@ -130,9 +142,13 @@ async def test_read_distribution(ops_test: OpsTest):
 
 
 async def query_unit_address(connstr):
-    query = "SELECT reset_val FROM pg_settings WHERE name='listen_addresses';"
+    address_query = "SELECT inet_server_addr();"
     connstr += " connect_timeout=10"
-    with psycopg2.connect(connstr) as connection, connection.cursor() as cursor:
-        cursor.execute(query)
-        output = list(itertools.chain(*cursor.fetchall()))
-    return output
+    return await run_query(connstr, address_query)
+
+
+async def query_unit_name(connstr):
+    """Returns the unit name if this function is not a leader, or nothing if it is."""
+    primary_query = "SELECT reset_val FROM pg_settings WHERE name='primary_slot_name';"
+    connstr += " connect_timeout=10"
+    return await run_query(connstr, primary_query)
