@@ -43,7 +43,7 @@ async def test_setup(ops_test: OpsTest):
     """
     async with ops_test.fast_forward():
         await asyncio.gather(
-            deploy_postgres_k8s_bundle(ops_test, scale_pgbouncer=3),
+            deploy_postgres_k8s_bundle(ops_test),
             ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
         )
         await ops_test.model.wait_for_idle(
@@ -61,13 +61,20 @@ async def test_setup(ops_test: OpsTest):
 
 @pytest.mark.bundle
 async def test_discover_dbs(ops_test: OpsTest):
-    """Check that proxy discovers new members when scaling up postgres charm."""
+    """Check that proxy discovers new members when scaling up postgres charm.
+
+    Since there's only one readonly endpoint, we can only really test this by querying whether the
+    endpoint exists or not depending on the number of postgres replicas.
+    """
     pgb_unit = f"{PGB}/0"
     backend_relation = get_backend_relation(ops_test)
     backend_databag = await get_app_relation_databag(ops_test, pgb_unit, backend_relation.id)
     assert backend_databag.get("read-only-endpoints") is None
 
-    await scale_application(ops_test, PG, 3)
+    await asyncio.gather(
+        scale_application(ops_test, PG, 3),
+        scale_application(ops_test, PGB, 3),
+    )
 
     updated_backend_databag = await get_app_relation_databag(
         ops_test, pgb_unit, backend_relation.id
