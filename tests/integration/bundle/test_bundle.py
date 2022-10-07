@@ -46,9 +46,7 @@ async def test_setup(ops_test: OpsTest):
             deploy_postgres_k8s_bundle(ops_test),
             ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
         )
-        await ops_test.model.wait_for_idle(
-            apps=[PG, PGB, FINOS_WALTZ], timeout=600
-        )
+        await ops_test.model.wait_for_idle(apps=[PG, PGB, FINOS_WALTZ], timeout=600)
         await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
         wait_for_relation_joined_between(ops_test, PGB, FINOS_WALTZ)
         await ops_test.model.wait_for_idle(
