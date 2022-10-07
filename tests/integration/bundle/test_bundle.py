@@ -7,6 +7,7 @@ import logging
 
 import psycopg2
 import pytest
+from charms.pgbouncer_k8s.v0 import pgb
 from lightkube import AsyncClient
 from lightkube.resources.core_v1 import Pod
 from pytest_operator.plugin import OpsTest
@@ -80,7 +81,9 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     action = await ops_test.model.units.get(unit_name).run_action("get-primary")
     action = await action.wait()
     primary = action.results["primary"]
-    old_primary_address = await query_unit_address(ops_test, primary, user, pgpass, dbname)
+    primary_unit_address = await get_unit_address(ops_test, primary)
+    connstr = f"dbname='{dbname}' user='{user}' host='{primary_unit_address}' password='{pgpass}' port=5432"
+    old_primary_address = await query_unit_address(connstr)
 
     async with ops_test.fast_forward():
         # Delete the primary pod.
@@ -97,7 +100,9 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     action = await ops_test.model.units.get(unit_name).run_action("get-primary")
     action = await action.wait()
     primary = action.results["primary"]
-    new_primary_address = await query_unit_address(ops_test, primary, user, pgpass, dbname)
+    primary_unit_address = await get_unit_address(ops_test, primary)
+    connstr = f"dbname='{dbname}' user='{user}' host='{primary_unit_address}' password='{pgpass}' connect_timeout=10 port=5432"
+    new_primary_address = await query_unit_address(connstr)
     assert new_primary_address != old_primary_address
 
 
@@ -110,23 +115,23 @@ async def test_read_distribution(ops_test: OpsTest):
     unit_name = f"{FINOS_WALTZ}/0"
     finos_relation = get_connecting_relations(ops_test, PGB, FINOS_WALTZ)[0]
     finos_databag = await get_app_relation_databag(ops_test, unit_name, finos_relation.id)
-    pgpass = finos_databag.get("password")
-    user = finos_databag.get("user")
-    host = finos_databag.get("host")
-    dbname = finos_databag.get("database")
-    assert None not in [pgpass, user, host, dbname], "databag incorrectly populated"
-    dbname = f"{dbname}_standby"
+    connstr = finos_databag.get("standbys")
+    assert connstr is not None, "databag incorrectly populated"
 
-    pgb_unit = ops_test.model.applications[PGB].units[0]
-    first_ip = await query_unit_address(ops_test, pgb_unit.name, user, pgpass, dbname)
-    second_ip = await query_unit_address(ops_test, pgb_unit.name, user, pgpass, dbname)
+    pgb_unit = f"{PGB}/0"
+    pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
+    conn_dict = pgb.parse_kv_string_to_dict(connstr)
+    conn_dict["host"] = pgb_unit_address
+    connstr = pgb.parse_dict_to_kv_string(conn_dict)
+
+    first_ip = await query_unit_address(connstr)
+    second_ip = await query_unit_address(connstr)
     assert first_ip != second_ip
 
 
-async def query_unit_address(ops_test, unit_name, user, password, database):
+async def query_unit_address(connstr):
     query = "SELECT reset_val FROM pg_settings WHERE name='listen_addresses';"
-    unit_address = await get_unit_address(ops_test, unit_name)
-    connstr = f"dbname='{database}' user='{user}' host='{unit_address}' password='{password}' connect_timeout=10 port=6432"
+    connstr += " connect_timeout=10"
     with psycopg2.connect(connstr) as connection, connection.cursor() as cursor:
         cursor.execute(query)
         output = list(itertools.chain(*cursor.fetchall()))
