@@ -78,7 +78,9 @@ async def test_discover_dbs(ops_test: OpsTest):
     updated_backend_databag = await get_app_relation_databag(
         ops_test, pgb_unit, backend_relation.id
     )
-    assert updated_backend_databag.get("read-only-endpoints") is not None, f"read-only-endpoints not populated in updated backend databag - {updated_backend_databag}"
+    assert (
+        updated_backend_databag.get("read-only-endpoints") is not None
+    ), f"read-only-endpoints not populated in updated backend databag - {updated_backend_databag}"
 
 
 @pytest.mark.bundle
@@ -135,12 +137,16 @@ async def test_read_distribution(ops_test: OpsTest):
     """
     finos_relation = get_connecting_relations(ops_test, PGB, FINOS_WALTZ)[0]
     pgb_unit = f"{PGB}/0"
-    finos_unit =  f"{FINOS_WALTZ}/0"
-    finos_databag = await get_unit_relation_databag(ops_test, finos_unit , pgb_unit, finos_relation.id)
-    if finos_databag is None:
+    finos_unit = f"{FINOS_WALTZ}/0"
+    finos_databag = await get_unit_relation_databag(
+        ops_test, finos_unit, pgb_unit, finos_relation.id
+    )
+    if finos_databag.get("standbys") is None:
         # PGB/0 is the leader unit, so swap to PGB/1
         pgb_unit = f"{PGB}/1"
-        finos_databag = await get_unit_relation_databag(ops_test,  finos_unit, pgb_unit, finos_relation.id)
+        finos_databag = await get_unit_relation_databag(
+            ops_test, finos_unit, pgb_unit, finos_relation.id
+        )
     connstr = finos_databag.get("standbys")
     assert connstr is not None, f"databag incorrectly populated: \n{finos_databag}"
 

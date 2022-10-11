@@ -88,7 +88,9 @@ async def get_app_relation_databag(ops_test: OpsTest, unit_name: str, relation_i
     return None
 
 
-async def get_unit_relation_databag(ops_test: OpsTest, unit_name: str, unit_databag_name:str, relation_id: int) -> Dict:
+async def get_unit_relation_databag(
+    ops_test: OpsTest, unit_name: str, unit_databag_name: str, relation_id: int
+) -> Dict:
     """Gets the app relation databag from the given relation.
 
     Juju show-unit command is backwards, so you have to pass the unit_name of the unit to which the

@@ -5,13 +5,13 @@ applications:
   pgbouncer-k8s:
     charm: pgbouncer-k8s
     channel: edge
-    revision: 7
+    revision: 5
     scale: 1
     constraints: arch=amd64
   postgresql-k8s:
     charm: postgresql-k8s
     channel: edge
-    revision: 22
+    revision: 20
     scale: 1
     constraints: arch=amd64
     trust: true
