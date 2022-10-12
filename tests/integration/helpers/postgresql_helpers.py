@@ -5,8 +5,8 @@ import itertools
 from typing import List
 
 import psycopg2
-from pytest_operator.plugin import OpsTest
 import requests as requests
+from pytest_operator.plugin import OpsTest
 
 from constants import PG
 
@@ -175,4 +175,3 @@ async def run_command_on_unit(ops_test: OpsTest, unit_name: str, command: str) -
             "Expected command %s to succeed instead it failed: %s", command, return_code
         )
     return stdout
-
