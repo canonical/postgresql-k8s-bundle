@@ -3,13 +3,11 @@ applications:
     channel: edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 7
     scale: 1
   postgresql-k8s:
     channel: edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 22
     scale: 1
     trust: true
 bundle: kubernetes

@@ -10,7 +10,7 @@ from charms.pgbouncer_k8s.v0 import pgb
 from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
-from constants import AUTH_FILE_PATH, INI_PATH, LOG_PATH, PG, PGB
+from constants import AUTH_FILE_PATH, INI_PATH, LOG_PATH, PG, PGB, TLS_APP_NAME
 
 
 def get_backend_relation(ops_test: OpsTest):
@@ -178,9 +178,13 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
     )
 
 
-async def deploy_postgres_k8s_bundle(ops_test: OpsTest):
+async def deploy_postgres_k8s_bundle(ops_test: OpsTest, tls=False):
     """Deploy postgresql bundle."""
+    bundle_path = f"./releases/latest/postgresql-{'tls-' if tls else ''}k8s-bundle.yaml"
+    apps = [PG, PGB]
+    if tls:
+        apps.append(TLS_APP_NAME)
     async with ops_test.fast_forward():
-        await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
+        await ops_test.model.deploy(bundle_path, trust=True)
         wait_for_relation_joined_between(ops_test, PG, PGB)
         await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=1000)

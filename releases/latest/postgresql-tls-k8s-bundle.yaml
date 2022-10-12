@@ -1,0 +1,30 @@
+applications:
+  pgbouncer-k8s:
+    channel: edge
+    charm: pgbouncer-k8s
+    constraints: arch=amd64
+    scale: 1
+  postgresql-k8s:
+    channel: edge
+    charm: postgresql-k8s
+    constraints: arch=amd64
+    scale: 1
+    trust: true
+  tls-certificates-operator:
+    channel: edge
+    charm: tls-certificates-operator
+    constraints: arch=amd64
+    options:
+      # generate self signed certs. This is insecure, so we'll document that the user should
+      # replace these with their own later on.
+      generate-self-signed-certificates: true
+      ca-common-name: postgresql_tls_k8s_bundle_ca
+    num_units: 1
+bundle: kubernetes
+name: postgresql-k8s-bundle
+relations:
+- - pgbouncer-k8s:backend-database
+  - postgresql-k8s:database
+- - postgresql-k8s:certificates
+  - tls-certificates-operator:certificates
+type: bundle
