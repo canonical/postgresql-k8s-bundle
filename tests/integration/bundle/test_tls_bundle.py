@@ -4,13 +4,13 @@
 import asyncio
 import logging
 from pathlib import Path
-from constants import TLS_APP_NAME
 
 import pytest
 import yaml
 from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
+from constants import TLS_APP_NAME
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_backend_relation,
