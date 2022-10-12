@@ -1,23 +1,18 @@
 # Copyright 2022 Canonical Ltd.
 # See LICENSE file for licensing details.
 
-import asyncio
 import logging
 from pathlib import Path
 
 import pytest
 import yaml
 from pytest_operator.plugin import OpsTest
-from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
 from constants import TLS_APP_NAME
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_backend_relation,
     get_backend_user_pass,
-    get_cfg,
-    get_userlist,
-    scale_application,
 )
 from tests.integration.helpers.postgresql_helpers import (
     enable_connections_logging,
