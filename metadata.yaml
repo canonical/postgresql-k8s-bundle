@@ -1,2 +1,2 @@
-# A requirement of ops_test
-name: postgresql-k8s-bundle
+# A requirement of ops_test. Postgres need
+name: postgresql-k8s
