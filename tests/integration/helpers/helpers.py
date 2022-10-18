@@ -184,4 +184,6 @@ async def deploy_postgres_k8s_bundle(ops_test: OpsTest):
         await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
         wait_for_relation_joined_between(ops_test, PG, PGB)
         wait_for_relation_joined_between(ops_test, PG, TLS_APP_NAME)
-        await ops_test.model.wait_for_idle(apps=[PG, PGB, TLS_APP_NAME] , status="active", timeout=1000)
+        await ops_test.model.wait_for_idle(
+            apps=[PG, PGB, TLS_APP_NAME], status="active", timeout=1000
+        )
