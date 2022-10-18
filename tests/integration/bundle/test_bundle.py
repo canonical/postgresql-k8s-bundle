@@ -157,7 +157,15 @@ async def test_read_distribution(ops_test: OpsTest):
     first_ip = await query_unit_address(connstr)
     second_ip = await query_unit_address(connstr)
 
+    ips = set()
+    for _ in range(0, 5):
+        ips.add(await query_unit_address(connstr))
+
+    logging.info(ips)
     logging.info(await get_cfg(ops_test, pgb_unit))
+
+    # assert we're not connecting to the same IP every time.
+    assert len(ips) > 1
     assert first_ip != second_ip
 
 
