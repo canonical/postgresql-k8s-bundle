@@ -18,7 +18,8 @@ markers = [
     "standalone: integration tests that relate to standalone charm function",
     "backend: integration tests that test backend relation to postgresql",
     "legacy_relation: integration tests that test legacy client relations",
-    "scaling: integration tests for scaling"
+    "scaling: integration tests for scaling",
+    "tls: integration tests for tls"
 ]
 
 # Formatting tools configuration
