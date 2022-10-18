@@ -18,7 +18,7 @@ jobs:
       CHARMCRAFT_AUTH: ${{ secrets.CHARMHUB_TOKEN }}
     strategy:
       matrix:
-        bundle-name: [postgresql-k8s-bundle, postgresql-tls-k8s-bundle]
+        bundle-name: [postgresql-k8s-bundle]
     steps:
       - name: Checkout
         uses: actions/checkout@v2

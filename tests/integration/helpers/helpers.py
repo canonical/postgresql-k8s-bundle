@@ -178,14 +178,10 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
     )
 
 
-async def deploy_postgres_k8s_bundle(ops_test: OpsTest, tls=False):
+async def deploy_postgres_k8s_bundle(ops_test: OpsTest):
     """Deploy postgresql bundle."""
-    bundle_path = f"./releases/latest/postgresql-{'tls-' if tls else ''}k8s-bundle.yaml"
-    apps = [PG, PGB]
     async with ops_test.fast_forward():
-        await ops_test.model.deploy(bundle_path, trust=True)
+        await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
         wait_for_relation_joined_between(ops_test, PG, PGB)
-        if tls:
-            apps.append(TLS_APP_NAME)
-            wait_for_relation_joined_between(ops_test, PG, TLS_APP_NAME)
-        await ops_test.model.wait_for_idle(apps=apps, status="active", timeout=1000)
+        wait_for_relation_joined_between(ops_test, PG, TLS_APP_NAME)
+        await ops_test.model.wait_for_idle(apps=[PG, PGB, TLS_APP_NAME] , status="active", timeout=1000)

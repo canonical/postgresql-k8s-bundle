@@ -30,11 +30,11 @@ TLS = "tls-certificates-operator"
 RELATION = "backend-database"
 
 
-@pytest.mark.backend
+@pytest.mark.tls
 async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     async with ops_test.fast_forward():
         # Relate PgBouncer to PostgreSQL.
-        await deploy_postgres_k8s_bundle(ops_test, tls=True)
+        await deploy_postgres_k8s_bundle(ops_test)
         relation = get_backend_relation(ops_test)
         pgb_user, _ = await get_backend_user_pass(ops_test, relation)
 

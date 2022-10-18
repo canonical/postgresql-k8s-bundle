@@ -1,2 +1,3 @@
-# A requirement of ops_test. Postgres need
+# A requirement of ops_test, unrelated to building the bundle. To use ops_test, we have to have a
+# charm name that'll actually be deployed, so we're using postgres for now.
 name: postgresql-k8s
