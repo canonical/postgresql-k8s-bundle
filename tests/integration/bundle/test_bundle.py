@@ -2,10 +2,8 @@
 # See LICENSE file for licensing details.
 
 import asyncio
-import itertools
 import logging
 
-import psycopg2
 import pytest
 from charms.pgbouncer_k8s.v0 import pgb
 from lightkube import AsyncClient

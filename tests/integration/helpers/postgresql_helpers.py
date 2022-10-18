@@ -112,7 +112,7 @@ async def execute_query_on_unit(
 
 
 async def run_query(connstr: str, query: str):
-    """Runs the query at the given connstr"""
+    """Runs the query at the given connstr."""
     with psycopg2.connect(connstr) as connection, connection.cursor() as cursor:
         cursor.execute(query)
         output = list(itertools.chain(*cursor.fetchall()))
