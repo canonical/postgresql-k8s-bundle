@@ -159,7 +159,7 @@ async def test_read_distribution(ops_test: OpsTest):
 
     ips = set()
     for _ in range(0, 5):
-        ips.add(await query_unit_address(connstr))
+        ips.update(await query_unit_address(connstr))
 
     logging.info(ips)
     logging.info(await get_cfg(ops_test, pgb_unit))
