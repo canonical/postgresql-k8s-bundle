@@ -16,6 +16,7 @@ from tests.integration.helpers.helpers import (
     get_app_relation_databag,
     get_backend_relation,
     get_backend_user_pass,
+    get_cfg,
     get_connecting_relations,
     get_leader,
     get_unit_relation_databag,
@@ -155,6 +156,8 @@ async def test_read_distribution(ops_test: OpsTest):
 
     first_ip = await query_unit_address(connstr)
     second_ip = await query_unit_address(connstr)
+
+    logging.info(await get_cfg(ops_test, pgb_unit))
     assert first_ip != second_ip
 
 
