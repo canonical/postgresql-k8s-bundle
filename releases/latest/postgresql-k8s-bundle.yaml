@@ -7,12 +7,14 @@ applications:
     channel: edge
     scale: 1
     constraints: arch=amd64
+    revision: 7
   postgresql-k8s:
     charm: postgresql-k8s
     channel: edge
     scale: 1
     constraints: arch=amd64
     trust: true
+    revision: 22
 relations:
 - - pgbouncer-k8s:backend-database
   - postgresql-k8s:database
