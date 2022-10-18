@@ -19,7 +19,9 @@ jobs:
         run: tox -e lint
 
   integration-backend:
-    name: Integration tests for backend relation
+    name: Integration tests for backend relation 
+    needs:
+      - lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -41,6 +43,8 @@ jobs:
 
   integration-legacy-relations:
     name: Integration tests for legacy relations
+    needs:
+      - lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
