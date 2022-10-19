@@ -16,10 +16,8 @@ from tests.integration.helpers.helpers import (
     get_app_relation_databag,
     get_backend_relation,
     get_backend_user_pass,
-    get_cfg,
     get_connecting_relations,
     get_leader,
-    get_unit_relation_databag,
     scale_application,
     wait_for_relation_joined_between,
 )
@@ -126,47 +124,6 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     connstr = pgb.parse_dict_to_kv_string(conn_dict)
     new_primary_address = await query_unit_address(connstr)
     assert new_primary_address != old_primary_address
-
-
-@pytest.mark.bundle
-async def test_read_distribution(ops_test: OpsTest):
-    """Check that read instance changed during reconnection to proxy.
-
-    Each new read connection should connect to a new readonly node.
-    """
-    finos_relation = get_connecting_relations(ops_test, PGB, FINOS_WALTZ)[0]
-    pgb_unit = f"{PGB}/0"
-    finos_unit = f"{FINOS_WALTZ}/0"
-    finos_databag = await get_unit_relation_databag(
-        ops_test, finos_unit, pgb_unit, finos_relation.id
-    )
-    if finos_databag.get("standbys") is None:
-        # PGB/0 is the leader unit, so swap to PGB/1
-        pgb_unit = f"{PGB}/1"
-        finos_databag = await get_unit_relation_databag(
-            ops_test, finos_unit, pgb_unit, finos_relation.id
-        )
-    connstr = finos_databag.get("standbys")
-    assert connstr is not None, f"databag incorrectly populated: \n{finos_databag}"
-
-    pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
-    conn_dict = pgb.parse_kv_string_to_dict(connstr)
-    conn_dict["host"] = pgb_unit_address
-    connstr = pgb.parse_dict_to_kv_string(conn_dict)
-
-    first_ip = await query_unit_address(connstr)
-    second_ip = await query_unit_address(connstr)
-
-    ips = set()
-    for _ in range(0, 5):
-        ips.update(await query_unit_address(connstr))
-
-    logging.info(ips)
-    logging.info(await get_cfg(ops_test, pgb_unit))
-
-    # assert we're not connecting to the same IP every time.
-    assert len(ips) > 1
-    assert first_ip != second_ip
 
 
 async def query_unit_address(connstr):
