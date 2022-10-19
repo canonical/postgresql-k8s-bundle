@@ -24,7 +24,7 @@ from tests.integration.helpers.helpers import (
 from tests.integration.helpers.postgresql_helpers import (
     check_database_creation,
     get_unit_address,
-    run_query,
+    query_unit_address,
 )
 
 logger = logging.getLogger(__name__)
@@ -66,7 +66,7 @@ async def test_discover_dbs(ops_test: OpsTest):
     pgb_unit = f"{PGB}/0"
     backend_relation = get_backend_relation(ops_test)
     backend_databag = await get_app_relation_databag(ops_test, pgb_unit, backend_relation.id)
-    assert backend_databag.get("read-only-endpoints") is None
+    assert not backend_databag.get("read-only-endpoints", None)
 
     await scale_application(ops_test, PGB, 3)
     await ops_test.model.wait_for_idle()
@@ -75,8 +75,8 @@ async def test_discover_dbs(ops_test: OpsTest):
     updated_backend_databag = await get_app_relation_databag(
         ops_test, pgb_unit, backend_relation.id
     )
-    assert (
-        updated_backend_databag.get("read-only-endpoints") is not None
+    assert updated_backend_databag.get(
+        "read-only-endpoints", None
     ), f"read-only-endpoints not populated in updated backend databag - {updated_backend_databag}"
 
 
@@ -87,8 +87,8 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     finos_unit_name = f"{FINOS_WALTZ}/0"
     finos_relation = get_connecting_relations(ops_test, PGB, FINOS_WALTZ)[0]
     finos_databag = await get_app_relation_databag(ops_test, f"{FINOS_WALTZ}/0", finos_relation.id)
-    connstr = finos_databag.get("master")
-    assert connstr is not None, f"databag incorrectly populated, \n {finos_databag}"
+    connstr = finos_databag.get("master", None)
+    assert connstr, f"databag incorrectly populated, \n {finos_databag}"
 
     pgb_unit = get_leader(ops_test, PGB).name
     pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
@@ -100,7 +100,10 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     unit_name = ops_test.model.applications[PG].units[0].name
     action = await ops_test.model.units.get(unit_name).run_action("get-primary")
     action = await action.wait()
-    primary = action.results["primary"]
+    primary = action.results.get("primary", None)
+    assert (
+        primary
+    ), f"failed to get postgresql primary through action, action output: \n{action.results}"
     old_primary_address = await query_unit_address(connstr)
 
     async with ops_test.fast_forward():
@@ -115,8 +118,8 @@ async def test_kill_pg_primary(ops_test: OpsTest):
 
     # get new address
     finos_databag = await get_app_relation_databag(ops_test, finos_unit_name, finos_relation.id)
-    connstr = finos_databag.get("master")
-    assert connstr is not None, f"databag incorrectly populated: \n{finos_databag}"
+    connstr = finos_databag.get("master", None)
+    assert connstr, f"databag incorrectly populated: \n{finos_databag}"
     pgb_unit = get_leader(ops_test, PGB).name
     pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
     conn_dict = pgb.parse_kv_string_to_dict(connstr)
@@ -124,9 +127,3 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     connstr = pgb.parse_dict_to_kv_string(conn_dict)
     new_primary_address = await query_unit_address(connstr)
     assert new_primary_address != old_primary_address
-
-
-async def query_unit_address(connstr):
-    address_query = "SELECT inet_server_addr();"
-    connstr += " connect_timeout=10"
-    return await run_query(connstr, address_query)

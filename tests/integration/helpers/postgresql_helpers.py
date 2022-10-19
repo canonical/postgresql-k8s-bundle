@@ -131,3 +131,10 @@ async def get_unit_address(ops_test: OpsTest, unit_name: str) -> str:
     """
     status = await ops_test.model.get_status()
     return status["applications"][unit_name.split("/")[0]].units[unit_name]["address"]
+
+
+async def query_unit_address(connstr):
+    """Get unit IP address from a postgres query."""
+    address_query = "SELECT inet_server_addr();"
+    connstr += " connect_timeout=10"
+    return await run_query(connstr, address_query)
