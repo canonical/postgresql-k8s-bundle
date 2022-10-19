@@ -11,8 +11,9 @@ applications:
   postgresql-k8s:
     charm: postgresql-k8s
     channel: edge
-    scale: 1
     constraints: arch=amd64
+    revision: 24
+    scale: 1
     trust: true
     revision: 22
 relations:
