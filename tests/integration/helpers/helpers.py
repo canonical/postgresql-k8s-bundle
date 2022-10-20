@@ -122,8 +122,8 @@ async def get_unit_relation_databag(
 
 
 async def get_backend_user_pass(ops_test, backend_relation) -> Tuple[str, str]:
-    pgb_unit = ops_test.model.applications[PGB].units[0]
-    backend_databag = await get_app_relation_databag(ops_test, pgb_unit.name, backend_relation.id)
+    pg_unit = ops_test.model.applications[PG].units[0]
+    backend_databag = await get_app_relation_databag(ops_test, pg_unit.name, backend_relation.id)
     pgb_user = backend_databag.get("username", None)
     pgb_password = backend_databag.get("password", None)
     rtn_tuple = (pgb_user, pgb_password)
@@ -224,7 +224,6 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
         scale: The number of units to scale to
     """
     async with ops_test.fast_forward():
-        await ops_test.model.wait_for_idle(timeout=1000)
         await ops_test.model.applications[application_name].scale(scale)
         await ops_test.model.wait_for_idle(
             apps=[application_name],
