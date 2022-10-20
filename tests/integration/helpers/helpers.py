@@ -95,7 +95,7 @@ async def get_app_relation_databag(
 async def get_unit_relation_databag(
     ops_test: OpsTest, unit_name: str, unit_databag_name: str, relation_id: int
 ) -> Dict[str, str]:
-    """Gets the app relation databag from the given relation.
+    """Gets the unit relation databag from the given relation.
 
     Juju show-unit command is backwards, so you have to pass the unit_name of the unit to which the
     data is presented, not the unit that presented the data.
@@ -122,22 +122,29 @@ async def get_unit_relation_databag(
 
 
 async def get_backend_user_pass(ops_test, backend_relation) -> Tuple[str, str]:
-    pg_unit = ops_test.model.applications[PG].units[0].name
-    backend_databag = await get_app_relation_databag(ops_test, pg_unit, backend_relation.id)
+    import logging
+
+    logging.info(await get_app_relation_databag(ops_test, "postgresql-k8s/0", backend_relation.id))
+    logging.info(await get_app_relation_databag(ops_test, "pgbouncer-k8s/0", backend_relation.id))
+    logging.info(
+        await get_app_relation_databag(
+            ops_test, ops_test.model.applications[PG].units[0].name, backend_relation.id
+        )
+    )
+    logging.info(
+        await get_app_relation_databag(
+            ops_test, ops_test.model.applications[PGB].units[0].name, backend_relation.id
+        )
+    )
+
+    pgb_unit = ops_test.model.applications[PGB].units[0].name
+    backend_databag = await get_app_relation_databag(ops_test, pgb_unit, backend_relation.id)
     pgb_user = backend_databag.get("username", None)
     pgb_password = backend_databag.get("password", None)
     rtn_tuple = (pgb_user, pgb_password)
-    if not all(rtn_tuple):
-        pgb_unit = ops_test.model.applications[PGB].units[0].name
-        backend_databag_pgb = await get_app_relation_databag(
-            ops_test, pgb_unit, backend_relation.id
-        )
-        pgb_user = backend_databag_pgb.get("username", None)
-        pgb_password = backend_databag_pgb.get("password", None)
-        rtn_tuple = (pgb_user, pgb_password)
     assert all(
         rtn_tuple
-    ), f"one of pgb_user, pgb_password do not exist in backend databag: {backend_databag} {backend_databag_pgb}"
+    ), f"one of pgb_user, pgb_password do not exist in backend databag: {backend_databag}"
     return rtn_tuple
 
 
