@@ -33,10 +33,9 @@ async def test_relate_pgbouncer_to_postgres(ops_test: OpsTest):
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
         await deploy_postgres_k8s_bundle(ops_test)
-        backend_relation = get_backend_relation(ops_test)
-
         cfg = await get_cfg(ops_test, f"{PGB}/0")
         logging.info(cfg.render())
+        backend_relation = get_backend_relation(ops_test)
         pgb_user, pgb_password = await get_backend_user_pass(ops_test, backend_relation)
         assert pgb_user in cfg["pgbouncer"]["admin_users"]
         assert cfg["pgbouncer"]["auth_query"]

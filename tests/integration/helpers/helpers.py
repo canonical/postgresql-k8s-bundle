@@ -228,7 +228,7 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
         await ops_test.model.wait_for_idle(
             apps=[application_name],
             status="active",
-            timeout=600,
+            timeout=1000,
             wait_for_exact_units=scale,
         )
 
@@ -239,6 +239,7 @@ async def deploy_postgres_k8s_bundle(
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
         await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
+        await ops_test.model.wait_for_idle(timeout=1000)
         await asyncio.gather(
             scale_application(ops_test, PGB, scale_pgbouncer),
             scale_application(ops_test, PG, scale_postgres),
