@@ -9,7 +9,7 @@ applications:
     channel: edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 24
+    revision: 25
     scale: 1
     trust: true
 bundle: kubernetes
