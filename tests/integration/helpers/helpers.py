@@ -124,9 +124,13 @@ async def get_unit_relation_databag(
 async def get_backend_user_pass(ops_test, backend_relation) -> Tuple[str, str]:
     pgb_unit = ops_test.model.applications[PGB].units[0]
     backend_databag = await get_app_relation_databag(ops_test, pgb_unit.name, backend_relation.id)
-    pgb_user = backend_databag["username"]
-    pgb_password = backend_databag["password"]
-    return (pgb_user, pgb_password)
+    pgb_user = backend_databag.get("username", None)
+    pgb_password = backend_databag.get("password", None)
+    rtn_tuple = (pgb_user, pgb_password)
+    assert all(
+        rtn_tuple
+    ), f"one of pgb_user, pgb_password do not exist in backend databag: {backend_databag}"
+    return rtn_tuple
 
 
 async def get_cfg(ops_test: OpsTest, unit_name: str) -> pgb.PgbConfig:
