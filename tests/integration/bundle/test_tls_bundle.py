@@ -47,7 +47,7 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
         await ops_test.model.deploy(
             "finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"
         )
-        await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
+        relation = await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
         await ops_test.model.wait_for_idle(
             apps=[PG, PGB, FINOS_WALTZ, TLS_APP_NAME], status="active", timeout=600
         )
@@ -58,6 +58,6 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
             ops_test, postgresql_primary_unit, "/charm/bin/pebble logs -n=all"
         )
         assert (
-            f"connection authorized: user={pgb_user} database=waltz"
-            " SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256)" in logs
+            f"connection authorized: user=relation_id_{relation.id} database=waltz"
+            " SSL enabled (protocol=TLSv1.2, cipher=ECDHE-RSA-AES256-GCM-SHA384, bits=256)" in logs
         ), "TLS is not being used on connections to PostgreSQL"
