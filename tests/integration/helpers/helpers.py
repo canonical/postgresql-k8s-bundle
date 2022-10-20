@@ -122,14 +122,22 @@ async def get_unit_relation_databag(
 
 
 async def get_backend_user_pass(ops_test, backend_relation) -> Tuple[str, str]:
-    pg_unit = ops_test.model.applications[PG].units[0]
-    backend_databag = await get_app_relation_databag(ops_test, pg_unit.name, backend_relation.id)
+    pg_unit = ops_test.model.applications[PG].units[0].name
+    backend_databag = await get_app_relation_databag(ops_test, pg_unit, backend_relation.id)
     pgb_user = backend_databag.get("username", None)
     pgb_password = backend_databag.get("password", None)
     rtn_tuple = (pgb_user, pgb_password)
+    if not all(rtn_tuple):
+        pgb_unit = ops_test.model.applications[PGB].units[0].name
+        backend_databag_pgb = await get_app_relation_databag(
+            ops_test, pgb_unit, backend_relation.id
+        )
+        pgb_user = backend_databag_pgb.get("username", None)
+        pgb_password = backend_databag_pgb.get("password", None)
+        rtn_tuple = (pgb_user, pgb_password)
     assert all(
         rtn_tuple
-    ), f"one of pgb_user, pgb_password do not exist in backend databag: {backend_databag}"
+    ), f"one of pgb_user, pgb_password do not exist in backend databag: {backend_databag} {backend_databag_pgb}"
     return rtn_tuple
 
 
