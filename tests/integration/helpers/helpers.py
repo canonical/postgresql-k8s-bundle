@@ -2,35 +2,54 @@
 # Copyright 2022 Canonical Ltd.
 # See LICENSE file for licensing details.
 
+import asyncio
 import json
 from multiprocessing import ProcessError
-from typing import Dict
+from typing import Dict, Tuple
 
 from charms.pgbouncer_k8s.v0 import pgb
+from juju.relation import Relation
+from juju.unit import Unit
 from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
 from constants import AUTH_FILE_PATH, INI_PATH, LOG_PATH, PG, PGB, TLS_APP_NAME
 
 
-def get_backend_relation(ops_test: OpsTest):
+def get_leader(ops_test, application_name) -> Unit:
+    """Gets the leader unit for the given app name."""
+    for unit in ops_test.model.applications[application_name].units:
+        if unit.is_leader_from_status():
+            return unit
+
+
+def get_backend_relation(ops_test: OpsTest) -> Relation:
     """Gets the backend-database relation used to connect pgbouncer to the backend."""
+    relations = get_connecting_relations(ops_test, PGB, PG)
+    if len(relations) == 0:
+        return None
+    return relations[0]
+
+
+def get_connecting_relations(ops_test: OpsTest, app_1: str, app_2: str) -> Relation:
+    """Gets the relation that connects these two applications."""
+    relations = []
     for rel in ops_test.model.relations:
         apps = [endpoint["application-name"] for endpoint in rel.data["endpoints"]]
-        if PGB in apps and PG in apps:
-            return rel
+        if app_1 in apps and app_2 in apps:
+            relations.append(rel)
 
-    return None
+    return relations
 
 
-def get_legacy_relation_username(ops_test: OpsTest, relation_id: int):
+def get_legacy_relation_username(ops_test: OpsTest, relation_id: int) -> str:
     """Gets a username as it should be generated in the db and db-admin legacy relations."""
     app_name = ops_test.model.applications[PGB].name
     model_name = ops_test.model_name
     return f"{app_name}_user_{relation_id}_{model_name}".replace("-", "_")
 
 
-async def get_unit_info(ops_test: OpsTest, unit_name: str) -> Dict:
+async def get_unit_info(ops_test: OpsTest, unit_name: str) -> Dict[str, str]:
     """Gets the databags from the given relation.
 
     Args:
@@ -48,7 +67,9 @@ async def get_unit_info(ops_test: OpsTest, unit_name: str) -> Dict:
     return json.loads(get_databag[1])[unit_name]
 
 
-async def get_app_relation_databag(ops_test: OpsTest, unit_name: str, relation_id: int) -> Dict:
+async def get_app_relation_databag(
+    ops_test: OpsTest, unit_name: str, relation_id: int
+) -> Dict[str, str]:
     """Gets the app relation databag from the given relation.
 
     Juju show-unit command is backwards, so you have to pass the unit_name of the unit to which the
@@ -71,7 +92,36 @@ async def get_app_relation_databag(ops_test: OpsTest, unit_name: str, relation_i
     return None
 
 
-async def get_backend_user_pass(ops_test, backend_relation):
+async def get_unit_relation_databag(
+    ops_test: OpsTest, unit_name: str, unit_databag_name: str, relation_id: int
+) -> Dict[str, str]:
+    """Gets the app relation databag from the given relation.
+
+    Juju show-unit command is backwards, so you have to pass the unit_name of the unit to which the
+    data is presented, not the unit that presented the data.
+
+    Args:
+        ops_test: ops_test testing instance
+        unit_name: name of the unit to which this databag is presented
+        unit_databag_name: name of the unit whose databag we want to access.
+        relation_id: id of the required relation
+
+    Returns:
+        App databag for the relation with the given ID, or None if nothing can be found.
+    """
+    unit_data = await get_unit_info(ops_test, unit_name)
+    relations = unit_data["relation-info"]
+    for relation in relations:
+        if relation["relation-id"] == relation_id:
+            related_units = relation.get("related-units", None)
+            if not related_units:
+                continue
+            return related_units.get(unit_databag_name).get("data")
+
+    return None
+
+
+async def get_backend_user_pass(ops_test, backend_relation) -> Tuple[str, str]:
     pgb_unit = ops_test.model.applications[PGB].units[0]
     backend_databag = await get_app_relation_databag(ops_test, pgb_unit.name, backend_relation.id)
     pgb_user = backend_databag["username"]
@@ -169,19 +219,26 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
         application_name: The name of the application
         scale: The number of units to scale to
     """
-    await ops_test.model.applications[application_name].scale(scale)
-    await ops_test.model.wait_for_idle(
-        apps=[application_name],
-        status="active",
-        timeout=1000,
-        wait_for_exact_units=scale,
-    )
+    async with ops_test.fast_forward():
+        await ops_test.model.applications[application_name].scale(scale)
+        await ops_test.model.wait_for_idle(
+            apps=[application_name],
+            status="active",
+            timeout=600,
+            wait_for_exact_units=scale,
+        )
 
 
-async def deploy_postgres_k8s_bundle(ops_test: OpsTest):
+async def deploy_postgres_k8s_bundle(
+    ops_test: OpsTest, scale_pgbouncer: int = 1, scale_postgres: int = 1
+) -> None:
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
         await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
+        await asyncio.gather(
+            scale_application(ops_test, PGB, scale_pgbouncer),
+            scale_application(ops_test, PG, scale_postgres),
+        )
         wait_for_relation_joined_between(ops_test, PG, PGB)
         wait_for_relation_joined_between(ops_test, PG, TLS_APP_NAME)
         await ops_test.model.wait_for_idle(

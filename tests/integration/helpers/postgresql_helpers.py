@@ -121,9 +121,23 @@ async def execute_query_on_unit(
     Returns:
         A list of rows that were potentially returned from the query.
     """
-    with psycopg2.connect(
-        f"dbname='{database}' user='{user}' host='{unit_address}' password='{password}' connect_timeout=10"
-    ) as connection, connection.cursor() as cursor:
+    return await run_query(
+        f"dbname='{database}' user='{user}' host='{unit_address}' password='{password}' connect_timeout=10",
+        query,
+    )
+
+
+async def run_query(connstr: str, query: str) -> List[str]:
+    """Runs the query at the given connstr.
+
+    Args:
+        connstr: the connection string for the unit to be queried.
+        query: Query to execute.
+
+    Returns:
+        A list of rows that were potentially returned from the query.
+    """
+    with psycopg2.connect(connstr) as connection, connection.cursor() as cursor:
         cursor.execute(query)
         output = list(itertools.chain(*cursor.fetchall()))
     return output
@@ -175,3 +189,16 @@ async def run_command_on_unit(ops_test: OpsTest, unit_name: str, command: str) -
             "Expected command %s to succeed instead it failed: %s", command, return_code
         )
     return stdout
+
+
+async def query_unit_address(connstr: str) -> List[str]:
+    """Get unit IP address from a postgres query.
+
+    Args:
+        connstr: the connection string for the unit to be queried.
+
+    Returns:
+        A list of rows that were potentially returned from the query.
+    """
+    connstr += " connect_timeout=10"
+    return await run_query(connstr, "SELECT inet_server_addr();")
