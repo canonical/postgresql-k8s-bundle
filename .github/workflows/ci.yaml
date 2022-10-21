@@ -32,7 +32,7 @@ jobs:
         with:
           provider: microk8s
           # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed.
-          bootstrap-options: "--agent-version 2.9.29"
+          bootstrap-options: "--agent-version 2.9.34"
       - name: Run backend integration tests
         run: tox -e backend-integration
       - name: Dump logs
@@ -55,7 +55,7 @@ jobs:
         with:
           provider: microk8s
           # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed.
-          bootstrap-options: "--agent-version 2.9.29"
+          bootstrap-options: "--agent-version 2.9.34"
       - name: Run legacy integration tests
         run: tox -e legacy-relation-integration
       - name: Dump logs
@@ -78,7 +78,7 @@ jobs:
         with:
           provider: microk8s
           # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed.
-          bootstrap-options: "--agent-version 2.9.29"
+          bootstrap-options: "--agent-version 2.9.34"
       - name: Run bundle integration tests
         run: tox -e bundle-integration
       - name: Dump logs
@@ -100,6 +100,8 @@ jobs:
         uses: charmed-kubernetes/actions-operator@main
         with:
           provider: microk8s
+          # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed.
+          bootstrap-options: "--agent-version 2.9.34"
       - name: Run tls integration tests
         run: tox -e tls-integration
       - name: Dump logs
