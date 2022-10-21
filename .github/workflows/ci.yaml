@@ -100,8 +100,6 @@ jobs:
         uses: charmed-kubernetes/actions-operator@main
         with:
           provider: microk8s
-          # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed.
-          bootstrap-options: "--agent-version 2.9.29"
       - name: Run tls integration tests
         run: tox -e tls-integration
       - name: Dump logs
