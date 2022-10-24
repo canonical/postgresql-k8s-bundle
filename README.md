@@ -11,3 +11,4 @@ The `tls-certificates-operator` currently uses self-signed certificates, but if 
 - [postgresql-k8s](https://charmhub.io/postgresql-k8s)
 - [pgbouncer-k8s](https://charmhub.io/pgbouncer-k8s)
 - [tls-certificates-operator](https://charmhub.io/tls-certificates-operator)
+

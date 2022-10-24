@@ -190,7 +190,7 @@ async def run_command_on_unit(ops_test: OpsTest, unit_name: str, command: str) -
         )
     return stdout
 
-
+  
 async def query_unit_address(connstr: str) -> List[str]:
     """Get unit IP address from a postgres query.
 

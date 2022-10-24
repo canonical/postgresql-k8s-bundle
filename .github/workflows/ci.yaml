@@ -78,8 +78,8 @@ jobs:
         with:
           provider: microk8s
           # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed.
-          bootstrap-options: "--agent-version 2.9.34"
-      - name: Run bundle integration tests
+          bootstrap-options: "--agent-version 2.9.29"
+      - name: Run legacy integration tests
         run: tox -e bundle-integration
       - name: Dump logs
         uses: canonical/charm-logdump-action@main
