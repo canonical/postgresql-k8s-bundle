@@ -19,7 +19,7 @@ jobs:
         run: tox -e lint
 
   integration-backend:
-    name: Integration tests for backend relation (microk8s)
+    name: Integration tests for backend relation
     needs:
       - lint
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
           app: pgbouncer-k8s
 
   integration-legacy-relations:
-    name: Integration tests for legacy relations (microk8s)
+    name: Integration tests for legacy relations
     needs:
       - lint
     runs-on: ubuntu-latest
@@ -58,6 +58,29 @@ jobs:
           bootstrap-options: "--agent-version 2.9.29"
       - name: Run legacy integration tests
         run: tox -e legacy-relation-integration
+      - name: Dump logs
+        uses: canonical/charm-logdump-action@main
+        if: failure()
+        with:
+          app: pgbouncer-k8s
+
+  integration-bundle:
+    name: Bundle-specific integration tests
+    needs:
+      - lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup operator environment
+      # This part sets the model name to "testing" (used in test run and logdump)
+        uses: charmed-kubernetes/actions-operator@main
+        with:
+          provider: microk8s
+          # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed.
+          bootstrap-options: "--agent-version 2.9.29"
+      - name: Run legacy integration tests
+        run: tox -e bundle-integration
       - name: Dump logs
         uses: canonical/charm-logdump-action@main
         if: failure()

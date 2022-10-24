@@ -50,7 +50,7 @@ async def test_relate_pgbouncer_to_postgres(ops_test: OpsTest):
         pgb_unit = ops_test.model.applications[PGB].units[0]
         logging.info(await get_app_relation_databag(ops_test, pgb_unit.name, backend_relation.id))
         wait_for_relation_removed_between(ops_test, PG, PGB)
-        await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=1000),
+        await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=600),
 
         # Wait for pgbouncer charm to update its config files.
         try:
@@ -79,20 +79,20 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
         wait_for_relation_joined_between(ops_test, PG, PGB)
         await asyncio.gather(
             ops_test.model.wait_for_idle(
-                apps=[PGB], status="active", timeout=1000, wait_for_exact_units=1
+                apps=[PGB], status="active", timeout=600, wait_for_exact_units=1
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=1000, wait_for_exact_units=1
+                apps=[PG], status="active", timeout=600, wait_for_exact_units=1
             ),
         )
 
         await scale_application(ops_test, PGB, 3)
         await asyncio.gather(
             ops_test.model.wait_for_idle(
-                apps=[PGB], status="active", timeout=1000, wait_for_exact_units=3
+                apps=[PGB], status="active", timeout=600, wait_for_exact_units=3
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=1000, wait_for_exact_units=1
+                apps=[PG], status="active", timeout=600, wait_for_exact_units=1
             ),
         )
 
@@ -118,9 +118,9 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
         await scale_application(ops_test, PGB, 1)
         await asyncio.gather(
             ops_test.model.wait_for_idle(
-                apps=[PGB], status="active", timeout=1000, wait_for_exact_units=1
+                apps=[PGB], status="active", timeout=600, wait_for_exact_units=1
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=1000, wait_for_exact_units=1
+                apps=[PG], status="active", timeout=600, wait_for_exact_units=1
             ),
         )

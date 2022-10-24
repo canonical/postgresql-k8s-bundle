@@ -46,7 +46,7 @@ async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
         await ops_test.model.applications[PGB].set_config({"listen_port": "5432"})
 
         await ops_test.model.wait_for_idle(
-            apps=[PG, PGB, REDIS_APP_NAME], status="active", timeout=1000
+            apps=[PG, PGB, REDIS_APP_NAME], status="active", timeout=600
         )
 
         backend_relation = get_backend_relation(ops_test)
@@ -62,7 +62,7 @@ async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
 
         # Discourse becomes blocked waiting for relations.
         await ops_test.model.wait_for_idle(
-            apps=[FIRST_DISCOURSE_APP_NAME], status="blocked", timeout=1000
+            apps=[FIRST_DISCOURSE_APP_NAME], status="blocked", timeout=600
         )
 
         # Add both relations to Discourse (PostgreSQL and Redis) and wait for it to be ready.
@@ -115,7 +115,7 @@ async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
         )
         # Discourse becomes blocked waiting for PostgreSQL relation.
         await ops_test.model.wait_for_idle(
-            apps=[SECOND_DISCOURSE_APP_NAME], status="blocked", timeout=1000
+            apps=[SECOND_DISCOURSE_APP_NAME], status="blocked", timeout=600
         )
 
         # Relate PostgreSQL and Discourse, waiting for Discourse to be ready.

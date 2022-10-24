@@ -24,18 +24,17 @@ jobs:
           fetch-depth: 0
       - name: Install dependencies
         run: sudo snap install charmcraft --classic
-    # This will be uncommented once PR is merged to main
-    #  - name: Pack and publish bundle
-    #    run: |
-    #      set -ex
-    #      # Use a temporary directory to support publishing any of the bundles in this root dir
-    #      BUILD_DIR=.bundle_build
-    #      mkdir $BUILD_DIR
-    #      cp ./releases/latest/postgresql-bundle.yaml $BUILD_DIR/bundle.yaml
-    #      cp charmcraft.yaml $BUILD_DIR
-    #      cp README.md $BUILD_DIR
-    #      cd $BUILD_DIR
-    #      charmcraft pack --destructive-mode
-    #      charmcraft upload ./*.zip
-    #      export REVISION=$(charmcraft revisions postgresql-bundle 2>&1 | awk 'NR==2 {print $1}')
-    #      charmcraft release postgresql-bundle --revision $REVISION --channel=latest/edge
+      - name: Pack and publish bundle
+        run: |
+          set -ex
+          # Use a temporary directory to support publishing any of the bundles in this root dir
+          BUILD_DIR=.bundle_build
+          mkdir $BUILD_DIR
+          cp ./releases/latest/postgresql-k8s-bundle.yaml $BUILD_DIR/bundle.yaml
+          cp charmcraft.yaml $BUILD_DIR
+          cp README.md $BUILD_DIR
+          cd $BUILD_DIR
+          charmcraft pack --destructive-mode
+          charmcraft upload ./*.zip
+          export REVISION=$(charmcraft revisions postgresql-k8s-bundle 2>&1 | awk 'NR==2 {print $1}')
+          charmcraft release postgresql-k8s-bundle --revision $REVISION --channel=latest/edge
