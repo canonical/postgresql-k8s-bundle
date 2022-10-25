@@ -239,9 +239,11 @@ async def deploy_postgres_k8s_bundle(
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
         # await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
-        charm = await ops_test.build_charm("/home/ubuntu/postgresql-k8s")
+        wrf_pg_path = "/home/ubuntu/wrf/src/postgresql-k8s"
+        # neppel_pg_path = "/home/ubuntu/postgresql-k8s"
+        local_pg_charm = await ops_test.build_charm(wrf_pg_path)
         await ops_test.model.deploy(
-            charm,
+            local_pg_charm,
             resources={"postgresql-image": "dataplatformoci/postgres-patroni"},
             trust=True,
         )
@@ -251,15 +253,17 @@ async def deploy_postgres_k8s_bundle(
             channel="edge",
             config={"generate-self-signed-certificates": "true", "ca-common-name": "TestCA"},
         )
-        await ops_test.model.relate("postgresql-k8s-database", "pgbouncer-k8s:backend-database")
+        await ops_test.model.wait_for_idle(timeout=1000, raise_on_blocked=False)
+        await ops_test.model.relate("postgresql-k8s:database", "pgbouncer-k8s:backend-database")
+        wait_for_relation_joined_between(ops_test, PG, PGB)
+        await ops_test.model.wait_for_idle(timeout=1000)
         await ops_test.model.relate("postgresql-k8s", "tls-certificates-operator")
+        wait_for_relation_joined_between(ops_test, PG, TLS_APP_NAME)
         await ops_test.model.wait_for_idle(timeout=1000)
         await asyncio.gather(
             scale_application(ops_test, PGB, scale_pgbouncer),
             scale_application(ops_test, PG, scale_postgres),
         )
-        wait_for_relation_joined_between(ops_test, PG, PGB)
-        wait_for_relation_joined_between(ops_test, PG, TLS_APP_NAME)
         await ops_test.model.wait_for_idle(
             apps=[PG, PGB, TLS_APP_NAME], status="active", timeout=1000
         )
