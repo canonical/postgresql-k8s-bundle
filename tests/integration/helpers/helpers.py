@@ -239,9 +239,8 @@ async def deploy_postgres_k8s_bundle(
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
         # await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
-        wrf_pg_path = "/home/ubuntu/wrf/src/postgresql-k8s"
-        # neppel_pg_path = "/home/ubuntu/postgresql-k8s"
-        local_pg_charm = await ops_test.build_charm(wrf_pg_path)
+        pg_path = "/home/ubuntu/postgresql-k8s-operator"
+        local_pg_charm = await ops_test.build_charm(pg_path)
         await ops_test.model.deploy(
             local_pg_charm,
             resources={"postgresql-image": "dataplatformoci/postgres-patroni"},

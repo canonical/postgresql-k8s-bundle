@@ -2,10 +2,8 @@
 # See LICENSE file for licensing details.
 
 import logging
-from pathlib import Path
 
 import pytest
-import yaml
 from pytest_operator.plugin import OpsTest
 
 from constants import TLS_APP_NAME
@@ -22,9 +20,8 @@ from tests.integration.helpers.postgresql_helpers import (
 
 logger = logging.getLogger(__name__)
 
-METADATA = yaml.safe_load(Path("./metadata.yaml").read_text())
 FINOS_WALTZ = "finos-waltz"
-PGB = METADATA["name"]
+PGB = "pgbouncer-k8s"
 PG = "postgresql-k8s"
 TLS = "tls-certificates-operator"
 RELATION = "backend-database"
