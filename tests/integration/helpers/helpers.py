@@ -239,7 +239,7 @@ async def deploy_postgres_k8s_bundle(
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
         # await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
-        pg_path = "/home/ubuntu/postgresql-k8s-operator"
+        pg_path = "/home/runner/work/postgresql-k8s-bundle/postgresql-k8s-bundle"
         local_pg_charm = await ops_test.build_charm(pg_path)
         await ops_test.model.deploy(
             local_pg_charm,
