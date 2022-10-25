@@ -24,12 +24,14 @@ def fetch_revision(charm, charm_channel):
 
 def update_bundle(bundle_path):
     """Updates a bundle's revision number."""
+    logger.info(f"updating {bundle_path}")
     bundle_data = yaml.safe_load(Path(bundle_path).read_text())
     for app in bundle_data["applications"]:
         bundle_data["applications"][app]["revision"] = fetch_revision(
             app, bundle_data["applications"][app]["channel"]
         )
 
+    logger.info("deploying bundle data")
     with open(bundle_path, 'w') as bundle:
         yaml.dump(bundle_data, bundle)
         bundle.close()
