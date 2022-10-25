@@ -28,4 +28,6 @@ relations:
   - postgresql-k8s:database
 - - postgresql-k8s:certificates
   - tls-certificates-operator:certificates
+bundle: kubernetes
+name: postgresql-k8s-bundle
 type: bundle
