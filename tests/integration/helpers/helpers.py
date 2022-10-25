@@ -238,7 +238,21 @@ async def deploy_postgres_k8s_bundle(
 ) -> None:
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
-        await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
+        # await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
+        charm = await ops_test.build_charm("/home/ubuntu/postgresql-k8s")
+        await ops_test.model.deploy(
+            charm,
+            resources={"postgresql-image": "dataplatformoci/postgres-patroni"},
+            trust=True,
+        )
+        await ops_test.model.deploy("pgbouncer-k8s", channel="edge")
+        await ops_test.model.deploy(
+            "tls-certificates-operator",
+            channel="edge",
+            config={"generate-self-signed-certificates": "true", "ca-common-name": "TestCA"},
+        )
+        await ops_test.model.relate("postgresql-k8s-database", "pgbouncer-k8s:backend-database")
+        await ops_test.model.relate("postgresql-k8s", "tls-certificates-operator")
         await ops_test.model.wait_for_idle(timeout=1000)
         await asyncio.gather(
             scale_application(ops_test, PGB, scale_pgbouncer),
