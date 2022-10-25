@@ -102,6 +102,8 @@ jobs:
           provider: microk8s
           # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed.
           bootstrap-options: "--agent-version 2.9.29"
+      - name: Clone PostgreSQL charm repo
+        run: git clone https://github.com/canonical/postgresql-k8s-operator.git postgresql-k8s;cd postgresql-k8s;git checkout debug-requests;cd ..
       - name: Run tls integration tests
         run: tox -e tls-integration
       - name: Dump logs
