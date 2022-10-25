@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Clone PostgreSQL charm repo
+        run: git clone https://github.com/canonical/postgresql-k8s-operator.git postgresql-k8s;cd postgresql-k8s;git checkout debug-requests;cd ..
       - name: Setup operator environment
       # This part sets the model name to "testing" (used in test run and logdump)
         uses: charmed-kubernetes/actions-operator@main
@@ -49,6 +51,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Clone PostgreSQL charm repo
+        run: git clone https://github.com/canonical/postgresql-k8s-operator.git postgresql-k8s;cd postgresql-k8s;git checkout debug-requests;cd ..
       - name: Setup operator environment
       # This part sets the model name to "testing" (used in test run and logdump)
         uses: charmed-kubernetes/actions-operator@main
@@ -72,6 +76,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Clone PostgreSQL charm repo
+        run: git clone https://github.com/canonical/postgresql-k8s-operator.git postgresql-k8s;cd postgresql-k8s;git checkout debug-requests;cd ..
       - name: Setup operator environment
       # This part sets the model name to "testing" (used in test run and logdump)
         uses: charmed-kubernetes/actions-operator@main
@@ -96,7 +102,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Clone PostgreSQL charm repo
-        run: git clone https://github.com/canonical/postgresql-k8s-operator.git postgresql-k8s;cd postgresql-k8s;git checkout debug-requests;cd ..;pwd
+        run: git clone https://github.com/canonical/postgresql-k8s-operator.git postgresql-k8s;cd postgresql-k8s;git checkout debug-requests;cd ..
       - name: Setup operator environment
       # This part sets the model name to "testing" (used in test run and logdump)
         uses: charmed-kubernetes/actions-operator@main
