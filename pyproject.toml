@@ -19,6 +19,7 @@ markers = [
     "backend: integration tests that test backend relation to postgresql",
     "legacy_relation: integration tests that test legacy client relations",
     "scaling: integration tests for scaling",
+    "tls: integration tests for tls",
     "bundle: integration tests for k8s bundle"
 ]
 
