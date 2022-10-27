@@ -6,10 +6,10 @@ applications:
     revision: 7
     scale: 1
   postgresql-k8s:
-    channel: edge
+    channel: beta
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 25
+    revision: 28
     scale: 1
     trust: true
   tls-certificates-operator:
