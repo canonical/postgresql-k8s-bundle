@@ -6,6 +6,11 @@ Although version numbers are detailed in the bundle.yaml, they're not used by ch
 
 The `tls-certificates-operator` currently uses self-signed certificates, but if security is a concern, replace these certificates as described in the [TLS operator docs](https://charmhub.io/tls-certificates-operator).
 
+## Deployment
+```bash
+juju deploy postgresql-k8s-bundle --channel=edge --trust
+```
+
 ## Operators included in this bundle
 
 - [postgresql-k8s](https://charmhub.io/postgresql-k8s)
