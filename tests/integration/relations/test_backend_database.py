@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 @pytest.mark.backend
 @pytest.mark.abort_on_fail
-async def test_relate_pgbouncer_to_postgres(ops_test: OpsTest):
+async def test_deploy_bundle(ops_test: OpsTest):
     """Test that the pgbouncer and postgres charms can relate to one another."""
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():

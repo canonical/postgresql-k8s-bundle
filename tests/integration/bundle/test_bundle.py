@@ -63,15 +63,14 @@ async def test_discover_dbs(ops_test: OpsTest):
     Since there's only one readonly endpoint, we can only really test this by querying whether the
     endpoint exists or not depending on the number of postgres replicas.
     """
+    await scale_application(ops_test, PG, 1)
     pgb_unit = f"{PGB}/0"
     backend_relation = get_backend_relation(ops_test)
     backend_databag = await get_app_relation_databag(ops_test, pgb_unit, backend_relation.id)
     assert not backend_databag.get("read-only-endpoints", None)
 
-    await scale_application(ops_test, PGB, 3)
     await ops_test.model.wait_for_idle()
     await scale_application(ops_test, PG, 3)
-
     updated_backend_databag = await get_app_relation_databag(
         ops_test, pgb_unit, backend_relation.id
     )
