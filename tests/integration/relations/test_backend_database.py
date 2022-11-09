@@ -81,7 +81,7 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
                 apps=[PGB], status="active", timeout=600, wait_for_exact_units=1
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=600, wait_for_exact_units=1
+                apps=[PG], status="active", timeout=600, wait_for_exact_units=2
             ),
         )
 
@@ -91,7 +91,7 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
                 apps=[PGB], status="active", timeout=600, wait_for_exact_units=3
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=600, wait_for_exact_units=1
+                apps=[PG], status="active", timeout=600, wait_for_exact_units=2
             ),
         )
 
@@ -120,6 +120,6 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
                 apps=[PGB], status="active", timeout=600, wait_for_exact_units=1
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=600, wait_for_exact_units=1
+                apps=[PG], status="active", timeout=600, wait_for_exact_units=2
             ),
         )

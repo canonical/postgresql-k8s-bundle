@@ -16,7 +16,6 @@ from tests.integration.helpers.helpers import (
     get_cfg,
     get_legacy_relation_username,
     get_pgb_log,
-    scale_application,
     wait_for_relation_joined_between,
     wait_for_relation_removed_between,
 )
@@ -40,7 +39,6 @@ async def test_create_db_legacy_relation(ops_test: OpsTest):
             deploy_postgres_k8s_bundle(ops_test),
             ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
         )
-        await scale_application(ops_test, PG, 2)
 
         backend_relation = get_backend_relation(ops_test)
         pgb_user, pgb_password = await get_backend_user_pass(ops_test, backend_relation)
