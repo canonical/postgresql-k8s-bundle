@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 @pytest.mark.backend
 @pytest.mark.abort_on_fail
-async def test_relate_pgbouncer_to_postgres(ops_test: OpsTest):
+async def test_deploy_bundle(ops_test: OpsTest):
     """Test that the pgbouncer and postgres charms can relate to one another."""
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
@@ -81,7 +81,7 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
                 apps=[PGB], status="active", timeout=600, wait_for_exact_units=1
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=600, wait_for_exact_units=1
+                apps=[PG], status="active", timeout=600, wait_for_exact_units=2
             ),
         )
 
@@ -91,7 +91,7 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
                 apps=[PGB], status="active", timeout=600, wait_for_exact_units=3
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=600, wait_for_exact_units=1
+                apps=[PG], status="active", timeout=600, wait_for_exact_units=2
             ),
         )
 
@@ -120,6 +120,6 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
                 apps=[PGB], status="active", timeout=600, wait_for_exact_units=1
             ),
             ops_test.model.wait_for_idle(
-                apps=[PG], status="active", timeout=600, wait_for_exact_units=1
+                apps=[PG], status="active", timeout=600, wait_for_exact_units=2
             ),
         )

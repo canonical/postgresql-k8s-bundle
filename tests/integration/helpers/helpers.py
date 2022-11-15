@@ -234,7 +234,7 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
 
 
 async def deploy_postgres_k8s_bundle(
-    ops_test: OpsTest, scale_pgbouncer: int = 1, scale_postgres: int = 1
+    ops_test: OpsTest, scale_pgbouncer: int = 1, scale_postgres: int = 2
 ) -> None:
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():

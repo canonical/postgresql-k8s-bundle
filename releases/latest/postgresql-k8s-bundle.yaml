@@ -10,7 +10,7 @@ applications:
     charm: postgresql-k8s
     constraints: arch=amd64
     revision: 29
-    scale: 1
+    scale: 2
     trust: true
   tls-certificates-operator:
     channel: edge
