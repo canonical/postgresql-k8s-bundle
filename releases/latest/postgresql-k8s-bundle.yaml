@@ -3,13 +3,13 @@ applications:
     channel: edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 7
+    revision: 9
     scale: 1
   postgresql-k8s:
     channel: edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 29
+    revision: 32
     scale: 2
     trust: true
   tls-certificates-operator:
@@ -20,7 +20,7 @@ applications:
     options:
       ca-common-name: postgresql_k8s_bundle_ca
       generate-self-signed-certificates: true
-    revision: 15
+    revision: 16
 bundle: kubernetes
 name: postgresql-k8s-bundle
 relations:
