@@ -28,7 +28,7 @@ jobs:
           labels: |
             automated pr
           assignees: team-reviewers, WRFitch, marceloneppel
-          reviewers: team-reviewers, marceloneppel
+          reviewers: team-reviewers, marceloneppel, taurus-forever
           team-reviewers: |
             owners
             maintainers
