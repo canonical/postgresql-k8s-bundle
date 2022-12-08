@@ -20,7 +20,7 @@ applications:
     options:
       ca-common-name: postgresql_k8s_bundle_ca
       generate-self-signed-certificates: true
-    revision: 16
+    revision: 17
 bundle: kubernetes
 name: postgresql-k8s-bundle
 relations:
