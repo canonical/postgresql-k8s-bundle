@@ -12,7 +12,6 @@ from constants import TLS_APP_NAME
 from tests.integration.helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_backend_relation,
-    get_backend_user_pass,
 )
 from tests.integration.helpers.postgresql_helpers import (
     enable_connections_logging,
@@ -36,7 +35,6 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
         # Relate PgBouncer to PostgreSQL.
         await deploy_postgres_k8s_bundle(ops_test)
         relation = get_backend_relation(ops_test)
-        pgb_user, _ = await get_backend_user_pass(ops_test, relation)
 
         # Enable additional logs on the PostgreSQL instance to check TLS
         # being used in a later step.
