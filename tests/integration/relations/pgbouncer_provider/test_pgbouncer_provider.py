@@ -4,10 +4,8 @@
 import asyncio
 import json
 import logging
-from pathlib import Path
 
 import pytest
-import yaml
 from pytest_operator.plugin import OpsTest
 
 from constants import BACKEND_RELATION_NAME
@@ -37,10 +35,6 @@ logger = logging.getLogger(__name__)
 CLIENT_APP_NAME = "application"
 SECONDARY_CLIENT_APP_NAME = "secondary-application"
 PG = "postgresql-k8s"
-PGB_METADATA = yaml.safe_load(Path("./metadata.yaml").read_text())
-PGB_RESOURCES = {
-    "pgbouncer-image": PGB_METADATA["resources"]["pgbouncer-image"]["upstream-source"]
-}
 PGB = "pgbouncer-k8s"
 APP_NAMES = [CLIENT_APP_NAME, PG, PGB]
 FIRST_DATABASE_RELATION_NAME = "first-database"
