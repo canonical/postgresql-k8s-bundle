@@ -18,10 +18,25 @@ jobs:
       - name: Run linters
         run: tox -e lint
 
+  lib-check:
+    name: Check libraries
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Check libs
+        uses: canonical/charming-actions/check-libraries@2.2.0
+        with:
+          credentials: "${{ secrets.CHARMHUB_TOKEN }}" # FIXME: current token will expire in 2023-07-04
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
   integration-backend:
     name: Integration tests for backend relation
     needs:
       - lint
+      - lib-check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -46,6 +61,7 @@ jobs:
     name: Integration tests for legacy client relations
     needs:
       - lint
+      - lib-check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -69,6 +85,7 @@ jobs:
     name: Integration tests for updated client relations
     needs:
       - lint
+      - lib-check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -93,6 +110,7 @@ jobs:
     name: Bundle-specific integration tests
     needs:
       - lint
+      - lib-check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -116,6 +134,7 @@ jobs:
     name: Integration tests for tls
     needs:
       - lint
+      - lib-check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
