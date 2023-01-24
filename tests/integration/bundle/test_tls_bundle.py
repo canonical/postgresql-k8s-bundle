@@ -9,7 +9,7 @@ import pytest
 import yaml
 from pytest_operator.plugin import OpsTest
 
-from constants import TLS_APP_NAME
+from constants import PG, PGB, TLS_APP_NAME
 from tests.integration.helpers.helpers import deploy_postgres_k8s_bundle
 from tests.integration.helpers.postgresql_helpers import (
     enable_connections_logging,
@@ -21,8 +21,6 @@ logger = logging.getLogger(__name__)
 
 METADATA = yaml.safe_load(Path("./metadata.yaml").read_text())
 FINOS_WALTZ = "finos-waltz"
-PGB = METADATA["name"]
-PG = "postgresql-k8s"
 TLS = "tls-certificates-operator"
 RELATION = "backend-database"
 
