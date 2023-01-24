@@ -1,19 +1,19 @@
 applications:
   pgbouncer-k8s:
-    channel: edge
+    channel: latest/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
     revision: 14
     scale: 1
   postgresql-k8s:
-    channel: edge
+    channel: latest/edge
     charm: postgresql-k8s
     constraints: arch=amd64
     revision: 40
     scale: 2
     trust: true
   tls-certificates-operator:
-    channel: beta
+    channel: latest/beta
     charm: tls-certificates-operator
     constraints: arch=amd64
     num_units: 1
