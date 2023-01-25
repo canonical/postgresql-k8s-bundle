@@ -48,7 +48,10 @@ async def test_deploy_bundle(ops_test: OpsTest):
         pgb_unit = ops_test.model.applications[PGB].units[0]
         logging.info(await get_app_relation_databag(ops_test, pgb_unit.name, backend_relation.id))
         wait_for_relation_removed_between(ops_test, PG, PGB)
-        await ops_test.model.wait_for_idle(apps=[PG, PGB], status="active", timeout=600),
+        await asyncio.gather(
+            ops_test.model.wait_for_idle(apps=[PG], status="active", timeout=600),
+            ops_test.model.wait_for_idle(apps=[PGB], status="blocked", timeout=600),
+        )
 
         # Wait for pgbouncer charm to update its config files.
         try:
