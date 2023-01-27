@@ -89,7 +89,7 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     connstr = finos_databag.get("master", None)
     assert connstr, f"databag incorrectly populated, \n {finos_databag}"
 
-    pgb_unit = get_leader(ops_test, PGB).name
+    pgb_unit = await get_leader(ops_test, PGB)
     pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
     conn_dict = pgb.parse_kv_string_to_dict(connstr)
     conn_dict["host"] = pgb_unit_address
@@ -119,7 +119,7 @@ async def test_kill_pg_primary(ops_test: OpsTest):
     finos_databag = await get_app_relation_databag(ops_test, finos_unit_name, finos_relation.id)
     connstr = finos_databag.get("master", None)
     assert connstr, f"databag incorrectly populated: \n{finos_databag}"
-    pgb_unit = get_leader(ops_test, PGB).name
+    pgb_unit = await get_leader(ops_test, PGB)
     pgb_unit_address = await get_unit_address(ops_test, pgb_unit)
     conn_dict = pgb.parse_kv_string_to_dict(connstr)
     conn_dict["host"] = pgb_unit_address

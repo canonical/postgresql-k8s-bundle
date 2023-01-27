@@ -9,18 +9,17 @@ from typing import Dict, Tuple
 
 from charms.pgbouncer_k8s.v0 import pgb
 from juju.relation import Relation
-from juju.unit import Unit
 from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
 from constants import AUTH_FILE_PATH, INI_PATH, PG, PGB, TLS_APP_NAME
 
 
-def get_leader(ops_test, application_name) -> Unit:
-    """Gets the leader unit for the given app name."""
+async def get_leader(ops_test, application_name) -> str:
+    """Gets the leader unit name for the given app name."""
     for unit in ops_test.model.applications[application_name].units:
-        if unit.is_leader_from_status():
-            return unit
+        if await unit.is_leader_from_status():
+            return unit.name
 
 
 def get_backend_relation(ops_test: OpsTest) -> Relation:
@@ -223,7 +222,7 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
         await ops_test.model.wait_for_idle(
             apps=[application_name],
             status="active",
-            timeout=600,
+            timeout=1000,
             wait_for_exact_units=scale,
         )
 

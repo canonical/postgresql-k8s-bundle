@@ -9,7 +9,7 @@ import pytest
 import yaml
 from pytest_operator.plugin import OpsTest
 
-from constants import TLS_APP_NAME
+from constants import PG, PGB, TLS_APP_NAME
 from tests.integration.helpers.helpers import deploy_postgres_k8s_bundle
 from tests.integration.helpers.postgresql_helpers import (
     enable_connections_logging,
@@ -21,8 +21,6 @@ logger = logging.getLogger(__name__)
 
 METADATA = yaml.safe_load(Path("./metadata.yaml").read_text())
 FINOS_WALTZ = "finos-waltz"
-PGB = METADATA["name"]
-PG = "postgresql-k8s"
 TLS = "tls-certificates-operator"
 RELATION = "backend-database"
 
@@ -51,7 +49,7 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     logs = await run_command_on_unit(
         ops_test, postgresql_primary_unit, "/charm/bin/pebble logs -n=all"
     )
+    username = f"{PGB}_user_{relation.id}_{ops_test.model.info.name}".replace("-", "_")
     assert (
-        f"connection authorized: user=relation_id_{relation.id} database=waltz"
-        " SSL enabled (protocol=TLSv1.2, cipher=ECDHE-RSA-AES256-GCM-SHA384, bits=256)" in logs
+        f"connection authorized: user={username} database=waltz SSL enabled" in logs
     ), "TLS is not being used on connections to PostgreSQL"

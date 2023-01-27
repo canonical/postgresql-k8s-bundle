@@ -327,14 +327,12 @@ async def test_multiple_pgb_can_connect_to_one_backend(ops_test: OpsTest):
         channel="edge",
         application_name=pgb_secondary,
     )
-    async with ops_test.fast_forward():
-        await ops_test.model.wait_for_idle(apps=[pgb_secondary], status="active"),
 
     await ops_test.model.add_relation(f"{pgb_secondary}:{BACKEND_RELATION_NAME}", f"{PG}:database")
     wait_for_relation_joined_between(ops_test, PG, pgb_secondary)
 
     async with ops_test.fast_forward():
-        await ops_test.model.wait_for_idle(apps=APP_NAMES + [pgb_secondary])
+        await ops_test.model.wait_for_idle(apps=APP_NAMES + [pgb_secondary], status="active")
 
     secondary_relation = await ops_test.model.add_relation(
         f"{SECONDARY_CLIENT_APP_NAME}:{SECOND_DATABASE_RELATION_NAME}", pgb_secondary
