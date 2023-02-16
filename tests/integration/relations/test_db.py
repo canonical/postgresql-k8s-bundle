@@ -8,7 +8,7 @@ import pytest
 from pytest_operator.plugin import OpsTest
 
 from constants import DB_RELATION_NAME, PG, PGB
-from tests.integration.helpers.helpers import (
+from ..helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
     get_backend_relation,
@@ -18,7 +18,7 @@ from tests.integration.helpers.helpers import (
     wait_for_relation_joined_between,
     wait_for_relation_removed_between,
 )
-from tests.integration.helpers.postgresql_helpers import (
+from ..helpers.postgresql_helpers import (
     check_database_creation,
     check_database_users_existence,
 )
@@ -29,7 +29,6 @@ ANOTHER_FINOS_WALTZ = "another-finos-waltz"
 logger = logging.getLogger(__name__)
 
 
-@pytest.mark.legacy_relation
 async def test_create_db_legacy_relation(ops_test: OpsTest):
     """Test that the pgbouncer and postgres charms can relate to one another."""
     # Build, deploy, and relate charms.

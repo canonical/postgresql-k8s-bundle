@@ -8,14 +8,14 @@ import pytest
 from pytest_operator.plugin import OpsTest
 
 from constants import DB_ADMIN_RELATION_NAME, PG, PGB
-from tests.integration.helpers.helpers import (
+from ..helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_backend_relation,
     get_backend_user_pass,
     get_legacy_relation_username,
     wait_for_relation_joined_between,
 )
-from tests.integration.helpers.postgresql_helpers import (
+from ..helpers.postgresql_helpers import (
     check_database_creation,
     check_database_users_existence,
     get_unit_address,
@@ -28,8 +28,6 @@ SECOND_DISCOURSE_APP_NAME = "discourse-charmers-discourse-k8s"
 REDIS_APP_NAME = "redis-k8s"
 
 
-@pytest.mark.dev
-@pytest.mark.legacy_relation
 async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():

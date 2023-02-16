@@ -9,7 +9,7 @@ from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
 from constants import BACKEND_RELATION_NAME, PG, PGB
-from tests.integration.helpers.helpers import (
+from ..helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
     get_backend_relation,
@@ -20,12 +20,11 @@ from tests.integration.helpers.helpers import (
     wait_for_relation_joined_between,
     wait_for_relation_removed_between,
 )
-from tests.integration.helpers.postgresql_helpers import check_database_users_existence
+from ..helpers.postgresql_helpers import check_database_users_existence
 
 logger = logging.getLogger(__name__)
 
 
-@pytest.mark.backend
 @pytest.mark.abort_on_fail
 async def test_deploy_bundle(ops_test: OpsTest):
     """Test that the pgbouncer and postgres charms can relate to one another."""
@@ -70,7 +69,6 @@ async def test_deploy_bundle(ops_test: OpsTest):
         logging.info(cfg.render())
 
 
-@pytest.mark.backend
 async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
     async with ops_test.fast_forward():
         relation = await ops_test.model.add_relation(
