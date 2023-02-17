@@ -9,6 +9,7 @@ from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
 
 from constants import BACKEND_RELATION_NAME, PG, PGB
+
 from ..helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,

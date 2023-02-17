@@ -4,10 +4,10 @@
 import asyncio
 import logging
 
-import pytest
 from pytest_operator.plugin import OpsTest
 
 from constants import DB_ADMIN_RELATION_NAME, PG, PGB
+
 from ..helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_backend_relation,

@@ -11,6 +11,7 @@ from lightkube.resources.core_v1 import Pod
 from pytest_operator.plugin import OpsTest
 
 from constants import PG, PGB
+
 from ..helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,

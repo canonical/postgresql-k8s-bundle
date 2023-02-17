@@ -5,11 +5,11 @@ import asyncio
 import logging
 from pathlib import Path
 
-import pytest
 import yaml
 from pytest_operator.plugin import OpsTest
 
 from constants import PG, PGB, TLS_APP_NAME
+
 from ..helpers.helpers import deploy_postgres_k8s_bundle
 from ..helpers.postgresql_helpers import (
     enable_connections_logging,
