@@ -11,7 +11,8 @@ from lightkube.resources.core_v1 import Pod
 from pytest_operator.plugin import OpsTest
 
 from constants import PG, PGB
-from tests.integration.helpers.helpers import (
+
+from ..helpers.helpers import (
     deploy_postgres_k8s_bundle,
     get_app_relation_databag,
     get_backend_relation,
@@ -21,7 +22,7 @@ from tests.integration.helpers.helpers import (
     scale_application,
     wait_for_relation_joined_between,
 )
-from tests.integration.helpers.postgresql_helpers import (
+from ..helpers.postgresql_helpers import (
     check_database_creation,
     get_unit_address,
     query_unit_address,
@@ -32,7 +33,6 @@ logger = logging.getLogger(__name__)
 FINOS_WALTZ = "finos-waltz"
 
 
-@pytest.mark.bundle
 @pytest.mark.abort_on_fail
 async def test_setup(ops_test: OpsTest):
     """Deploy bundle and set up finos-waltz for testing.
@@ -56,7 +56,6 @@ async def test_setup(ops_test: OpsTest):
         await check_database_creation(ops_test, "waltz", pgb_user, pgb_password)
 
 
-@pytest.mark.bundle
 async def test_discover_dbs(ops_test: OpsTest):
     """Check that proxy discovers new members when scaling up postgres charm.
 
@@ -79,7 +78,6 @@ async def test_discover_dbs(ops_test: OpsTest):
     ), f"read-only-endpoints not populated in updated backend databag - {updated_backend_databag}"
 
 
-@pytest.mark.bundle
 async def test_kill_pg_primary(ops_test: OpsTest):
     """Kill postgres primary, check that all proxy instances switched traffic for a new primary."""
     # get connection info

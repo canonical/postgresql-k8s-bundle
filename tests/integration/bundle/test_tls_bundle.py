@@ -5,13 +5,13 @@ import asyncio
 import logging
 from pathlib import Path
 
-import pytest
 import yaml
 from pytest_operator.plugin import OpsTest
 
 from constants import PG, PGB, TLS_APP_NAME
-from tests.integration.helpers.helpers import deploy_postgres_k8s_bundle
-from tests.integration.helpers.postgresql_helpers import (
+
+from ..helpers.helpers import deploy_postgres_k8s_bundle
+from ..helpers.postgresql_helpers import (
     enable_connections_logging,
     get_postgres_primary,
     run_command_on_unit,
@@ -25,7 +25,6 @@ TLS = "tls-certificates-operator"
 RELATION = "backend-database"
 
 
-@pytest.mark.tls
 async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     # Relate PgBouncer to PostgreSQL.
     await asyncio.gather(
