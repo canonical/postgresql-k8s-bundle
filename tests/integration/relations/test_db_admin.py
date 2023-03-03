@@ -57,13 +57,13 @@ async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
             pg_user_password=pgb_password,
         )
 
-        # Discourse becomes blocked waiting for relations.
+        # Discourse waits for relations.
         await ops_test.model.wait_for_idle(
-            apps=[FIRST_DISCOURSE_APP_NAME], status="blocked", timeout=600
+            apps=[FIRST_DISCOURSE_APP_NAME], status="waiting", timeout=1000
         )
 
         # Add both relations to Discourse (PostgreSQL and Redis) and wait for it to be ready.
-        first_discourse_relation = await ops_test.model.add_relation(
+        await ops_test.model.add_relation(
             f"{PGB}:{DB_ADMIN_RELATION_NAME}",
             FIRST_DISCOURSE_APP_NAME,
         )
@@ -73,24 +73,20 @@ async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
             FIRST_DISCOURSE_APP_NAME,
         )
         wait_for_relation_joined_between(ops_test, REDIS_APP_NAME, FIRST_DISCOURSE_APP_NAME)
-        await ops_test.model.wait_for_idle(
-            apps=[PG, PGB, FIRST_DISCOURSE_APP_NAME, REDIS_APP_NAME],
-            status="active",
-            timeout=2000,  # Discourse takes a longer time to become active (a lot of setup).
+
+        # Discourse requests extensions through relation, so check that the PostgreSQL charm
+        # becomes blocked.
+        await ops_test.model.block_until(
+            lambda: ops_test.model.units[f"{PGB}/0"].workload_status == "blocked", timeout=60
+        )
+        assert (
+            ops_test.model.units[f"{PGB}/0"].workload_status_message
+            == "bad relation request - remote app requested extensions, which are unsupported. Please remove this relation."
         )
 
-        # Check for the correct databases and users creation.
-        await check_database_creation(
-            ops_test, "discourse-k8s", user=pgb_user, password=pgb_password
-        )
-        discourse_users = [get_legacy_relation_username(ops_test, first_discourse_relation.id)]
-        await check_database_users_existence(
-            ops_test,
-            discourse_users,
-            [],
-            admin=True,
-            pg_user=pgb_user,
-            pg_user_password=pgb_password,
+        # Destroy the relation to remove the blocked status.
+        await ops_test.model.applications[PGB].destroy_relation(
+            f"{PGB}:db-admin", FIRST_DISCOURSE_APP_NAME
         )
 
         # Test the second Discourse charm.
