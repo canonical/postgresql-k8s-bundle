@@ -55,7 +55,6 @@ async def test_database_relation_with_charm_libraries(ops_test: OpsTest, applica
         ops_test.model.deploy(
             application_charm,
             application_name=CLIENT_APP_NAME,
-            resources={"application-image": "ubuntu:latest"},
             series="jammy",
         ),
         deploy_postgres_k8s_bundle(ops_test, scale_pgbouncer=2),
@@ -222,7 +221,6 @@ async def test_each_relation_has_unique_credentials(ops_test: OpsTest, applicati
     await ops_test.model.deploy(
         application_charm,
         application_name=SECONDARY_CLIENT_APP_NAME,
-        resources={"application-image": "ubuntu:latest"},
         series="jammy",
     )
     await ops_test.model.wait_for_idle(status="active", apps=all_app_names)
