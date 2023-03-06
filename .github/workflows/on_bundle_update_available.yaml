@@ -6,6 +6,7 @@ on:
 jobs:
   update-bundles:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
       - name: check for updates
@@ -27,8 +28,8 @@ jobs:
             Update bundles with new revisions from Charmhub.
           labels: |
             automated pr
-          assignees: team-reviewers, WRFitch, marceloneppel
-          reviewers: team-reviewers, marceloneppel, taurus-forever
+          assignees: team-reviewers, marceloneppel, dragomirp, taurus-forever
+          reviewers: team-reviewers, marceloneppel, dragomirp, taurus-forever
           team-reviewers: |
             owners
             maintainers

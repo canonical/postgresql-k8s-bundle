@@ -6,14 +6,17 @@ on:
       - main
 
 jobs:
-  integration-test:
+  ci-tests:
+    name: Tests
     uses: ./.github/workflows/ci.yaml
+    secrets: inherit
 
   publish-bundle:
     name: Publish bundle
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs:
-      - integration-test
+      - ci-tests
     env:
       CHARMCRAFT_AUTH: ${{ secrets.CHARMHUB_TOKEN }}
     steps:
