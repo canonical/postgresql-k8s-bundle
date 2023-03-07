@@ -18,35 +18,39 @@ These charms are all on `edge` branches, so this bundle should also be considere
 
 ## Installation
 
-To get started, please take Ubuntu 22.04 LTS and install the
-necessary components. Juju, MicroK8s (with add-ons as listed below):
+[Multipass](https://multipass.run/) is a quick and easy way to launch virtual machines running Ubuntu. It uses "[cloud-init](https://cloud-init.io/)" standard to install and configure all the necessary parts automatically.
 
+Let's install Multipass from [Snap](https://snapcraft.io/multipass) and launch a new VM using "[charm-dev](https://github.com/canonical/multipass-blueprints/blob/main/v1/charm-dev.yaml)" cloud-init config:
 ```shell
-sudo snap refresh
-sudo snap install juju --classic
-sudo snap install microk8s --classic
-sudo snap install jhack # nice to have it nearby
-sudo microk8s enable dns storage ha-cluster ingress hostpath-storage
-sudo usermod -a -G microk8s $(whoami) && newgrp microk8s
+sudo snap install multipass && \
+multipass launch --cpus 4 --memory 8G --disk 30G charm-dev # tune CPU/RAM/HDD accordingly to your needs 
+```
+*Note: all 'multipass launch' params are [described here](https://multipass.run/docs/launch-command)*.
+
+Multipass [list of commands](https://multipass.run/docs/multipass-cli-commands) is short and self-explanatory, e.g. show all running VMs:
+```shell
+multipass list
 ```
 
-To follow, please bootstrap the juju controller with microk8s using:
-
+As soon as new VM started, enter inside using:
 ```shell
-juju bootstrap microk8s my-microk8s
+multipass shell charm-dev
 ```
+*Note: if at any point you'd like to leave Multipass VM, enter `Ctrl+d` or type `exit`*.
 
-Finally add a juju model and deploy the bundle:
-
+All the parts have been pre-installed inside VM already, like Microk8s and Juju (the file '/var/log/cloud-init.log' contains all low-level installation details). Juju uses models to isolate applications, let's add a new model for our K8s application:
 ```shell
 juju add-model my-postgresql-k8s
-juju deploy postgresql-k8s-bundle --trust # --channel edge # Choose a channel!
+```
+
+Finally deploy the bundle:
+```shell
+juju deploy postgresql-k8s-bundle --trust # --channel edge # Choose a channel: edge, candidate, stable!
 juju status # you are ready!
 juju status --watch 1s --storage --relations # watch all the information
 ```
 
 Feel free to increase DEBUG verbosity for troubleshooting:
-
 ```shell
 juju model-config 'logging-config=<root>=INFO;unit=DEBUG'
 juju debug-log # show all logs together
@@ -54,10 +58,13 @@ juju debug-log --include postgresql-k8s/0 --replay --tail # to check specific un
 ```
 
 To destroy the complete Juju model with all newly deployed charms and data:
-
 ```shell
-juju destroy-model my-postgresql-k8s -y --destroy-storage --force && \
-juju add-model my-postgresql-k8s && juju status
+juju destroy-model my-postgresql-k8s -y --destroy-storage --force
+```
+
+To get rid of multipass VM, run:
+```shell
+multipass delete charm-dev --purge
 ```
 
 ## Bundle Components
