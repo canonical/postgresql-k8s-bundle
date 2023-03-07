@@ -28,9 +28,5 @@ jobs:
             Update bundles with new revisions from Charmhub.
           labels: |
             automated pr
-          assignees: team-reviewers, marceloneppel, dragomirp, taurus-forever
-          reviewers: team-reviewers, marceloneppel, dragomirp, taurus-forever
-          team-reviewers: |
-            owners
-            maintainers
+          reviewers: canonical/data-platform-postgresql
           draft: false
