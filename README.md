@@ -9,7 +9,7 @@ Welcome to the Canonical Distribution of PostgreSQL + PgBouncer.
 
 The objective of this page is to provide directions to get up and running with Canonical PostgreSQL charms.
 
-A repo containing infrastructure, configs, and tests for the [PostgreSQL K8s Juju bundle](https://charmhub.io/postgresql-k8s-bundle?channel=edge), containing: 
+A repo containing infrastructure, configs, and tests for the [PostgreSQL K8s Juju bundle](https://charmhub.io/postgresql-k8s-bundle?channel=edge), containing:
 - two [PostgreSQL](https://charmhub.io/postgresql-k8s?channel=edge) nodes (a primary, and a secondary)
 - a [PgBouncer](https://charmhub.io/pgbouncer-k8s?channel=edge) proxy
 - and a [TLS charm](https://charmhub.io/tls-certificates-operator?channel=edge) to broker certificates between PgBouncer and postgres
@@ -23,7 +23,7 @@ These charms are all on `edge` branches, so this bundle should also be considere
 Let's install Multipass from [Snap](https://snapcraft.io/multipass) and launch a new VM using "[charm-dev](https://github.com/canonical/multipass-blueprints/blob/main/v1/charm-dev.yaml)" cloud-init config:
 ```shell
 sudo snap install multipass && \
-multipass launch --cpus 4 --memory 8G --disk 30G charm-dev # tune CPU/RAM/HDD accordingly to your needs 
+multipass launch --cpus 4 --memory 8G --disk 30G charm-dev # tune CPU/RAM/HDD accordingly to your needs
 ```
 *Note: all 'multipass launch' params are [described here](https://multipass.run/docs/launch-command)*.
 
