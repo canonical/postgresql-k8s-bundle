@@ -1,6 +1,9 @@
 # Canonical Distribution of PostgreSQL + PgBouncer
 
-[![None](https://charmhub.io/postgresql-k8s-bundle/badge.svg)](https://charmhub.io/postgresql-k8s-bundle)
+[![Update](https://github.com/canonical/postgresql-k8s-bundle/actions/workflows/on_bundle_update_available.yaml/badge.svg?branch=main)](https://github.com/canonical/postgresql-k8s-bundle/actions/workflows/on_bundle_update_available.yaml?query=branch%3Amain)
+[![Tests](https://github.com/canonical/postgresql-k8s-bundle/actions/workflows/ci.yaml/badge.svg?branch=main&event=schedule)](https://github.com/canonical/postgresql-k8s-bundle/actions/workflows/ci.yaml?query=branch%3Amain+event%3Aschedule)
+[![Release](https://github.com/canonical/postgresql-k8s-bundle/actions/workflows/release.yaml/badge.svg?branch=main&event=push)](https://github.com/canonical/postgresql-k8s-bundle/actions/workflows/release.yaml?query=branch%3Amain+event%3Apush)
+[![Charmhub](https://charmhub.io/postgresql-k8s-bundle/badge.svg)](https://charmhub.io/postgresql-k8s-bundle)
 
 Welcome to the Canonical Distribution of PostgreSQL + PgBouncer.
 
@@ -59,11 +62,9 @@ juju add-model my-postgresql-k8s && juju status
 
 ## Bundle Components
 
-[![PostgreSQL](https://charmhub.io/postgresql-k8s/badge.svg?channel=edge)](https://charmhub.io/postgresql-k8s?channel=edge) [![PgBouncer](https://charmhub.io/pgbouncer-k8s/badge.svg?channel=edge)](https://charmhub.io/pgbouncer-k8s?channel=edge) [![TLS Certificates](https://charmhub.io/tls-certificates-operator/badge.svg?channel=edge)](https://charmhub.io/tls-certificates-operator?channel=edge)
-
-- [postgresql-k8s](https://charmhub.io/postgresql-k8s?channel=edge): a K8s charm to deploy PostgreSQL.
-- [pgbouncer-k8s](https://charmhub.io/pgbouncer-k8s?channel=edge): a K8s charm to deploy PgBouncer.
-- [tls-certificates-operator](https://charmhub.io/tls-certificates-operator?channel=edge): TLS operator.
+- [![PostgreSQL](https://charmhub.io/postgresql-k8s/badge.svg?channel=edge)](https://charmhub.io/postgresql-k8s?channel=edge)  - K8s charm to deploy PostgreSQL.
+- [![PgBouncer](https://charmhub.io/pgbouncer-k8s/badge.svg?channel=edge)](https://charmhub.io/pgbouncer-k8s?channel=edge) - K8s charm to deploy PgBouncer.
+- [![TLS Certificates](https://charmhub.io/tls-certificates-operator/badge.svg)](https://charmhub.io/tls-certificates-operator) - TLS operator.
 
 Note: The TLS settings in bundles use self-signed-certificates which are not recommended for production clusters, the tls-certificates-operator charm offers a variety of configurations, read more on the TLS charm [here](https://charmhub.io/tls-certificates-operator).
 
