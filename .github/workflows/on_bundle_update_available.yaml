@@ -1,7 +1,9 @@
-name: bundle update available
+name: Update bundle
+
 on:
   schedule:
     - cron:  '0 */8 * * 1-5'
+  workflow_dispatch:
 
 jobs:
   update-bundles:
@@ -28,9 +30,5 @@ jobs:
             Update bundles with new revisions from Charmhub.
           labels: |
             automated pr
-          assignees: team-reviewers, marceloneppel, dragomirp, taurus-forever
-          reviewers: team-reviewers, marceloneppel, dragomirp, taurus-forever
-          team-reviewers: |
-            owners
-            maintainers
+          reviewers: canonical/data-platform-postgresql
           draft: false
