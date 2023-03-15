@@ -28,4 +28,6 @@ relations:
   - postgresql-k8s:database
 - - postgresql-k8s:certificates
   - tls-certificates-operator:certificates
+- - pgbouncer-k8s:certificates
+  - tls-certificates-operator:certificates
 type: bundle
