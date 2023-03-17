@@ -3,7 +3,7 @@ applications:
     channel: latest/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 26
+    revision: 27
     scale: 1
   postgresql-k8s:
     channel: latest/edge
