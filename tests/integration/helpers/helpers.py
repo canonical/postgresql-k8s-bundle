@@ -222,7 +222,7 @@ async def scale_application(ops_test: OpsTest, application_name: str, scale: int
         await ops_test.model.wait_for_idle(
             apps=[application_name],
             status="active",
-            timeout=1000,
+            timeout=1500,
             wait_for_exact_units=scale,
         )
 
@@ -240,5 +240,5 @@ async def deploy_postgres_k8s_bundle(
         wait_for_relation_joined_between(ops_test, PG, PGB)
         wait_for_relation_joined_between(ops_test, PG, TLS_APP_NAME)
         await ops_test.model.wait_for_idle(
-            apps=[PG, PGB, TLS_APP_NAME], status="active", timeout=1500
+            apps=[PG, PGB, TLS_APP_NAME], status="active", timeout=1000
         )
