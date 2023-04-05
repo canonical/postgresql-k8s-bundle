@@ -9,7 +9,7 @@ applications:
     channel: latest/edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 65
+    revision: 66
     scale: 2
     trust: true
   tls-certificates-operator:
