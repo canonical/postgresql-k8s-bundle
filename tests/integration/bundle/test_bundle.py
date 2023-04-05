@@ -9,6 +9,7 @@ from charms.pgbouncer_k8s.v0 import pgb
 from lightkube import AsyncClient
 from lightkube.resources.core_v1 import Pod
 from pytest_operator.plugin import OpsTest
+from tenacity import Retrying, stop_after_attempt, wait_fixed
 
 from constants import PG, PGB
 
@@ -65,14 +66,20 @@ async def test_discover_dbs(ops_test: OpsTest):
     await scale_application(ops_test, PG, 1)
     pgb_unit = f"{PGB}/0"
     backend_relation = get_backend_relation(ops_test)
-    backend_databag = await get_app_relation_databag(ops_test, pgb_unit, backend_relation.id)
+    for attempt in Retrying(stop=stop_after_attempt(10), wait=wait_fixed(1), reraise=True):
+        with attempt:
+            backend_databag = await get_app_relation_databag(
+                ops_test, pgb_unit, backend_relation.id
+            )
     assert not backend_databag.get("read-only-endpoints", None)
 
     await ops_test.model.wait_for_idle()
     await scale_application(ops_test, PG, 3)
-    updated_backend_databag = await get_app_relation_databag(
-        ops_test, pgb_unit, backend_relation.id
-    )
+    for attempt in Retrying(stop=stop_after_attempt(10), wait=wait_fixed(1), reraise=True):
+        with attempt:
+            updated_backend_databag = await get_app_relation_databag(
+                ops_test, pgb_unit, backend_relation.id
+            )
     assert updated_backend_databag.get(
         "read-only-endpoints", None
     ), f"read-only-endpoints not populated in updated backend databag - {updated_backend_databag}"
