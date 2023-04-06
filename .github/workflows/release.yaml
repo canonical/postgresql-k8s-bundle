@@ -39,4 +39,4 @@ jobs:
           charmcraft pack --destructive-mode
           charmcraft upload ./*.zip
           export REVISION=$(charmcraft revisions postgresql-k8s-bundle 2>&1 | awk 'NR==2 {print $1}')
-          charmcraft release postgresql-k8s-bundle --revision $REVISION --channel=latest/edge
+          charmcraft release postgresql-k8s-bundle --revision $REVISION --channel=14/edge
