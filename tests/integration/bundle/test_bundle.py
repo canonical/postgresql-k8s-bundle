@@ -71,7 +71,7 @@ async def test_discover_dbs(ops_test: OpsTest):
             backend_databag = await get_app_relation_databag(
                 ops_test, pgb_unit, backend_relation.id
             )
-    assert not backend_databag.get("read-only-endpoints", None)
+            assert not backend_databag.get("read-only-endpoints", None)
 
     await ops_test.model.wait_for_idle()
     await scale_application(ops_test, PG, 3)
@@ -80,9 +80,9 @@ async def test_discover_dbs(ops_test: OpsTest):
             updated_backend_databag = await get_app_relation_databag(
                 ops_test, pgb_unit, backend_relation.id
             )
-    assert updated_backend_databag.get(
-        "read-only-endpoints", None
-    ), f"read-only-endpoints not populated in updated backend databag - {updated_backend_databag}"
+            assert updated_backend_databag.get(
+                "read-only-endpoints", None
+            ), f"read-only-endpoints not populated in updated backend databag - {updated_backend_databag}"
 
 
 async def test_kill_pg_primary(ops_test: OpsTest):
