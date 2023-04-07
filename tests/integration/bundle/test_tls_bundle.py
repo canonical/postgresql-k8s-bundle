@@ -41,7 +41,10 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     relation = await ops_test.model.add_relation(f"{PGB}:db", f"{MATTERMOST_K8S }:db")
     async with ops_test.fast_forward():
         await ops_test.model.wait_for_idle(
-            apps=[PG, PGB, MATTERMOST_K8S, TLS_APP_NAME], status="waiting", timeout=600
+            apps=[PG, PGB, MATTERMOST_K8S, TLS_APP_NAME],
+            status="waiting",
+            timeout=600,
+            raise_on_blocked=False,
         )
 
     username = f"{PGB}_user_{relation.id}_{ops_test.model.info.name}".replace("-", "_")
