@@ -21,7 +21,7 @@ from ..helpers.postgresql_helpers import (
 logger = logging.getLogger(__name__)
 
 METADATA = yaml.safe_load(Path("./metadata.yaml").read_text())
-FINOS_WALTZ = "finos-waltz"
+MATTERMOST_K8S = "mattermost-k8s"
 TLS = "tls-certificates-operator"
 RELATION = "backend-database"
 
@@ -30,29 +30,29 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     # Relate PgBouncer to PostgreSQL.
     await asyncio.gather(
         deploy_postgres_k8s_bundle(ops_test),
-        ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
+        ops_test.model.deploy(MATTERMOST_K8S, application_name=MATTERMOST_K8S),
     )
 
     # Enable additional logs on the PostgreSQL instance to check TLS
     # being used in a later step.
     await enable_connections_logging(ops_test, f"{PG}/0")
 
-    # Check the logs to ensure TLS is being used by PgBouncer.
-    postgresql_primary_unit = await get_postgres_primary(ops_test)
-    logs = await run_command_on_unit(
-        ops_test, postgresql_primary_unit, "/charm/bin/pebble logs -n=all"
-    )
-
     # Relate finos to PgBouncer to open a connection between PgBouncer and PostgreSQL.
-    relation = await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
+    relation = await ops_test.model.add_relation(f"{PGB}:db", f"{MATTERMOST_K8S }:db")
     async with ops_test.fast_forward():
         await ops_test.model.wait_for_idle(
-            apps=[PG, PGB, FINOS_WALTZ, TLS_APP_NAME], status="active", timeout=600
+            apps=[PG, PGB, MATTERMOST_K8S, TLS_APP_NAME], status="waiting", timeout=600
         )
 
     username = f"{PGB}_user_{relation.id}_{ops_test.model.info.name}".replace("-", "_")
     for attempt in Retrying(stop=stop_after_attempt(10), wait=wait_fixed(3), reraise=True):
         with attempt:
+            # Check the logs to ensure TLS is being used by PgBouncer.
+            postgresql_primary_unit = await get_postgres_primary(ops_test)
+            logs = await run_command_on_unit(
+                ops_test, postgresql_primary_unit, "/charm/bin/pebble logs -n=all"
+            )
+
             assert (
-                f"connection authorized: user={username} database=waltz SSL enabled" in logs
+                f"connection authorized: user={username} database=mattermost SSL enabled" in logs
             ), "TLS is not being used on connections to PostgreSQL"
