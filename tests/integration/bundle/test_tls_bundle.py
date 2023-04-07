@@ -7,6 +7,7 @@ from pathlib import Path
 
 import yaml
 from pytest_operator.plugin import OpsTest
+from tenacity import Retrying, stop_after_attempt, wait_fixed
 
 from constants import PG, PGB, TLS_APP_NAME
 
@@ -50,6 +51,8 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
         )
 
     username = f"{PGB}_user_{relation.id}_{ops_test.model.info.name}".replace("-", "_")
-    assert (
-        f"connection authorized: user={username} database=waltz SSL enabled" in logs
-    ), "TLS is not being used on connections to PostgreSQL"
+    for attempt in Retrying(stop=stop_after_attempt(10), wait=wait_fixed(3), reraise=True):
+        with attempt:
+            assert (
+                f"connection authorized: user={username} database=waltz SSL enabled" in logs
+            ), "TLS is not being used on connections to PostgreSQL"
