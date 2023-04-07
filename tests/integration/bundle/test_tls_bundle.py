@@ -7,7 +7,6 @@ from pathlib import Path
 
 import yaml
 from pytest_operator.plugin import OpsTest
-from tenacity import Retrying, stop_after_attempt, wait_fixed
 
 from constants import PG, PGB, TLS_APP_NAME
 
@@ -44,15 +43,12 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
             apps=[PG, PGB, FINOS_WALTZ, TLS_APP_NAME], status="active", timeout=600
         )
 
-    username = f"{PGB}_user_{relation.id}_{ops_test.model.info.name}".replace("-", "_")
-    for attempt in Retrying(stop=stop_after_attempt(10), wait=wait_fixed(3), reraise=True):
-        with attempt:
-            # Check the logs to ensure TLS is being used by PgBouncer.
-            postgresql_primary_unit = await get_postgres_primary(ops_test)
-            logs = await run_command_on_unit(
-                ops_test, postgresql_primary_unit, "/charm/bin/pebble logs -n=all"
-            )
-
-            assert (
-                f"connection authorized: user={username} database=waltz SSL enabled" in logs
-            ), "TLS is not being used on connections to PostgreSQL"
+    # Check the logs to ensure TLS is being used by PgBouncer.
+    postgresql_primary_unit = await get_postgres_primary(ops_test)
+    logs = await run_command_on_unit(
+        ops_test, postgresql_primary_unit, "/charm/bin/pebble logs -n=all"
+    )
+    username = f"pgbouncer_auth_relation_id_{relation.id}"
+    assert (
+        f"connection authorized: user={username} database=waltz SSL enabled" in logs
+    ), "TLS is not being used on connections to PostgreSQL"
