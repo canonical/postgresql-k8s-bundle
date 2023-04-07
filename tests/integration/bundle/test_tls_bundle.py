@@ -21,7 +21,7 @@ from ..helpers.postgresql_helpers import (
 logger = logging.getLogger(__name__)
 
 METADATA = yaml.safe_load(Path("./metadata.yaml").read_text())
-MATTERMOST_K8S = "mattermost-k8s"
+FINOS_WALTZ = "finos-waltz"
 TLS = "tls-certificates-operator"
 RELATION = "backend-database"
 
@@ -30,7 +30,7 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     # Relate PgBouncer to PostgreSQL.
     await asyncio.gather(
         deploy_postgres_k8s_bundle(ops_test),
-        ops_test.model.deploy(MATTERMOST_K8S, application_name=MATTERMOST_K8S),
+        ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),
     )
 
     # Enable additional logs on the PostgreSQL instance to check TLS
@@ -38,13 +38,10 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     await enable_connections_logging(ops_test, f"{PG}/0")
 
     # Relate finos to PgBouncer to open a connection between PgBouncer and PostgreSQL.
-    relation = await ops_test.model.add_relation(f"{PGB}:db", f"{MATTERMOST_K8S }:db")
+    relation = await ops_test.model.add_relation(f"{PGB}:db", f"{FINOS_WALTZ}:db")
     async with ops_test.fast_forward():
         await ops_test.model.wait_for_idle(
-            apps=[PG, PGB, MATTERMOST_K8S, TLS_APP_NAME],
-            status="waiting",
-            timeout=600,
-            raise_on_blocked=False,
+            apps=[PG, PGB, FINOS_WALTZ, TLS_APP_NAME], status="active", timeout=600
         )
 
     username = f"{PGB}_user_{relation.id}_{ops_test.model.info.name}".replace("-", "_")
