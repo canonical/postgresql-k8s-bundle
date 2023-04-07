@@ -54,5 +54,5 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
             )
 
             assert (
-                f"connection authorized: user={username} database=mattermost SSL enabled" in logs
+                f"connection authorized: user={username} database=waltz SSL enabled" in logs
             ), "TLS is not being used on connections to PostgreSQL"
