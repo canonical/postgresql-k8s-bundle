@@ -33,7 +33,7 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     # Relate PgBouncer to PostgreSQL.
     await asyncio.gather(
         deploy_postgres_k8s_bundle(ops_test),
-        ops_test.model.deploy(FINOS_WALTZ, application_name=FINOS_WALTZ),
+        ops_test.model.deploy(FINOS_WALTZ, application_name=FINOS_WALTZ, channel="edge"),
     )
 
     # Enable additional logs on the PostgreSQL instance to check TLS
