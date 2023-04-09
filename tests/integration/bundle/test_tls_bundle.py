@@ -47,7 +47,7 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
             apps=[PG, PGB, TLS_APP_NAME], status="active", timeout=600
         )
         # Mattermost could be in error state while creating the pod
-        await ops_test.model.wait_for_idle(apps=[MATTERMOST], raise_on_error=True, status="waiting", timeout=600)
+        await ops_test.model.wait_for_idle(apps=[MATTERMOST], raise_on_error=False, status="active", timeout=600)
 
     # Check the logs to ensure TLS is being used by PgBouncer.
     postgresql_primary_unit = await get_postgres_primary(ops_test)
