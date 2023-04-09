@@ -7,7 +7,6 @@ from pathlib import Path
 
 import yaml
 from pytest_operator.plugin import OpsTest
-from tenacity import Retrying, stop_after_attempt, wait_fixed
 
 from constants import PG, PGB, TLS_APP_NAME
 
@@ -48,9 +47,7 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
             apps=[PG, PGB, TLS_APP_NAME], status="active", timeout=600
         )
         # Mattermost could be in error state while creating the pod
-        for attempt in Retrying(stop=stop_after_attempt(3), wait=wait_fixed(5), reraise=True):
-            with attempt:
-                await ops_test.model.wait_for_idle(apps=[MATTERMOST], status="active", timeout=600)
+        await ops_test.model.wait_for_idle(apps=[MATTERMOST], status="waiting", timeout=600)
 
     # Check the logs to ensure TLS is being used by PgBouncer.
     postgresql_primary_unit = await get_postgres_primary(ops_test)
