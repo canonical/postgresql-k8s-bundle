@@ -47,7 +47,6 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
             apps=[PG, PGB, FINOS_WALTZ, TLS_APP_NAME], status="active", timeout=600
         )
 
-
     # Check the logs to ensure TLS is being used by PgBouncer.
     postgresql_primary_unit = await get_postgres_primary(ops_test)
     logs = await run_command_on_unit(
