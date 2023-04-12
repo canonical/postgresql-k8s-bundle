@@ -37,7 +37,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Check libs
-        uses: canonical/charming-actions/check-libraries@2.2.2
+        uses: canonical/charming-actions/check-libraries@2.2.5
         with:
           credentials: "${{ secrets.CHARMHUB_TOKEN }}" # FIXME: current token will expire in 2023-07-04
           github-token: "${{ secrets.GITHUB_TOKEN }}"
@@ -51,13 +51,19 @@ jobs:
       fail-fast: false
       matrix:
         tox-environments:
-          - backend-integration
           - legacy-client-relation-integration
           - legacy-client-relation-integration-admin
-          - client-relation-integration
-          - bundle-integration
           - tls-integration
-    name: ${{ matrix.tox-environments }}
+        agents-version: ["2.9.42"]  # renovate: latest
+        include:
+          # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed
+          - tox-environments: backend-integration
+            agents-version: "2.9.29"
+          - tox-environments: client-relation-integration
+            agents-version: "2.9.29"
+          - tox-environments: bundle-integration
+            agents-version: "2.9.29"
+    name: ${{ matrix.tox-environments }} | ${{ matrix.agents-version }}
     needs:
       - lint
       - lib-check
@@ -72,8 +78,7 @@ jobs:
         uses: charmed-kubernetes/actions-operator@main
         with:
           provider: microk8s
-          # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed
-          bootstrap-options: "--agent-version 2.9.29"
+          bootstrap-options: "--agent-version ${{ matrix.agents-version }}"
       - name: Download packed charm(s)
         uses: actions/download-artifact@v3
         with:
