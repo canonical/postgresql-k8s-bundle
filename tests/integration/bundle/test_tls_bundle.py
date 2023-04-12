@@ -50,7 +50,9 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     # Check the logs to ensure TLS is being used by PgBouncer.
     postgresql_primary_unit = await get_postgres_primary(ops_test)
     logs = await run_command_on_unit(
-        ops_test, postgresql_primary_unit, "/charm/bin/pebble logs -n=all"
+        ops_test,
+        postgresql_primary_unit,
+        'grep "database=waltz SSL enabled" /var/log/postgresql/postgresql.log',
     )
     username, _ = await get_backend_user_pass(ops_test, get_backend_relation(ops_test))
     assert (
