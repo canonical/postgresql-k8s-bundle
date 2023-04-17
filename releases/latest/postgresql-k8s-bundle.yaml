@@ -1,12 +1,12 @@
 applications:
   pgbouncer-k8s:
-    channel: latest/edge
+    channel: 1/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
     revision: 38
     scale: 1
   postgresql-k8s:
-    channel: latest/edge
+    channel: 14/edge
     charm: postgresql-k8s
     constraints: arch=amd64
     revision: 72

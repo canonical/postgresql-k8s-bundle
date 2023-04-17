@@ -312,7 +312,7 @@ async def test_multiple_pgb_can_connect_to_one_backend(ops_test: OpsTest):
     pgb_secondary = f"{PGB}-secondary"
     await ops_test.model.deploy(
         "pgbouncer-k8s",
-        channel="edge",
+        channel="1/edge",
         application_name=pgb_secondary,
     )
 
