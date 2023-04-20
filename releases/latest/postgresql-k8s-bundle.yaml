@@ -3,13 +3,13 @@ applications:
     channel: 1/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 41
+    revision: 42
     scale: 1
   postgresql-k8s:
     channel: 14/edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 74
+    revision: 75
     scale: 2
     trust: true
   tls-certificates-operator:
