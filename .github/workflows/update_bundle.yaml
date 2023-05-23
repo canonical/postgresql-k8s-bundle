@@ -15,5 +15,3 @@ jobs:
       reviewers: canonical/data-platform-postgresql
     secrets:
       token: ${{ secrets.PAT }}
-    permissions:
-      contents: write  # Needed to push branch to GitHub
