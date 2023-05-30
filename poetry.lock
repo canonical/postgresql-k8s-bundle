@@ -1043,17 +1043,6 @@ files = [
 ptyprocess = ">=0.5"
 
 [[package]]
-name = "pgconnstr"
-version = "1.0.1"
-description = "A tool for parsing and manipulating PostgreSQL libpq style connection strings and URIs"
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "pgconnstr-1.0.1-py2.py3-none-any.whl", hash = "sha256:0f65830e7e3b76adf4390a8592ee52343171a17caef7436257e7bc81c44e21a7"},
-    {file = "pgconnstr-1.0.1.zip", hash = "sha256:0656129961ae879675d0842f5237db82d31ce59c7b3211b051c33e37a864826e"},
-]
-
-[[package]]
 name = "pickleshare"
 version = "0.7.5"
 description = "Tiny 'shelve'-like database with concurrency support"
@@ -1878,4 +1867,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.10"
-content-hash = "956a42cd34b4f24f1364165332fe16c11686b5c3d1116ce2cf0d2ffd5ea69095"
+content-hash = "de250085fe07b2dfd2ca659781b41baca73892f926909caebd0828a08026376f"

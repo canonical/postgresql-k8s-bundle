@@ -14,9 +14,6 @@ repository = "https://github.com/canonical/postgresql-k8s-bundle"
 [tool.poetry.dependencies]
 python = "^3.8.10"
 ops = "2.2.0"
-pgconnstr = "1.0.1"
-tenacity = "8.2.2"
-lightkube = "0.13.0"
 
 [tool.poetry.group.format]
 optional = true
@@ -48,12 +45,6 @@ tenacity = "8.2.2"
 requests = "2.30.0"
 lightkube = "0.13.0"
 psycopg2 = {version = "2.9.6", extras = ["binary"]}
-
-[tool.poetry.group.relation_charm]
-optional = true
-
-[tool.poetry.group.relation_charm.dependencies]
-ops = "2.2.0"
 
 # Testing tools configuration
 [tool.coverage.run]
