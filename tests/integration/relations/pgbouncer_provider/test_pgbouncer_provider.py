@@ -4,6 +4,7 @@
 import asyncio
 import json
 import logging
+import subprocess
 
 import pytest
 from pytest_operator.plugin import OpsTest
@@ -51,6 +52,9 @@ async def test_database_relation_with_charm_libraries(ops_test: OpsTest, applica
     """Test basic functionality of database relation interface."""
     # Deploy both charms (multiple units for each application to test that later they correctly
     # set data in the relation application databag using only the leader unit).
+    subprocess.check_call(
+        f"juju deploy --model {ops_test.model.info.name} postgresql-k8s --channel 14/edge/test --trust -n 2 --series=jammy".split()
+    )
     await asyncio.gather(
         ops_test.model.deploy(
             application_charm,

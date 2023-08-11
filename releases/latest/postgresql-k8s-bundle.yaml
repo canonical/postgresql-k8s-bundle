@@ -5,13 +5,13 @@ applications:
     constraints: arch=amd64
     revision: 63
     scale: 1
-  postgresql-k8s:
-    channel: 14/edge
-    charm: postgresql-k8s
-    constraints: arch=amd64
-    revision: 119
-    scale: 2
-    trust: true
+#  postgresql-k8s:
+#    channel: 14/edge
+#    charm: postgresql-k8s
+#    constraints: arch=amd64
+#    revision: 119
+#    scale: 2
+#    trust: true
   tls-certificates-operator:
     channel: latest/stable
     charm: tls-certificates-operator
@@ -24,10 +24,10 @@ applications:
 bundle: kubernetes
 name: postgresql-k8s-bundle
 relations:
-- - pgbouncer-k8s:backend-database
-  - postgresql-k8s:database
-- - postgresql-k8s:certificates
-  - tls-certificates-operator:certificates
+#- - pgbouncer-k8s:backend-database
+#  - postgresql-k8s:database
+#- - postgresql-k8s:certificates
+#  - tls-certificates-operator:certificates
 - - pgbouncer-k8s:certificates
   - tls-certificates-operator:certificates
 type: bundle

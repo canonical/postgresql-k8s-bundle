@@ -3,6 +3,7 @@
 
 import asyncio
 import logging
+import subprocess
 
 from pytest_operator.plugin import OpsTest
 
@@ -33,6 +34,9 @@ async def test_create_db_legacy_relation(ops_test: OpsTest):
     """Test that the pgbouncer and postgres charms can relate to one another."""
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
+        subprocess.check_call(
+            f"juju deploy --model {ops_test.model.info.name} postgresql-k8s --channel 14/edge/test --trust -n 2 --series=jammy".split()
+        )
         await asyncio.gather(
             deploy_postgres_k8s_bundle(ops_test),
             ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),

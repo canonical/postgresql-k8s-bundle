@@ -3,6 +3,7 @@
 
 import asyncio
 import logging
+import subprocess
 
 import pytest
 from pytest_operator.plugin import OpsTest
@@ -31,6 +32,9 @@ async def test_deploy_bundle(ops_test: OpsTest):
     """Test that the pgbouncer and postgres charms can relate to one another."""
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
+        subprocess.check_call(
+            f"juju deploy --model {ops_test.model.info.name} postgresql-k8s --channel 14/edge/test --trust -n 2 --series=jammy".split()
+        )
         await deploy_postgres_k8s_bundle(ops_test)
         cfg = await get_cfg(ops_test, f"{PGB}/0")
         logging.info(cfg.render())
