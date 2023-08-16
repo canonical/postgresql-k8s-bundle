@@ -8,7 +8,7 @@ PGB = "pgbouncer-k8s"
 PG = "postgresql-k8s"
 TLS_APP_NAME = "tls-certificates-operator"
 
-PGB_DIR = "/var/lib/postgresql/pgbouncer"
+PGB_DIR = "/var/lib/pgbouncer"
 INI_PATH = f"{PGB_DIR}/pgbouncer.ini"
 AUTH_FILE_PATH = f"{PGB_DIR}/userlist.txt"
 

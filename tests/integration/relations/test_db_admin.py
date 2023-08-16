@@ -3,6 +3,7 @@
 
 import asyncio
 import logging
+import subprocess
 
 from pytest_operator.plugin import OpsTest
 
@@ -31,6 +32,9 @@ REDIS_APP_NAME = "redis-k8s"
 async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
+        subprocess.check_call(
+            f"juju deploy --model {ops_test.model.info.name} postgresql-k8s --channel 14/edge/test --trust -n 2 --series=jammy".split()
+        )
         await asyncio.gather(
             deploy_postgres_k8s_bundle(ops_test),
             ops_test.model.deploy(

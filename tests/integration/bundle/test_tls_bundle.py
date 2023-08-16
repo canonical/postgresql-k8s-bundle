@@ -3,6 +3,7 @@
 
 import asyncio
 import logging
+import subprocess
 from pathlib import Path
 
 import yaml
@@ -31,6 +32,9 @@ RELATION = "backend-database"
 
 async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     # Relate PgBouncer to PostgreSQL.
+    subprocess.check_call(
+        f"juju deploy --model {ops_test.model.info.name} postgresql-k8s --channel 14/edge/test --trust -n 2 --series=jammy".split()
+    )
     await asyncio.gather(
         deploy_postgres_k8s_bundle(ops_test),
         ops_test.model.deploy(FINOS_WALTZ, application_name=FINOS_WALTZ, channel="edge"),

@@ -40,7 +40,7 @@ optional = true
 [tool.poetry.group.integration.dependencies]
 pytest = "7.3.1"
 pytest-operator = "0.27.0"
-juju = "2.9.42.3" # Latest juju 2
+juju = "2.9.44.0" # Latest juju 2
 tenacity = "8.2.2"
 requests = "2.30.0"
 lightkube = "0.13.0"

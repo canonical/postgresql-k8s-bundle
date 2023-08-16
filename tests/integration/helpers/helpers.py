@@ -233,6 +233,8 @@ async def deploy_postgres_k8s_bundle(
     """Deploy postgresql bundle."""
     async with ops_test.fast_forward():
         await ops_test.model.deploy("./releases/latest/postgresql-k8s-bundle.yaml", trust=True)
+        await ops_test.model.add_relation(f"{PGB}:backend-database", f"{PG}:database")
+        await ops_test.model.add_relation(f"{TLS_APP_NAME}:certificates", f"{PG}:certificates")
         await asyncio.gather(
             scale_application(ops_test, PGB, scale_pgbouncer),
             scale_application(ops_test, PG, scale_postgres),

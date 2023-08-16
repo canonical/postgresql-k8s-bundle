@@ -3,6 +3,7 @@
 
 import asyncio
 import logging
+import subprocess
 
 import pytest
 from charms.pgbouncer_k8s.v0 import pgb
@@ -42,6 +43,9 @@ async def test_setup(ops_test: OpsTest):
     interruptions.
     """
     async with ops_test.fast_forward():
+        subprocess.check_call(
+            f"juju deploy --model {ops_test.model.info.name} postgresql-k8s --channel 14/edge/test --trust -n 2 --series=jammy".split()
+        )
         await asyncio.gather(
             deploy_postgres_k8s_bundle(ops_test),
             ops_test.model.deploy("finos-waltz-k8s", application_name=FINOS_WALTZ, channel="edge"),

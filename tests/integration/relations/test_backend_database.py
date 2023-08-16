@@ -3,6 +3,7 @@
 
 import asyncio
 import logging
+import subprocess
 
 import pytest
 from pytest_operator.plugin import OpsTest
@@ -31,12 +32,14 @@ async def test_deploy_bundle(ops_test: OpsTest):
     """Test that the pgbouncer and postgres charms can relate to one another."""
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
+        subprocess.check_call(
+            f"juju deploy --model {ops_test.model.info.name} postgresql-k8s --channel 14/edge/test --trust -n 2 --series=jammy".split()
+        )
         await deploy_postgres_k8s_bundle(ops_test)
         cfg = await get_cfg(ops_test, f"{PGB}/0")
         logging.info(cfg.render())
         backend_relation = get_backend_relation(ops_test)
         pgb_user, pgb_password = await get_backend_user_pass(ops_test, backend_relation)
-        assert pgb_user in cfg["pgbouncer"]["admin_users"]
         assert cfg["pgbouncer"]["auth_query"]
 
         await check_database_users_existence(ops_test, [pgb_user], [], pgb_user, pgb_password)
@@ -58,10 +61,7 @@ async def test_deploy_bundle(ops_test: OpsTest):
             for attempt in Retrying(stop=stop_after_delay(3 * 60), wait=wait_fixed(3)):
                 with attempt:
                     cfg = await get_cfg(ops_test, f"{PGB}/0")
-                    if (
-                        pgb_user not in cfg["pgbouncer"]["admin_users"]
-                        and "auth_query" not in cfg["pgbouncer"].keys()
-                    ):
+                    if "auth_query" not in cfg["pgbouncer"].keys():
                         break
         except RetryError:
             assert False, "pgbouncer config files failed to update in 3 minutes"
@@ -96,17 +96,18 @@ async def test_pgbouncer_stable_when_deleting_postgres(ops_test: OpsTest):
         )
 
         username = f"relation_id_{relation.id}"
+        monitoring_username = f"pgbouncer_stats_{PGB}".replace("-", "_")
         leader_cfg = await get_cfg(ops_test, f"{PGB}/0")
         leader_userlist = await get_userlist(ops_test, f"{PGB}/0")
 
-        assert username in leader_cfg["pgbouncer"]["admin_users"]
+        assert monitoring_username in leader_cfg["pgbouncer"]["stats_users"]
         assert username in leader_userlist
 
         for unit_id in [1, 2]:
             unit_name = f"{PGB}/{unit_id}"
             cfg = await get_cfg(ops_test, unit_name)
             userlist = await get_userlist(ops_test, unit_name)
-            assert username in cfg["pgbouncer"]["admin_users"]
+            assert monitoring_username in cfg["pgbouncer"]["stats_users"]
             assert username in userlist
 
             assert cfg == leader_cfg
