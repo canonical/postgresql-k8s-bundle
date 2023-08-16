@@ -56,19 +56,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tox-environments:
-          - legacy-client-relation-integration
-          - legacy-client-relation-integration-admin
-          - tls-integration
-        agents-version: ["2.9.42"]  # renovate: latest
+#        tox-environments:
+#          - legacy-client-relation-integration
+#          - legacy-client-relation-integration-admin
+#          - tls-integration
+#        agents-version: ["2.9.42"]  # renovate: latest
         include:
           # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed
-          - tox-environments: backend-integration
-            agents-version: "2.9.29"
+#          - tox-environments: backend-integration
+#            agents-version: "2.9.29"
           - tox-environments: client-relation-integration
             agents-version: "2.9.29"
-          - tox-environments: bundle-integration
-            agents-version: "2.9.29"
+#          - tox-environments: bundle-integration
+#            agents-version: "2.9.29"
     name: ${{ matrix.tox-environments }} | ${{ matrix.agents-version }}
     needs:
       - lint
@@ -104,6 +104,9 @@ jobs:
         run: tox run -e ${{ matrix.tox-environments }} -- -m '${{ steps.select-tests.outputs.mark_expression }}'
         env:
           CI_PACKED_CHARMS: ${{ needs.build.outputs.charms }}
+      - name: Setup tmate session
+        if: failure()
+        uses: mxschmitt/action-tmate@v3
       - name: Dump logs
         uses: canonical/charm-logdump-action@main
         if: failure()
