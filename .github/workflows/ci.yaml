@@ -41,15 +41,10 @@ jobs:
           - legacy-client-relation-integration
           - legacy-client-relation-integration-admin
           - tls-integration
-        agents-version: ["2.9.42"]  # renovate: latest
-        include:
-          # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed
-          - tox-environments: backend-integration
-            agents-version: "2.9.29"
-          - tox-environments: client-relation-integration
-            agents-version: "2.9.29"
-          - tox-environments: bundle-integration
-            agents-version: "2.9.29"
+          - backend-integration
+          - client-relation-integration
+          - bundle-integration
+        agents-version: ["2.9.44"]  # renovate: latest
     name: ${{ matrix.tox-environments }} | ${{ matrix.agents-version }}
     needs:
       - lint

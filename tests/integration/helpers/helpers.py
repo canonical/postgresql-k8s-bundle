@@ -7,7 +7,6 @@ import json
 from multiprocessing import ProcessError
 from typing import Dict, Tuple
 
-from charms.pgbouncer_k8s.v0 import pgb
 from juju.relation import Relation
 from pytest_operator.plugin import OpsTest
 from tenacity import RetryError, Retrying, stop_after_delay, wait_fixed
@@ -132,10 +131,9 @@ async def get_backend_user_pass(ops_test, backend_relation) -> Tuple[str, str]:
     return rtn_tuple
 
 
-async def get_cfg(ops_test: OpsTest, unit_name: str) -> pgb.PgbConfig:
+async def get_cfg(ops_test: OpsTest, unit_name: str) -> str:
     """Gets pgbouncer config from pgbouncer container."""
-    cat = await cat_file_from_unit(ops_test, INI_PATH, unit_name)
-    return pgb.PgbConfig(cat)
+    return await cat_file_from_unit(ops_test, INI_PATH, unit_name)
 
 
 async def get_userlist(ops_test: OpsTest, unit_name) -> str:
