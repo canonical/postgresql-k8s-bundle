@@ -395,5 +395,5 @@ async def test_relation_broken(ops_test: OpsTest):
     # check relation data was correctly removed from config
     pgb_unit_name = ops_test.model.applications[PGB].units[0].name
     cfg = await get_cfg(ops_test, pgb_unit_name)
-    assert "first-database" not in cfg
-    assert "first-database_readonly" not in cfg
+    assert "first-database" not in cfg["databases"].keys()
+    assert "first-database_readonly" not in cfg["databases"].keys()
