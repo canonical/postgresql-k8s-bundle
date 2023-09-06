@@ -48,10 +48,6 @@ jobs:
           credentials: "${{ secrets.CHARMHUB_TOKEN }}" # FIXME: current token will expire in 2023-07-04
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
-  build:
-    name: Build charms
-    uses: canonical/data-platform-workflows/.github/workflows/build_charms_with_cache.yaml@v2
-
   integration-test:
     strategy:
       fail-fast: false
@@ -60,20 +56,14 @@ jobs:
           - legacy-client-relation-integration
           - legacy-client-relation-integration-admin
           - tls-integration
-        agents-version: ["2.9.42"]  # renovate: latest
-        include:
-          # This is needed until https://bugs.launchpad.net/juju/+bug/1977582 is fixed
-          - tox-environments: backend-integration
-            agents-version: "2.9.29"
-          - tox-environments: client-relation-integration
-            agents-version: "2.9.29"
-          - tox-environments: bundle-integration
-            agents-version: "2.9.29"
+          - backend-integration
+          - client-relation-integration
+          - bundle-integration
+        agents-version: ["2.9.44"]  # renovate: latest
     name: ${{ matrix.tox-environments }} | ${{ matrix.agents-version }}
     needs:
       - lint
       - lib-check
-      - build
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -102,10 +92,3 @@ jobs:
           fi
       - name: Run integration tests
         run: tox run -e ${{ matrix.tox-environments }} -- -m '${{ steps.select-tests.outputs.mark_expression }}'
-        env:
-          CI_PACKED_CHARMS: ${{ needs.build.outputs.charms }}
-      - name: Dump logs
-        uses: canonical/charm-logdump-action@main
-        if: failure()
-        with:
-          app: pgbouncer-k8s
