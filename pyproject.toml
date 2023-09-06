@@ -25,15 +25,15 @@ ruff = "0.0.287"
 optional = true
 
 [tool.poetry.group.lint.dependencies]
-codespell = "2.2.4"
+codespell = "2.2.5"
 
 [tool.poetry.group.integration]
 optional = true
 
 [tool.poetry.group.integration.dependencies]
-pytest = "7.4.0"
+pytest = "7.4.1"
 pytest-operator = "0.29.0"
-juju = "2.9.44.0" # Latest juju 2
+juju = "2.9.44.1" # Latest juju 2
 tenacity = "8.2.3"
 requests = "2.31.0"
 lightkube = "0.14.0"
