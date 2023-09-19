@@ -52,7 +52,7 @@ async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     logs = await run_command_on_unit(
         ops_test,
         postgresql_primary_unit,
-        'grep "database=waltz SSL enabled" /var/log/postgresql/postgresql.log',
+        'grep "database=waltz SSL enabled" /var/log/postgresql/postgresql*.log',
     )
     username, _ = await get_backend_user_pass(ops_test, get_backend_relation(ops_test))
     assert (
