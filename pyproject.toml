@@ -37,7 +37,7 @@ juju = "2.9.44.1" # Latest juju 2
 tenacity = "8.2.3"
 requests = "2.31.0"
 lightkube = "0.14.0"
-psycopg2 = {version = "2.9.7", extras = ["binary"]}
+psycopg2 = {version = "2.9.8", extras = ["binary"]}
 
 # Testing tools configuration
 [tool.coverage.run]
