@@ -34,6 +34,7 @@ logger = logging.getLogger(__name__)
 FINOS_WALTZ = "finos-waltz"
 
 
+@pytest.mark.unstable
 @pytest.mark.abort_on_fail
 async def test_setup(ops_test: OpsTest):
     """Deploy bundle and set up finos-waltz for testing.
@@ -57,6 +58,7 @@ async def test_setup(ops_test: OpsTest):
         await check_database_creation(ops_test, "waltz", pgb_user, pgb_password)
 
 
+@pytest.mark.unstable
 async def test_discover_dbs(ops_test: OpsTest):
     """Check that proxy discovers new members when scaling up postgres charm.
 
@@ -85,6 +87,7 @@ async def test_discover_dbs(ops_test: OpsTest):
             ), f"read-only-endpoints not populated in updated backend databag - {updated_backend_databag}"
 
 
+@pytest.mark.unstable
 async def test_kill_pg_primary(ops_test: OpsTest):
     """Kill postgres primary, check that all proxy instances switched traffic for a new primary."""
     # get connection info

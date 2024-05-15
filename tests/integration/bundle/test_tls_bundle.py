@@ -5,6 +5,7 @@ import asyncio
 import logging
 from pathlib import Path
 
+import pytest
 import yaml
 from pytest_operator.plugin import OpsTest
 
@@ -29,6 +30,7 @@ TLS = "tls-certificates-operator"
 RELATION = "backend-database"
 
 
+@pytest.mark.unstable
 async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     # Relate PgBouncer to PostgreSQL.
     await asyncio.gather(

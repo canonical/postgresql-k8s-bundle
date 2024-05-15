@@ -4,6 +4,7 @@
 import asyncio
 import logging
 
+import pytest
 from pytest_operator.plugin import OpsTest
 
 from constants import DB_ADMIN_RELATION_NAME, PG, PGB
@@ -28,6 +29,7 @@ SECOND_DISCOURSE_APP_NAME = "discourse-charmers-discourse-k8s"
 REDIS_APP_NAME = "redis-k8s"
 
 
+@pytest.mark.unstable
 async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
     # Build, deploy, and relate charms.
     async with ops_test.fast_forward():
