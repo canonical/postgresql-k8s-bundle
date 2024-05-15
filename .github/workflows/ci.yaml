@@ -59,7 +59,7 @@ jobs:
           - backend-integration
           - client-relation-integration
           - bundle-integration
-        agents-version: ["2.9.44"]  # renovate: latest
+        agents-version: ["3.5.0"]  # renovate: latest
     name: ${{ matrix.tox-environments }} | ${{ matrix.agents-version }}
     needs:
       - lint
