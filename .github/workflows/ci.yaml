@@ -74,6 +74,7 @@ jobs:
         uses: charmed-kubernetes/actions-operator@main
         with:
           provider: microk8s
+          channel: 1.29-strict/stable
           bootstrap-options: "--agent-version ${{ matrix.agents-version }}"
       - name: Download packed charm(s)
         uses: actions/download-artifact@v3
