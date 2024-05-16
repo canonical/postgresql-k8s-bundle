@@ -29,6 +29,10 @@ SECOND_DISCOURSE_APP_NAME = "discourse-charmers-discourse-k8s"
 REDIS_APP_NAME = "redis-k8s"
 
 
+async def test_none():
+    pass
+
+
 @pytest.mark.unstable
 async def test_create_db_admin_legacy_relation(ops_test: OpsTest):
     # Build, deploy, and relate charms.

@@ -30,6 +30,10 @@ TLS = "tls-certificates-operator"
 RELATION = "backend-database"
 
 
+async def test_none():
+    pass
+
+
 @pytest.mark.unstable
 async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     # Relate PgBouncer to PostgreSQL.

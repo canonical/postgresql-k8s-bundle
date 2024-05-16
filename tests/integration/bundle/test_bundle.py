@@ -34,6 +34,10 @@ logger = logging.getLogger(__name__)
 FINOS_WALTZ = "finos-waltz"
 
 
+async def test_none():
+    pass
+
+
 @pytest.mark.unstable
 @pytest.mark.abort_on_fail
 async def test_setup(ops_test: OpsTest):

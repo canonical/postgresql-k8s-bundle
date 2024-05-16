@@ -26,6 +26,10 @@ from ..helpers.postgresql_helpers import check_database_users_existence
 logger = logging.getLogger(__name__)
 
 
+async def test_none():
+    pass
+
+
 @pytest.mark.unstable
 @pytest.mark.abort_on_fail
 async def test_deploy_bundle(ops_test: OpsTest):
