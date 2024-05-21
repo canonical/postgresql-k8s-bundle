@@ -3,31 +3,61 @@ applications:
     channel: 1/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 70
+    revision: 146
     scale: 1
+    trust: true
   postgresql-k8s:
     channel: 14/edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 136
+    revision: 250
     scale: 2
     trust: true
-  tls-certificates-operator:
-    channel: latest/stable
-    charm: tls-certificates-operator
+  self-signed-certificates:
+    channel: latest/edge
+    charm: self-signed-certificates
     constraints: arch=amd64
     num_units: 1
     options:
       ca-common-name: postgresql_k8s_bundle_ca
-      generate-self-signed-certificates: true
-    revision: 22
+    revision: 140
+  data-integrator:
+    channel: latest/edge
+    charm: data-integrator
+    constraints: arch=amd64
+    revision: 26
+    scale: 1
+  s3-integrator:
+    channel: latest/edge
+    charm: s3-integrator
+    constraints: arch=amd64
+    revision: 17
+    scale: 1
+  grafana-agent-k8s:
+    channel: latest/edge
+    charm: grafana-agent-k8s
+    constraints: arch=amd64
+    revision: 76
+    scale: 1
 bundle: kubernetes
 name: postgresql-k8s-bundle
 relations:
 - - pgbouncer-k8s:backend-database
   - postgresql-k8s:database
 - - postgresql-k8s:certificates
-  - tls-certificates-operator:certificates
+  - self-signed-certificates:certificates
 - - pgbouncer-k8s:certificates
-  - tls-certificates-operator:certificates
+  - self-signed-certificates:certificates
+- - pgbouncer-k8s:metrics-endpoint
+  - grafana-agent-k8s:metrics-endpoint
+- - postgresql-k8s:metrics-endpoint
+  - grafana-agent-k8s:metrics-endpoint
+- - pgbouncer-k8s:logging
+  - grafana-agent-k8s:logging-provider
+- - postgresql-k8s:logging
+  - grafana-agent-k8s:logging-provider
+- - pgbouncer-k8s:grafana-dashboard
+  - grafana-agent-k8s:grafana-dashboards-consumer
+- - postgresql-k8s:grafana-dashboard
+  - grafana-agent-k8s:grafana-dashboards-consumer
 type: bundle

@@ -59,7 +59,7 @@ jobs:
           - backend-integration
           - client-relation-integration
           - bundle-integration
-        agents-version: ["2.9.44"]  # renovate: latest
+        agents-version: ["3.5.0"]  # renovate: latest
     name: ${{ matrix.tox-environments }} | ${{ matrix.agents-version }}
     needs:
       - lint
@@ -74,6 +74,7 @@ jobs:
         uses: charmed-kubernetes/actions-operator@main
         with:
           provider: microk8s
+          channel: 1.29-strict/stable
           bootstrap-options: "--agent-version ${{ matrix.agents-version }}"
       - name: Download packed charm(s)
         uses: actions/download-artifact@v3
