@@ -27,12 +27,12 @@ jobs:
           # Use a temporary directory to support publishing any of the bundles in this root dir
           BUILD_DIR=.bundle_build
           mkdir $BUILD_DIR
-          cp ./releases/latest/postgresql-bundle.yaml $BUILD_DIR/bundle.yaml
+          cp ./releases/latest/postgresql-k8s-bundle.yaml $BUILD_DIR/bundle.yaml
           cp charmcraft.yaml $BUILD_DIR
           cp README.md $BUILD_DIR
           cd $BUILD_DIR
           charmcraft pack --destructive-mode
           charmcraft upload ./*.zip
-          REVISION=$(charmcraft revisions postgresql-bundle 2>&1 | awk 'NR==2 {print $1}')
-          charmcraft release postgresql-bundle --revision "$REVISION" --channel=14/edge
+          REVISION=$(charmcraft revisions postgresql-k8s-bundle 2>&1 | awk 'NR==2 {print $1}')
+          charmcraft release postgresql-k8s-bundle --revision "$REVISION" --channel=14/edge
 
