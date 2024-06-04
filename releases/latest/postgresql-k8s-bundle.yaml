@@ -38,7 +38,7 @@ applications:
     num_units: 1
     options:
       ca-common-name: postgresql_k8s_bundle_ca
-    revision: 143
+    revision: 144
 bundle: kubernetes
 name: postgresql-k8s-bundle
 relations:
