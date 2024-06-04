@@ -298,7 +298,7 @@ async def test_an_application_can_request_multiple_databases(ops_test: OpsTest):
 @pytest.mark.unstable
 async def test_legacy_relation_compatibility(ops_test: OpsTest):
     finos = "finos-waltz-k8s"
-    await ops_test.model.deploy(finos, application_name=finos, channel="edge"),
+    (await ops_test.model.deploy(finos, application_name=finos, channel="edge"),)
     finos_relation = await ops_test.model.add_relation(f"{PGB}:db", f"{finos}:db")
     wait_for_relation_joined_between(ops_test, PGB, finos)
     async with ops_test.fast_forward():

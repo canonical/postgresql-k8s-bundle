@@ -18,26 +18,31 @@ python = "^3.8.10"
 optional = true
 
 [tool.poetry.group.format.dependencies]
-black = "23.9.1"
-ruff = "0.0.291"
+ruff = "^0.4.7"
 
 [tool.poetry.group.lint]
 optional = true
 
 [tool.poetry.group.lint.dependencies]
-codespell = "2.2.5"
+codespell = "2.3.0"
 
 [tool.poetry.group.integration]
 optional = true
 
 [tool.poetry.group.integration.dependencies]
-pytest = "7.4.2"
-pytest-operator = "0.29.0"
-juju = "2.9.44.1" # Latest juju 2
-tenacity = "8.2.3"
-requests = "2.31.0"
+pytest = "^8.2.1"
+pytest-github-secrets = {git = "https://github.com/canonical/data-platform-workflows", tag = "v13.3.0", subdirectory = "python/pytest_plugins/github_secrets"}
+pytest-operator = "^0.35.0"
+pytest-operator-cache = {git = "https://github.com/canonical/data-platform-workflows", tag = "v13.3.0", subdirectory = "python/pytest_plugins/pytest_operator_cache"}
+pytest-operator-groups = {git = "https://github.com/canonical/data-platform-workflows", tag = "v13.3.0", subdirectory = "python/pytest_plugins/pytest_operator_groups"}
+# renovate caret doesn't work: https://github.com/renovatebot/renovate/issues/26940
+juju = "<=3.5.0.0"
+tenacity = "^8.3.0"
+requests = "^2.32.2"
+mailmanclient = "^3.3.5"
+psycopg2-binary = "^2.9.9"
 lightkube = "0.14.0"
-psycopg2 = {version = "2.9.8", extras = ["binary"]}
+allure-pytest = "^2.13.5"
 
 # Testing tools configuration
 [tool.coverage.run]
@@ -59,9 +64,14 @@ target-version = ["py38"]
 
 # Linting tools configuration
 [tool.ruff]
+# preview and explicit preview are enabled for CPY001
+preview = true
 target-version = "py38"
 src = ["src", "."]
 line-length = 99
+
+[tool.ruff.lint]
+explicit-preview-rules = true
 select = ["A", "E", "W", "F", "C", "N", "D", "I001", "CPY001"]
 extend-ignore = [
     "D203",
@@ -80,16 +90,16 @@ extend-ignore = [
 # Ignore D107 Missing docstring in __init__
 ignore = ["E501", "D107"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "tests/*" = ["D100", "D101", "D102", "D103", "D104"]
 
-[tool.ruff.flake8-copyright]
+[tool.ruff.lint.flake8-copyright]
 # Check for properly formatted copyright header in each file
 author = "Canonical Ltd."
 notice-rgx = "Copyright\\s\\d{4}([-,]\\d{4})*\\s+"
 
-[tool.ruff.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
