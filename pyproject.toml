@@ -18,7 +18,7 @@ python = "^3.8.10"
 optional = true
 
 [tool.poetry.group.format.dependencies]
-black = "23.9.1"
+black = "24.4.2"
 ruff = "0.0.291"
 
 [tool.poetry.group.lint]
@@ -31,7 +31,7 @@ codespell = "2.2.5"
 optional = true
 
 [tool.poetry.group.integration.dependencies]
-pytest = "7.4.2"
+pytest = "8.2.2"
 pytest-operator = "0.29.0"
 juju = "2.9.44.1" # Latest juju 2
 tenacity = "8.2.3"
