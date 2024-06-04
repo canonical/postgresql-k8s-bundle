@@ -8,17 +8,6 @@
       "matchPackageNames": ["pydantic"],
       "allowedVersions": "<2.0.0"
     }, {
-      "matchPackageNames": ["python"],
-      "allowedVersions": "<3.11"
-    },
-    {
-      "matchDepNames": ["Juju 2"],
-      "matchPackageNames": ["juju/juju"],
-      "allowedVersions": "<3.0.0",
-      "extractVersion": "^v(?<version>.*)$",
-      "groupName": "Juju 2"
-    },
-    {
       "matchDepNames": ["Juju 3"],
       "matchPackageNames": ["juju/juju"],
       "allowedVersions": "<3.2.0",
@@ -38,5 +27,6 @@
       "datasourceTemplate": "github-releases",
       "versioningTemplate": "loose",
       "extractVersionTemplate": "Juju release"
-    }  ]
+    }
+  ]
 }
