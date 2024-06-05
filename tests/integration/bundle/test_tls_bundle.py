@@ -30,11 +30,13 @@ TLS = "tls-certificates-operator"
 RELATION = "backend-database"
 
 
+@pytest.mark.group(1)
 async def test_none():
     pass
 
 
 @pytest.mark.unstable
+@pytest.mark.group(1)
 async def test_tls_encrypted_connection_to_postgres(ops_test: OpsTest):
     # Relate PgBouncer to PostgreSQL.
     await asyncio.gather(

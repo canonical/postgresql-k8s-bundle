@@ -6,24 +6,19 @@ on:
       - main
 
 jobs:
-  ci-tests:
-    name: Tests
+  integration-test:
     uses: ./.github/workflows/ci.yaml
-    secrets: inherit
 
   publish-bundle:
     name: Publish bundle
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 5
     needs:
-      - ci-tests
+      - integration-test
     env:
       CHARMCRAFT_AUTH: ${{ secrets.CHARMHUB_TOKEN }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v3
       - name: Install dependencies
         run: sudo snap install charmcraft --classic
       - name: Pack and publish bundle
@@ -38,5 +33,6 @@ jobs:
           cd $BUILD_DIR
           charmcraft pack --destructive-mode
           charmcraft upload ./*.zip
-          export REVISION=$(charmcraft revisions postgresql-k8s-bundle 2>&1 | awk 'NR==2 {print $1}')
-          charmcraft release postgresql-k8s-bundle --revision $REVISION --channel=14/edge
+          REVISION=$(charmcraft revisions postgresql-k8s-bundle 2>&1 | awk 'NR==2 {print $1}')
+          charmcraft release postgresql-k8s-bundle --revision "$REVISION" --channel=14/edge
+
