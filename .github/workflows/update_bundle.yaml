@@ -11,7 +11,7 @@ jobs:
     name: Update bundle
     uses: canonical/data-platform-workflows/.github/workflows/update_bundle.yaml@v13.3.0
     with:
-      path-to-bundle-file: releases/latest/postgresql-bundle.yaml
+      path-to-bundle-file: releases/latest/postgresql-k8s-bundle.yaml
       reviewers: canonical/data-platform-postgresql
     secrets:
       token: ${{ secrets.PAT }}
