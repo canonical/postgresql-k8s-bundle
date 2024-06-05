@@ -15,7 +15,7 @@ applications:
     channel: 1/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 149
+    revision: 153
     scale: 1
     trust: true
   postgresql-k8s:
