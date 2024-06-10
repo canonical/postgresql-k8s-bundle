@@ -762,24 +762,6 @@ requests = ">=2.18.1,<3.0"
 six = ">=1.11.0,<2.0"
 
 [[package]]
-name = "mailmanclient"
-version = "3.3.5"
-description = "mailmanclient -- Python bindings for Mailman REST API"
-optional = false
-python-versions = "*"
-files = [
-    {file = "mailmanclient-3.3.5.tar.gz", hash = "sha256:63581c604ca7eac021489c15aacca06a4958eb76f66574c6fab05eac654dd857"},
-]
-
-[package.dependencies]
-requests = "*"
-
-[package.extras]
-docs = ["pydoctor", "sphinx", "sphinx-issues", "sphinx-rtd-theme"]
-lint = ["flake8 (>3.0)", "flake8-bugbear"]
-testing = ["falcon (>1.4.1)", "httpx", "mailman (>=3.3.1)", "pytest", "pytest-services"]
-
-[[package]]
 name = "markupsafe"
 version = "2.1.5"
 description = "Safely add untrusted strings to HTML/XML markup."
@@ -1540,21 +1522,6 @@ pure-eval = "*"
 tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
-name = "tenacity"
-version = "8.3.0"
-description = "Retry code until it succeeds"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "tenacity-8.3.0-py3-none-any.whl", hash = "sha256:3649f6443dbc0d9b01b9d8020a9c4ec7a1ff5f6f3c6c8a036ef371f573fe9185"},
-    {file = "tenacity-8.3.0.tar.gz", hash = "sha256:953d4e6ad24357bceffbc9707bc74349aca9d245f68eb65419cf0c249a1949a2"},
-]
-
-[package.extras]
-doc = ["reno", "sphinx"]
-test = ["pytest", "tornado (>=4.5)", "typeguard"]
-
-[[package]]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
@@ -1745,4 +1712,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.10"
-content-hash = "1f3dab17a5096f88f177297c75f63cdfabd36a9c2747fe200e44b088619232ac"
+content-hash = "b22000010bc565019cd40d5c7d1f7f4d400f5503805dcb00e1ea8dedaead1589"
