@@ -16,6 +16,26 @@ allure-python-commons = "2.13.5"
 pytest = ">=4.5.0"
 
 [[package]]
+name = "allure-pytest-collection-report"
+version = "0.1.0"
+description = ""
+optional = false
+python-versions = "^3.8"
+files = []
+develop = false
+
+[package.dependencies]
+allure-pytest = ">=2.13.5"
+pytest = "*"
+
+[package.source]
+type = "git"
+url = "https://github.com/canonical/data-platform-workflows"
+reference = "v13.3.5"
+resolved_reference = "4885220b28fecc7ee684b6b59b55c58cbd92995f"
+subdirectory = "python/pytest_plugins/allure_pytest_collection_report"
+
+[[package]]
 name = "allure-python-commons"
 version = "2.13.5"
 description = "('Contains the API for end users as well as helper functions and classes to build Allure adapters for Python test frameworks',)"
@@ -1712,4 +1732,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.10"
-content-hash = "9da7b4823bf556da03338cdab04c9ee85c4f26ff26e9b34d6055270b83353bde"
+content-hash = "f6b3fa75401b5e67e6f14920c95bd570b0f7544f1790b5e6e18dee84b669d6c5"
