@@ -18,7 +18,7 @@ python = "^3.8.10"
 optional = true
 
 [tool.poetry.group.format.dependencies]
-ruff = "^0.4.9"
+ruff = "^0.4.10"
 
 [tool.poetry.group.lint]
 optional = true
