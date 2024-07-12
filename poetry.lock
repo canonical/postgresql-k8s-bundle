@@ -688,12 +688,12 @@ i18n = ["Babel (>=2.7)"]
 
 [[package]]
 name = "juju"
-version = "3.5.0.0"
+version = "3.5.2.0"
 description = "Python library for Juju"
 optional = false
 python-versions = "*"
 files = [
-    {file = "juju-3.5.0.0.tar.gz", hash = "sha256:c69fbe63cb12991690787ce3d70812390bf3ca62b6c5e9ef15df00c1f03dd7e6"},
+    {file = "juju-3.5.2.0.tar.gz", hash = "sha256:dd9a36330e63acd8f62bf478fd7e385e51f44dc3918e7a67d0593fd054e1e80a"},
 ]
 
 [package.dependencies]
@@ -1733,4 +1733,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.10"
-content-hash = "4e98475f40f38da0ed02e79606dba12d04e6358cbcc3cd9683936fa9299b471c"
+content-hash = "303d08c894e73fc31266561b0aa20502a847a6ddc400b1b44d82674800ff1a9e"
