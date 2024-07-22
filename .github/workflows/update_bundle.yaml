@@ -9,7 +9,7 @@ on:
 jobs:
   update-bundle:
     name: Update bundle
-    uses: canonical/data-platform-workflows/.github/workflows/update_bundle.yaml@v16.3.3
+    uses: canonical/data-platform-workflows/.github/workflows/update_bundle.yaml@v16.4.0
     with:
       path-to-bundle-file: releases/latest/postgresql-k8s-bundle.yaml
       reviewers: canonical/data-platform-postgresql
