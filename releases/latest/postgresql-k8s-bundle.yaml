@@ -22,14 +22,14 @@ applications:
     channel: 14/edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 325
+    revision: 327
     scale: 2
     trust: true
   postgresql-test-app:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 186
+    revision: 188
     scale: 1
   s3-integrator:
     channel: latest/edge
