@@ -58,20 +58,11 @@ async def test_setup(ops_test: OpsTest):
 
     writes = int(results.results["writes"])
     assert writes > 0
-    client_relation = None
-    for rel in ops_test.model.applications[TEST_APP_NAME].relations:
-        for endpoint in rel.endpoints:
-            if endpoint.name == "first-database" and endpoint.application_name == TEST_APP_NAME:
-                client_relation = rel
-                break
-        if client_relation:
-            break
 
     params = {
-        "dbname": f"{TEST_APP_NAME.replace('-', '_')}_first_database",
+        "dbname": f"{TEST_APP_NAME.replace('-', '_')}_database",
         "query": "SELECT COUNT(number), MAX(number) FROM continuous_writes;",
-        "relation-id": client_relation.id,
-        "relation-name": "first-database",
+        "relation-name": "database",
         "readonly": False,
     }
     results = await (
