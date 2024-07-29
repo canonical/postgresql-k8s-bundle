@@ -29,7 +29,7 @@ applications:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 190
+    revision: 192
     scale: 1
   s3-integrator:
     channel: latest/edge
