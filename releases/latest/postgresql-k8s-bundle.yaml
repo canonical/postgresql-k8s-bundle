@@ -75,7 +75,7 @@ relations:
 - - pgbouncer-k8s:database
   - data-integrator:postgresql
 - - pgbouncer-k8s:database
-  - postgresql-test-app:first-database
+  - postgresql-test-app:database
 - - postgresql-k8s:database
   - sysbench:postgresql
 type: bundle
