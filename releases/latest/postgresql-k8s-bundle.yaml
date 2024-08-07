@@ -3,7 +3,7 @@ applications:
     channel: latest/edge
     charm: data-integrator
     constraints: arch=amd64
-    revision: 38
+    revision: 41
     scale: 1
   grafana-agent-k8s:
     channel: latest/edge
@@ -22,7 +22,7 @@ applications:
     channel: 14/edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 347
+    revision: 349
     scale: 2
     trust: true
   postgresql-test-app:
@@ -35,7 +35,7 @@ applications:
     channel: latest/edge
     charm: s3-integrator
     constraints: arch=amd64
-    revision: 29
+    revision: 31
     scale: 1
   self-signed-certificates:
     channel: latest/edge
