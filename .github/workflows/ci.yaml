@@ -22,7 +22,7 @@ on:
 jobs:
   lint:
     name: Lint
-    uses: canonical/data-platform-workflows/.github/workflows/lint.yaml@v18.0.0
+    uses: canonical/data-platform-workflows/.github/workflows/lint.yaml@v19.0.0
 
   integration-test:
     strategy:
@@ -37,7 +37,7 @@ jobs:
     name: Integration test charm | ${{ matrix.juju.agent }}
     needs:
       - lint
-    uses: canonical/data-platform-workflows/.github/workflows/integration_test_charm.yaml@v18.0.0
+    uses: canonical/data-platform-workflows/.github/workflows/integration_test_charm.yaml@v19.0.0
     with:
       artifact-prefix: packed-charm-
       architecture: ${{ matrix.architecture }}
