@@ -9,20 +9,20 @@ applications:
     channel: latest/edge
     charm: grafana-agent-k8s
     constraints: arch=amd64
-    revision: 83
+    revision: 86
     scale: 1
   pgbouncer-k8s:
     channel: 1/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 233
+    revision: 237
     scale: 1
     trust: true
   postgresql-k8s:
     channel: 14/edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 351
+    revision: 356
     scale: 2
     trust: true
   postgresql-test-app:
