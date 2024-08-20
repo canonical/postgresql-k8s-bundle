@@ -9,33 +9,33 @@ applications:
     channel: latest/edge
     charm: grafana-agent-k8s
     constraints: arch=amd64
-    revision: 86
+    revision: 87
     scale: 1
   pgbouncer-k8s:
     channel: 1/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 241
+    revision: 243
     scale: 1
     trust: true
   postgresql-k8s:
     channel: 14/edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 358
+    revision: 360
     scale: 2
     trust: true
   postgresql-test-app:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 221
+    revision: 225
     scale: 1
   s3-integrator:
     channel: latest/edge
     charm: s3-integrator
     constraints: arch=amd64
-    revision: 35
+    revision: 37
     scale: 1
   self-signed-certificates:
     channel: latest/edge
@@ -44,12 +44,12 @@ applications:
     num_units: 1
     options:
       ca-common-name: postgresql_k8s_bundle_ca
-    revision: 177
+    revision: 182
   sysbench:
     channel: latest/edge
     charm: sysbench
     constraints: arch=amd64
-    revision: 46
+    revision: 48
     scale: 1
 bundle: kubernetes
 name: postgresql-k8s-bundle
