@@ -15,7 +15,7 @@ applications:
     channel: 1/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 243
+    revision: 247
     scale: 1
     trust: true
   postgresql-k8s:
@@ -29,7 +29,7 @@ applications:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 227
+    revision: 229
     scale: 1
   s3-integrator:
     channel: latest/edge
