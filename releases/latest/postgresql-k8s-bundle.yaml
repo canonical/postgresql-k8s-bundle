@@ -9,7 +9,7 @@ applications:
     channel: latest/edge
     charm: grafana-agent-k8s
     constraints: arch=amd64
-    revision: 88
+    revision: 89
     scale: 1
   pgbouncer-k8s:
     channel: 1/edge
@@ -35,7 +35,7 @@ applications:
     channel: latest/edge
     charm: s3-integrator
     constraints: arch=amd64
-    revision: 37
+    revision: 39
     scale: 1
   self-signed-certificates:
     channel: latest/edge
