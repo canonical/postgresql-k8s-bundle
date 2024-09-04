@@ -22,7 +22,7 @@ applications:
     channel: 14/edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 376
+    revision: 378
     scale: 2
     trust: true
   postgresql-test-app:
@@ -49,7 +49,7 @@ applications:
     channel: latest/edge
     charm: sysbench
     constraints: arch=amd64
-    revision: 48
+    revision: 50
     scale: 1
 bundle: kubernetes
 name: postgresql-k8s-bundle
