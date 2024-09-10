@@ -3,7 +3,7 @@ applications:
     channel: latest/edge
     charm: data-integrator
     constraints: arch=amd64
-    revision: 43
+    revision: 45
     scale: 1
   grafana-agent-k8s:
     channel: latest/edge
@@ -15,14 +15,14 @@ applications:
     channel: 1/edge
     charm: pgbouncer-k8s
     constraints: arch=amd64
-    revision: 269
+    revision: 271
     scale: 1
     trust: true
   postgresql-k8s:
     channel: 14/edge
     charm: postgresql-k8s
     constraints: arch=amd64
-    revision: 381
+    revision: 383
     scale: 2
     trust: true
   postgresql-test-app:
@@ -44,7 +44,7 @@ applications:
     num_units: 1
     options:
       ca-common-name: postgresql_k8s_bundle_ca
-    revision: 187
+    revision: 190
   sysbench:
     channel: latest/edge
     charm: sysbench
