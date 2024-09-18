@@ -12,5 +12,3 @@ jobs:
     with:
       path-to-bundle-file: releases/latest/postgresql-k8s-bundle.yaml
       reviewers: canonical/data-platform-postgresql
-    secrets:
-      token: ${{ secrets.PAT }}
