@@ -3,15 +3,13 @@
 name: Update bundle
 
 on:
-  schedule:
-    - cron: '53 0 * * *'  # Daily at 00:53 UTC
+  workflow_dispatch:
 
 jobs:
   update-bundle:
     name: Update bundle
-    uses: canonical/data-platform-workflows/.github/workflows/update_bundle.yaml@v22.0.0
+    uses: canonical/data-platform-workflows/.github/workflows/_update_bundle.yaml@lucas/new-bundle-workflow
     with:
       path-to-bundle-file: releases/latest/postgresql-k8s-bundle.yaml
-      reviewers: canonical/data-platform-postgresql
     secrets:
       token: ${{ secrets.PAT }}
