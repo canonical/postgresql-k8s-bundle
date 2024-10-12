@@ -20,10 +20,10 @@ This is a Terraform module facilitating the deployment of Charmed Postgresql K8s
 | `postgresql_backup_endpoint` | Backup endpoint for the Postgresql operator | `string` | `""` | yes |
 | `postgresql_backup_region` | Backup region for the Postgresql operator | `string` | `""` | yes |
 | `postgresql_backup_secret_key` | Backup secret key for the Postgresql operator | `string` | `""` | yes |
-| `postgresql_charm_channel` | Charm channel for the Postgresql operator | `string` | `"8.0/stable"` | no |
+| `postgresql_charm_channel` | Charm channel for the Postgresql operator | `string` | `"14/stable"` | no |
 | `postgresql_charm_config` | Configuration options for the Postgresql operator | `map(string)` | `{}` | no |
 | `postgresql_charm_units` | Number of units for the Postgresql operator | `number` | `3` | no |
-| `postgresql_router_charm_channel` | Charm channel for the Postgresql router | `string` | `"8.0/stable"` | no |
+| `pgbouncer_charm_channel` | Charm channel for the Postgresql router | `string` | `"1/stable"` | no |
 | `postgresql_storage_size` | Storage size for the Postgresql operator | `string` | `"10G"` | no |
 | `s3_integrator_charm_channel` | Charm channel for the S3 integrator | `string` | `"latest/stable"` | no |
 | `self_signed_certificates_charm_channel` | Charm channel for the self-signed certificates | `string` | `"latest/stable"` | no |
