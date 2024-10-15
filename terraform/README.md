@@ -20,7 +20,7 @@ This is a Terraform module facilitating the deployment of Charmed Postgresql K8s
 | `data_integrator_enabled` | Whether to deploy the data integrator | `bool` | `false` | no |
 | `enable_tls` | Whether to enable TLS for the Postgresql operator | `bool` | `true` | no |
 | `model_name` | Name of the model to create/use | `string` | `null` | yes |
-| `pgbouncer_charm_channel` | Charm channel for the Postgresql router | `string` | `"1/stable"` | no |
+| `pgbouncer_charm_channel` | Charm channel for the Pgbouncer | `string` | `"1/stable"` | no |
 | `pgbouncer_charm_revision` | Charm revision number override for pgbouncer | `number` | `null` | no |
 | `postgresql_backup_access_key` | Backup access key for the Postgresql operator | `string` | `""` | yes |
 | `postgresql_backup_bucket_name` | Backup bucket for the Postgresql operator | `string` | `""` | yes |

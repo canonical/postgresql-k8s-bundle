@@ -72,7 +72,7 @@ variable "postgresql_charm_config" {
 }
 
 variable "pgbouncer_charm_channel" {
-  description = "Postgresql router charm channel"
+  description = "Pgbouncer charm channel"
   type        = string
   default     = "1/stable"
 }
