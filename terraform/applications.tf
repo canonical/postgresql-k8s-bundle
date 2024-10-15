@@ -1,8 +1,8 @@
 module "postgresql" {
-  source          = "git::https://github.com/canonical/postgresql-k8s-operator//terraform?ref=feature/tf-module"
+  source          = "git::https://github.com/canonical/postgresql-k8s-operator//terraform?ref=main"
   juju_model_name = var.model_name
   channel         = var.postgresql_charm_channel
-  revision        = local.postgresql_revisions[var.arch]
+  revision        = coalesce(var.postgresql_charm_revision, local.postgresql_revisions[var.arch])
   config          = var.postgresql_charm_config
   storage_size    = var.postgresql_storage_size
   units           = var.postgresql_charm_units
@@ -17,7 +17,7 @@ resource "juju_application" "backups_s3_integrator" {
   charm {
     name     = "s3-integrator"
     channel  = var.s3_integrator_charm_channel
-    revision = local.s3_integrator_revisions[var.arch]
+    revision = coalesce(var.s3_integrator_charm_revision, local.s3_integrator_revisions[var.arch])
   }
 
   config = {
@@ -46,7 +46,7 @@ resource "juju_application" "pgbouncer" {
   charm {
     name     = "pgbouncer-k8s"
     channel  = var.pgbouncer_charm_channel
-    revision = local.pgbouncer_revisions[var.arch]
+    revision = coalesce(var.pgbouncer_charm_revision, local.pgbouncer_revisions[var.arch])
   }
 }
 
@@ -58,7 +58,7 @@ resource "juju_application" "data_integrator" {
   charm {
     name     = "data-integrator"
     channel  = var.data_integrator_charm_channel
-    revision = local.data_integrator_revisions[var.arch]
+    revision = coalesce(var.data_integrator_charm_revision, local.data_integrator_revisions[var.arch])
   }
 
   config = {
@@ -68,20 +68,17 @@ resource "juju_application" "data_integrator" {
   units = 1
 }
 
-resource "juju_application" "self_signed_certificates" {
+resource "juju_application" "certificates" {
   count = var.enable_tls ? 1 : 0
-  name  = "self-signed-certificates"
+  name  = "certificates"
   model = var.model_name
 
   charm {
-    name     = "self-signed-certificates"
-    channel  = var.self_signed_certificates_charm_channel
-    revision = local.tls_revisions[var.arch]
+    name     = var.certificates_charm_name
+    channel  = var.certificates_charm_channel
+    revision = coalesce(var.certificates_charm_revision, local.tls_revisions[var.arch])
   }
 
-  config = {
-    ca-common-name = "${module.postgresql.application_name} CA"
-  }
-
-  units = 1
+  config = var.certificates_charm_config
+  units  = 1
 }

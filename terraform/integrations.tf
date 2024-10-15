@@ -11,7 +11,7 @@ resource "juju_integration" "s3_integrator_postgresql" {
   }
 }
 
-resource "juju_integration" "postgresql_self_signed_certificates" {
+resource "juju_integration" "postgresql_certificates" {
   count = var.enable_tls ? 1 : 0
   model = var.model_name
 
@@ -20,7 +20,7 @@ resource "juju_integration" "postgresql_self_signed_certificates" {
     endpoint = module.postgresql.requires.certificates
   }
   application {
-    name = juju_application.self_signed_certificates[0].name
+    name = juju_application.certificates[0].name
   }
 }
 

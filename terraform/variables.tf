@@ -113,10 +113,51 @@ variable "s3_integrator_charm_channel" {
   default     = "latest/stable"
 }
 
-
-variable "self_signed_certificates_charm_channel" {
-  description = "Self Signed Certificates Operator charm channel"
+variable "certificates_charm_channel" {
+  description = "Certificates Operator charm channel"
   type        = string
   default     = "latest/stable"
+}
+
+variable "postgresql_charm_revision" {
+  description = "Postgresql charm revision override"
+  type        = number
+  default     = null
+}
+
+variable "pgbouncer_charm_revision" {
+  description = "Pgbouncer charm revision override"
+  type        = number
+  default     = null
+}
+
+variable "s3_integrator_charm_revision" {
+  description = "s3_integrator charm revision override"
+  type        = number
+  default     = null
+}
+
+variable "certificates_charm_revision" {
+  description = "Certificates charm revision override"
+  type        = number
+  default     = null
+}
+
+variable "certificates_charm_name" {
+  description = "Certificates charm name"
+  type        = string
+  default     = "self-signed-certificates"
+}
+
+variable "certificates_charm_config" {
+  description = "Certificates charm configuration"
+  type        = map(string)
+  default     = { ca-common-name = "Postgresql CA" }
+}
+
+variable "data_integrator_charm_revision" {
+  description = "data-integrator charm revision override"
+  type        = number
+  default     = null
 }
 
