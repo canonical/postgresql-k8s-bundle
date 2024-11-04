@@ -1,0 +1,682 @@
+[32mINFO    [0m pytest_operator.plugin:plugin.py:766 Connecting to existing model microk8s-localhost:test on unspecified cloud
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: upload charm data-integrator from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: upload charm postgresql-test-app from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: upload charm s3-integrator from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: upload charm self-signed-certificates from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: upload charm sysbench from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: upload charm grafana-agent-k8s from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: upload charm pgbouncer-k8s from channel 1/edge
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: upload charm postgresql-k8s from channel 14/edge
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: deploy application data-integrator with 1 unit using $addCharm-0
+[32mINFO    [0m juju.model:model.py:2098 Deploying ch:amd64/jammy/data-integrator-72
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: deploy application postgresql-k8s with 2 units using $addCharm-9
+[32mINFO    [0m juju.model:model.py:2098 Deploying ch:amd64/jammy/postgresql-k8s-437
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: deploy application postgresql-test-app with 1 unit using $addCharm-12
+[32mINFO    [0m juju.model:model.py:2098 Deploying ch:amd64/jammy/postgresql-test-app-275
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: deploy application s3-integrator with 1 unit using $addCharm-15
+[32mINFO    [0m juju.model:model.py:2098 Deploying ch:amd64/jammy/s3-integrator-73
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: deploy application self-signed-certificates with 1 unit using $addCharm-18
+[32mINFO    [0m juju.model:model.py:2098 Deploying ch:amd64/jammy/self-signed-certificates-202
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: deploy application sysbench with 1 unit using $addCharm-21
+[32mINFO    [0m juju.model:model.py:2098 Deploying ch:amd64/jammy/sysbench-101
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: deploy application grafana-agent-k8s with 1 unit using $addCharm-3
+[32mINFO    [0m juju.model:model.py:2098 Deploying ch:amd64/jammy/grafana-agent-k8s-95
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: deploy application pgbouncer-k8s with 1 unit using $addCharm-6
+[32mINFO    [0m juju.model:model.py:2098 Deploying ch:amd64/jammy/pgbouncer-k8s-337
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-7:backend-database - $deploy-10:database
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating pgbouncer-k8s:backend-database <-> postgresql-k8s:database
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-10:certificates - $deploy-19:certificates
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating postgresql-k8s:certificates <-> self-signed-certificates:certificates
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-7:certificates - $deploy-19:certificates
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating pgbouncer-k8s:certificates <-> self-signed-certificates:certificates
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-7:metrics-endpoint - $deploy-4:metrics-endpoint
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating pgbouncer-k8s:metrics-endpoint <-> grafana-agent-k8s:metrics-endpoint
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-10:metrics-endpoint - $deploy-4:metrics-endpoint
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating postgresql-k8s:metrics-endpoint <-> grafana-agent-k8s:metrics-endpoint
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-7:logging - $deploy-4:logging-provider
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating pgbouncer-k8s:logging <-> grafana-agent-k8s:logging-provider
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-10:logging - $deploy-4:logging-provider
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating postgresql-k8s:logging <-> grafana-agent-k8s:logging-provider
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-7:grafana-dashboard - $deploy-4:grafana-dashboards-consumer
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating pgbouncer-k8s:grafana-dashboard <-> grafana-agent-k8s:grafana-dashboards-consumer
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-10:grafana-dashboard - $deploy-4:grafana-dashboards-consumer
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating postgresql-k8s:grafana-dashboard <-> grafana-agent-k8s:grafana-dashboards-consumer
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-7:database - $deploy-1:postgresql
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating pgbouncer-k8s:database <-> data-integrator:postgresql
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-7:database - $deploy-13:database
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating pgbouncer-k8s:database <-> postgresql-test-app:database
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: add relation $deploy-10:database - $deploy-22:postgresql
+[32mINFO    [0m juju.bundle:bundle.py:865 Relating postgresql-k8s:database <-> sysbench:postgresql
+[33mWARNING [0m juju.model:model.py:1564 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: set annotations for $deploy-10
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: set annotations for $deploy-13
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: set annotations for $deploy-16
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: set annotations for $deploy-1
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: set annotations for $deploy-19
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: set annotations for $deploy-22
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: set annotations for $deploy-4
+[32mINFO    [0m juju.bundle:bundle.py:416 Applying change: set annotations for $deploy-7
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: installing agent
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: installing agent
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: installing agent
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: installing agent
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: installing agent
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: installing agent
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [executing] maintenance: installing charm software
+  postgresql-k8s/1 [executing] maintenance: installing charm software
+  postgresql-test-app/0 [idle] active: 
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [executing] waiting: awaiting for primary endpoint to be ready
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [idle] unknown: 
+  postgresql-k8s/1 [executing] waiting: awaiting for primary endpoint to be ready
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [executing] waiting: awaiting for primary endpoint to be ready
+  self-signed-certificates/0 [executing] active: 
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [executing] waiting: awaiting for primary endpoint to be ready
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [executing] waiting: awaiting for primary endpoint to be ready
+  self-signed-certificates/0 [executing] active: 
+  sysbench/0 [executing] maintenance: Installing...
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [executing] waiting: awaiting for primary endpoint to be ready
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [idle] waiting: awaiting for primary endpoint to be ready
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [executing] maintenance: installing charm software
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [idle] waiting: awaiting for primary endpoint to be ready
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [executing] unknown: 
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [idle] waiting: awaiting for primary endpoint to be ready
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [executing] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [idle] active: Primary
+  self-signed-certificates/0 [executing] active: 
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] blocked: waiting for backend database relation to initialise
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] active: Primary
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [executing] active: 
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] maintenance: Executing restart operation
+  postgresql-test-app/0 [executing] active: 
+  sysbench/0 [idle] active: 
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [executing] active: 
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [executing] active: 
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] active: 
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] active: Primary
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] active: Primary
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] active: Primary
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] active: 
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] maintenance: Executing restart operation
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] active: Primary
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] active: Primary
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for member to start
+  postgresql-k8s/1 [idle] maintenance: Executing restart operation
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  pgbouncer-k8s/0 [idle] blocked: backend database relation not ready
+  postgresql-k8s/0 [idle] active: 
+  postgresql-k8s/1 [idle] maintenance: Executing restart operation
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  postgresql-k8s/0 [idle] active: 
+  postgresql-k8s/1 [idle] active: Primary
+[32mINFO    [0m juju.model:model.py:2972 Waiting for model:
+  data-integrator/0 [idle] blocked: Please specify either topic, index, or database name
+  grafana-agent-k8s/0 [idle] blocked: Missing ['grafana-cloud-config']|['grafana-dashboards-provider'] for grafana-dashboards-consumer; ['grafana-cloud-config']|['logging-consumer'] for logging-provider; ['grafana-cloud-config']|['send-remote-write'] for metrics-endpoint
+  s3-integrator/0 [idle] blocked: Missing parameters: ['access-key', 'secret-key']
+[32mINFO    [0m integration.test_smoke:test_smoke.py:44 Test continuous writes
+[32mINFO    [0m pytest_operator.plugin:plugin.py:903 Model status:
+
+Model  Controller          Cloud/Region        Version  SLA          Timestamp
+test   microk8s-localhost  microk8s/localhost  3.5.4    unsupported  01:40:28Z
+
+App                       Version  Status   Scale  Charm                     Channel      Rev  Address         Exposed  Message
+data-integrator                    blocked      1  data-integrator           latest/edge   72  10.152.183.199  no       Please specify either topic, index, or database name
+grafana-agent-k8s         0.40.4   blocked      1  grafana-agent-k8s         latest/edge   95  10.152.183.144  no       Missing ['grafana-cloud-config']|['grafana-dashboards-provider'] for grafana-dashboards-consumer; ['grafana-cloud-con...
+pgbouncer-k8s             1.21.0   active       1  pgbouncer-k8s             1/edge       337  10.152.183.227  no       
+postgresql-k8s            14.13    active       2  postgresql-k8s            14/edge      437  10.152.183.218  no       
+postgresql-test-app                active       1  postgresql-test-app       latest/edge  275  10.152.183.155  no       received database credentials of the first database
+s3-integrator                      blocked      1  s3-integrator             latest/edge   73  10.152.183.189  no       Missing parameters: ['access-key', 'secret-key']
+self-signed-certificates           active       1  self-signed-certificates  latest/edge  202  10.152.183.228  no       
+sysbench                           active       1  sysbench                  latest/edge  101  10.152.183.85   no       
+
+Unit                         Workload  Agent  Address      Ports  Message
+data-integrator/0*           blocked   idle   10.1.199.72         Please specify either topic, index, or database name
+grafana-agent-k8s/0*         blocked   idle   10.1.199.82         Missing ['grafana-cloud-config']|['grafana-dashboards-provider'] for grafana-dashboards-consumer; ['grafana-cloud-con...
+pgbouncer-k8s/0*             active    idle   10.1.199.83         
+postgresql-k8s/0             active    idle   10.1.199.75         
+postgresql-k8s/1*            active    idle   10.1.199.76         Primary
+postgresql-test-app/0*       active    idle   10.1.199.77         received database credentials of the first database
+s3-integrator/0*             blocked   idle   10.1.199.78         Missing parameters: ['access-key', 'secret-key']
+self-signed-certificates/0*  active    idle   10.1.199.79         
+sysbench/0*                  active    idle   10.1.199.80         
+
+[32mINFO    [0m pytest_operator.plugin:plugin.py:909 Juju error logs:
+
+controller-0: 01:24:54 ERROR juju.worker.caasapplicationprovisioner.runner exited "postgresql-k8s": more than 20 retries ensuring scale: setting scale to 2 for "postgresql-k8s": statefulset "postgresql-k8s" not found
+controller-0: 01:24:59 ERROR juju.worker.caasapplicationprovisioner.runner exited "s3-integrator": more than 20 retries ensuring trust: updating application "s3-integrator" to desired trust true: getting service account role "s3-integrator": k8s: roles.rbac.authorization.k8s.io "s3-integrator" not found
+controller-0: 01:25:00 ERROR juju.worker.caasapplicationprovisioner.runner exited "postgresql-test-app": more than 20 retries ensuring trust: updating application "postgresql-test-app" to desired trust true: getting service account role "postgresql-test-app": k8s: roles.rbac.authorization.k8s.io "postgresql-test-app" not found
+controller-0: 01:25:02 ERROR juju.worker.caasapplicationprovisioner.runner exited "grafana-agent-k8s": more than 20 retries ensuring trust: updating application "grafana-agent-k8s" to desired trust true: getting service account role "grafana-agent-k8s": k8s: roles.rbac.authorization.k8s.io "grafana-agent-k8s" not found
+controller-0: 01:25:04 ERROR juju.worker.caasapplicationprovisioner.runner exited "pgbouncer-k8s": more than 20 retries ensuring trust: updating application "pgbouncer-k8s" to desired trust true: getting service account role "pgbouncer-k8s": k8s: roles.rbac.authorization.k8s.io "pgbouncer-k8s" not found
+controller-0: 01:25:04 ERROR juju.worker.caasapplicationprovisioner.runner exited "sysbench": more than 20 retries ensuring scale: setting scale to 1 for "sysbench": statefulset "sysbench" not found
+controller-0: 01:25:05 ERROR juju.worker.caasapplicationprovisioner.runner exited "self-signed-certificates": more than 20 retries ensuring scale: setting scale to 1 for "self-signed-certificates": statefulset "self-signed-certificates" not found
+controller-0: 01:25:58 ERROR juju.worker.caasapplicationprovisioner.runner exited "postgresql-k8s": more than 20 retries ensuring trust: updating application "postgresql-k8s" to desired trust true: getting service account role "postgresql-k8s": k8s: roles.rbac.authorization.k8s.io "postgresql-k8s" not found
+controller-0: 01:26:04 ERROR juju.worker.caasapplicationprovisioner.runner exited "postgresql-test-app": more than 20 retries ensuring trust: updating application "postgresql-test-app" to desired trust true: getting service account role "postgresql-test-app": k8s: roles.rbac.authorization.k8s.io "postgresql-test-app" not found
+controller-0: 01:26:06 ERROR juju.worker.caasapplicationprovisioner.runner exited "s3-integrator": more than 20 retries ensuring scale: setting scale to 1 for "s3-integrator": statefulset "s3-integrator" not found
+controller-0: 01:26:11 ERROR juju.worker.caasapplicationprovisioner.runner exited "grafana-agent-k8s": more than 20 retries ensuring scale: setting scale to 1 for "grafana-agent-k8s": statefulset "grafana-agent-k8s" not found
+controller-0: 01:26:11 ERROR juju.worker.caasapplicationprovisioner.runner exited "pgbouncer-k8s": more than 20 retries ensuring scale: setting scale to 1 for "pgbouncer-k8s": statefulset "pgbouncer-k8s" not found
+controller-0: 01:26:12 ERROR juju.worker.caasapplicationprovisioner.runner exited "sysbench": more than 20 retries ensuring scale: setting scale to 1 for "sysbench": statefulset "sysbench" not found
+controller-0: 01:26:13 ERROR juju.worker.caasapplicationprovisioner.runner exited "self-signed-certificates": more than 20 retries ensuring scale: setting scale to 1 for "self-signed-certificates": statefulset "self-signed-certificates" not found
+controller-0: 01:27:15 ERROR juju.worker.caasapplicationprovisioner.runner exited "grafana-agent-k8s": more than 20 retries ensuring scale: setting scale to 1 for "grafana-agent-k8s": statefulset "grafana-agent-k8s" not found
+controller-0: 01:27:17 ERROR juju.worker.caasapplicationprovisioner.runner exited "pgbouncer-k8s": more than 20 retries ensuring scale: setting scale to 1 for "pgbouncer-k8s": statefulset "pgbouncer-k8s" not found
+controller-0: 01:27:20 ERROR juju.worker.caasapplicationprovisioner.runner exited "sysbench": more than 20 retries ensuring trust: updating application "sysbench" to desired trust true: getting service account role "sysbench": k8s: roles.rbac.authorization.k8s.io "sysbench" not found
+controller-0: 01:27:21 ERROR juju.worker.caasapplicationprovisioner.runner exited "self-signed-certificates": more than 20 retries ensuring trust: updating application "self-signed-certificates" to desired trust true: getting service account role "self-signed-certificates": k8s: roles.rbac.authorization.k8s.io "self-signed-certificates" not found
+controller-0: 01:28:19 ERROR juju.worker.caasapplicationprovisioner.runner exited "grafana-agent-k8s": more than 20 retries ensuring trust: updating application "grafana-agent-k8s" to desired trust true: getting service account role "grafana-agent-k8s": k8s: roles.rbac.authorization.k8s.io "grafana-agent-k8s" not found
+controller-0: 01:28:21 ERROR juju.worker.caasapplicationprovisioner.runner exited "pgbouncer-k8s": more than 20 retries ensuring trust: updating application "pgbouncer-k8s" to desired trust true: getting service account role "pgbouncer-k8s": k8s: roles.rbac.authorization.k8s.io "pgbouncer-k8s" not found
+controller-0: 01:28:23 ERROR juju.worker.caasapplicationprovisioner.runner exited "sysbench": more than 20 retries ensuring trust: updating application "sysbench" to desired trust true: getting service account role "sysbench": k8s: roles.rbac.authorization.k8s.io "sysbench" not found
+unit-postgresql-k8s-0: 01:28:30 ERROR unit.postgresql-k8s/0.juju-log certificates:11: Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:32 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:34 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:35 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:37 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:38 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:40 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:41 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:43 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:45 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:46 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:48 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:50 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:52 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:54 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:55 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:57 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:28:59 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:01 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:03 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:05 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:06 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:08 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:11 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:12 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:14 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:16 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:19 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+controller-0: 01:29:21 ERROR juju.worker.caasapplicationprovisioner.runner exited "pgbouncer-k8s": more than 20 retries ensuring scale: setting scale to 1 for "pgbouncer-k8s": statefulset "pgbouncer-k8s" not found
+unit-postgresql-k8s-0: 01:29:21 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:24 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:26 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:29 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:33 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:36 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:40 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:43 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:46 ERROR unit.postgresql-k8s/0.juju-log Cannot push TLS certificates: <ops.pebble.ConnectionError ("Could not connect to Pebble: socket not found at '/charm/containers/postgresql/pebble.socket' (container restarted?)",)>
+unit-postgresql-k8s-0: 01:29:51 ERROR unit.postgresql-k8s/0.juju-log This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:29:51 ERROR unit.postgresql-k8s/0.juju-log This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:29:51 ERROR unit.postgresql-k8s/0.juju-log This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:29:51 ERROR unit.postgresql-k8s/0.juju-log This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-1: 01:30:21 ERROR unit.postgresql-k8s/1.juju-log Uncaught exception while in charm code:
+Traceback (most recent call last):
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 2246, in <module>
+    main(PostgresqlOperatorCharm, use_juju_for_storage=True)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/__init__.py", line 343, in __call__
+    return _main.main(charm_class=charm_class, use_juju_for_storage=use_juju_for_storage)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 543, in main
+    manager.run()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 529, in run
+    self._emit()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 518, in _emit
+    _emit_charm_event(self.charm, self.dispatcher.event_name, self._juju_context)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 134, in _emit_charm_event
+    event_to_emit.emit(*args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/framework.py", line 347, in emit
+    framework._emit(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/framework.py", line 857, in _emit
+    self._reemit(event_path)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/framework.py", line 947, in _reemit
+    custom_handler(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 950, in _on_postgresql_pebble_ready
+    self.push_tls_files_to_workload(container)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 1781, in push_tls_files_to_workload
+    return self.update_config()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 1878, in update_config
+    self.postgresql_client_relation.update_tls_flag(
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/src/relations/postgresql_provider.py", line 221, in update_tls_flag
+    self.database_provides.set_tls(relation.id, tls)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1683, in set_tls
+    self.update_relation_data(relation_id, {"tls": tls})
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 496, in wrapper
+    return f(self, *args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1407, in update_relation_data
+    return self._update_relation_data(relation, data)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1632, in _update_relation_data
+    raise PrematureDataAccessError(
+charms.data_platform_libs.v0.data_interfaces.PrematureDataAccessError: Premature access to relation data, update is forbidden before the connection is initialized.
+unit-postgresql-k8s-1: 01:30:21 ERROR juju.worker.uniter.operation hook "postgresql-pebble-ready" (via hook dispatching script: dispatch) failed: exit status 1
+unit-postgresql-k8s-1: 01:30:21 ERROR juju.worker.uniter pebble poll failed for container "postgresql": failed to send pebble-ready event: hook failed
+controller-0: 01:30:27 ERROR juju.worker.caasapplicationprovisioner.runner exited "pgbouncer-k8s": more than 20 retries ensuring trust: updating application "pgbouncer-k8s" to desired trust true: getting service account role "pgbouncer-k8s": k8s: roles.rbac.authorization.k8s.io "pgbouncer-k8s" not found
+unit-postgresql-k8s-1: 01:30:45 ERROR unit.postgresql-k8s/1.juju-log Uncaught exception while in charm code:
+Traceback (most recent call last):
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 2246, in <module>
+    main(PostgresqlOperatorCharm, use_juju_for_storage=True)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/__init__.py", line 343, in __call__
+    return _main.main(charm_class=charm_class, use_juju_for_storage=use_juju_for_storage)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 543, in main
+    manager.run()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 529, in run
+    self._emit()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 518, in _emit
+    _emit_charm_event(self.charm, self.dispatcher.event_name, self._juju_context)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 134, in _emit_charm_event
+    event_to_emit.emit(*args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/framework.py", line 347, in emit
+    framework._emit(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/framework.py", line 857, in _emit
+    self._reemit(event_path)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/framework.py", line 947, in _reemit
+    custom_handler(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 950, in _on_postgresql_pebble_ready
+    self.push_tls_files_to_workload(container)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 1781, in push_tls_files_to_workload
+    return self.update_config()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 1878, in update_config
+    self.postgresql_client_relation.update_tls_flag(
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/src/relations/postgresql_provider.py", line 221, in update_tls_flag
+    self.database_provides.set_tls(relation.id, tls)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1683, in set_tls
+    self.update_relation_data(relation_id, {"tls": tls})
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 496, in wrapper
+    return f(self, *args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1407, in update_relation_data
+    return self._update_relation_data(relation, data)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1632, in _update_relation_data
+    raise PrematureDataAccessError(
+charms.data_platform_libs.v0.data_interfaces.PrematureDataAccessError: Premature access to relation data, update is forbidden before the connection is initialized.
+unit-postgresql-k8s-1: 01:30:45 ERROR juju.worker.uniter.operation hook "postgresql-pebble-ready" (via hook dispatching script: dispatch) failed: exit status 1
+unit-postgresql-k8s-1: 01:30:45 ERROR juju.worker.uniter pebble poll failed for container "postgresql": failed to send pebble-ready event: hook failed
+unit-postgresql-k8s-1: 01:31:09 ERROR unit.postgresql-k8s/1.juju-log Uncaught exception while in charm code:
+Traceback (most recent call last):
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 2246, in <module>
+    main(PostgresqlOperatorCharm, use_juju_for_storage=True)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/__init__.py", line 343, in __call__
+    return _main.main(charm_class=charm_class, use_juju_for_storage=use_juju_for_storage)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 543, in main
+    manager.run()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 529, in run
+    self._emit()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 518, in _emit
+    _emit_charm_event(self.charm, self.dispatcher.event_name, self._juju_context)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/_main.py", line 134, in _emit_charm_event
+    event_to_emit.emit(*args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/framework.py", line 347, in emit
+    framework._emit(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/framework.py", line 857, in _emit
+    self._reemit(event_path)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/venv/ops/framework.py", line 947, in _reemit
+    custom_handler(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 950, in _on_postgresql_pebble_ready
+    self.push_tls_files_to_workload(container)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 1781, in push_tls_files_to_workload
+    return self.update_config()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/./src/charm.py", line 1878, in update_config
+    self.postgresql_client_relation.update_tls_flag(
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 734, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/src/relations/postgresql_provider.py", line 221, in update_tls_flag
+    self.database_provides.set_tls(relation.id, tls)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1683, in set_tls
+    self.update_relation_data(relation_id, {"tls": tls})
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 496, in wrapper
+    return f(self, *args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1407, in update_relation_data
+    return self._update_relation_data(relation, data)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-1/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1632, in _update_relation_data
+    raise PrematureDataAccessError(
+charms.data_platform_libs.v0.data_interfaces.PrematureDataAccessError: Premature access to relation data, update is forbidden before the connection is initialized.
+unit-postgresql-k8s-1: 01:31:10 ERROR juju.worker.uniter.operation hook "postgresql-pebble-ready" (via hook dispatching script: dispatch) failed: exit status 1
+unit-postgresql-k8s-1: 01:31:10 ERROR juju.worker.uniter pebble poll failed for container "postgresql": failed to send pebble-ready event: hook failed
+unit-postgresql-k8s-0: 01:31:55 ERROR unit.postgresql-k8s/0.juju-log certificates:11: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:31:55 ERROR unit.postgresql-k8s/0.juju-log certificates:11: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:31:55 ERROR unit.postgresql-k8s/0.juju-log certificates:11: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:31:55 ERROR unit.postgresql-k8s/0.juju-log certificates:11: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:22 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:22 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:22 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:22 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:32 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:32 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:32 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:32 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:42 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:42 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:42 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:42 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:52 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:52 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:52 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:32:52 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:03 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:03 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:03 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:03 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:13 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:13 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:13 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:13 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:23 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:23 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:23 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:23 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:34 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:34 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:34 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:34 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:44 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:44 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:44 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:44 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:54 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:54 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:54 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:33:54 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:04 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:04 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:04 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:04 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:15 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:15 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:15 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:15 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:25 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:25 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:25 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:25 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:35 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:35 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:35 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:35 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:45 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:45 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:45 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:45 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:55 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:55 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:55 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:34:55 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:06 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:06 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:06 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:06 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:16 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:16 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:16 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:16 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:26 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:26 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:26 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:26 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:36 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:36 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:36 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:36 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:47 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:47 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:47 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:47 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:57 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:57 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:57 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:35:57 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:07 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:07 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:07 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:07 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:17 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:17 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:17 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:17 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:27 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:27 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:27 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:27 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:38 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:38 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:38 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:38 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:48 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:48 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:48 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:48 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:58 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:58 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:58 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:36:58 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:08 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:08 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:08 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:08 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:19 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:19 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:19 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:19 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:29 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:29 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:29 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:29 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:39 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:39 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:39 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:39 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:49 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:49 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:49 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:49 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:59 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:59 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:59 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:37:59 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:10 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:10 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:10 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:10 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:20 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:20 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:20 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:20 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:30 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:30 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:30 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:30 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:40 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:40 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:40 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:40 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:51 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:51 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:51 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:51 ERROR unit.postgresql-k8s/0.juju-log database-peers:2: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:57 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:57 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:57 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:57 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:58 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:58 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:58 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:58 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:59 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:59 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:59 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:38:59 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:00 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:00 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:00 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:00 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:01 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:01 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:01 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:01 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:02 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:02 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:02 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:02 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:16 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:16 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:16 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:16 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:34 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:34 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:34 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:34 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:47 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:47 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:47 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:39:47 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:00 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:00 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:00 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:00 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:13 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:13 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:13 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:13 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:25 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:25 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:25 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+unit-postgresql-k8s-0: 01:40:25 ERROR unit.postgresql-k8s/0.juju-log database:21: This operation (update_relation_data()) can only be performed by the leader unit
+
+[32mINFO    [0m pytest_operator.plugin:plugin.py:991 Forgetting model main...
