@@ -44,7 +44,7 @@ applications:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 275
+    revision: 277
     scale: 1
   s3-integrator:
     channel: latest/edge
@@ -64,7 +64,7 @@ applications:
     channel: latest/edge
     charm: sysbench
     constraints: arch=amd64
-    revision: 101
+    revision: 103
     scale: 1
 bundle: kubernetes
 name: postgresql-k8s-bundle
