@@ -1,14 +1,18 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>canonical/data-platform//renovate_presets/charm.json5"],
-  "reviewers": ["team:data-platform-postgresql"],
-  "packageRules": [
-    // Later rules override earlier rules
-    {
-      "matchPackageNames": ["pydantic"],
-      "allowedVersions": "<2.0.0"
-    }
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'github>canonical/data-platform//renovate_presets/charm.json5',
   ],
-  "regexManagers": [
-  ]
+  reviewers: [
+    'team:data-platform-postgresql',
+  ],
+  packageRules: [
+    {
+      matchPackageNames: [
+        'pydantic',
+      ],
+      allowedVersions: '<2.0.0',
+    },
+  ],
+  customManagers: [],
 }
