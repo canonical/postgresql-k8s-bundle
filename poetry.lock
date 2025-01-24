@@ -20,7 +20,7 @@ name = "allure-pytest-collection-report"
 version = "0.1.0"
 description = ""
 optional = false
-python-versions = "^3.8"
+python-versions = ">=3.8"
 files = []
 develop = false
 
@@ -31,8 +31,8 @@ pytest = "*"
 [package.source]
 type = "git"
 url = "https://github.com/canonical/data-platform-workflows"
-reference = "v29.0.1"
-resolved_reference = "ac9cb94d1d63944d75dad2af56c5c59d5fa82e39"
+reference = "v29.0.3"
+resolved_reference = "8189a62d00ac6085586efe572b1b0ff8d5810445"
 subdirectory = "python/pytest_plugins/allure_pytest_collection_report"
 
 [[package]]
@@ -1296,15 +1296,15 @@ name = "pytest-github-secrets"
 version = "0.1.0"
 description = ""
 optional = false
-python-versions = "^3.8"
+python-versions = ">=3.8"
 files = []
 develop = false
 
 [package.source]
 type = "git"
 url = "https://github.com/canonical/data-platform-workflows"
-reference = "v29.0.1"
-resolved_reference = "ac9cb94d1d63944d75dad2af56c5c59d5fa82e39"
+reference = "v29.0.3"
+resolved_reference = "8189a62d00ac6085586efe572b1b0ff8d5810445"
 subdirectory = "python/pytest_plugins/github_secrets"
 
 [[package]]
@@ -1331,7 +1331,7 @@ name = "pytest-operator-cache"
 version = "0.1.0"
 description = ""
 optional = false
-python-versions = "^3.8"
+python-versions = ">=3.8"
 files = []
 develop = false
 
@@ -1341,8 +1341,8 @@ pyyaml = "*"
 [package.source]
 type = "git"
 url = "https://github.com/canonical/data-platform-workflows"
-reference = "v29.0.1"
-resolved_reference = "ac9cb94d1d63944d75dad2af56c5c59d5fa82e39"
+reference = "v29.0.3"
+resolved_reference = "8189a62d00ac6085586efe572b1b0ff8d5810445"
 subdirectory = "python/pytest_plugins/pytest_operator_cache"
 
 [[package]]
@@ -1350,7 +1350,7 @@ name = "pytest-operator-groups"
 version = "0.1.0"
 description = ""
 optional = false
-python-versions = "^3.8"
+python-versions = ">=3.8"
 files = []
 develop = false
 
@@ -1360,8 +1360,8 @@ pytest = "*"
 [package.source]
 type = "git"
 url = "https://github.com/canonical/data-platform-workflows"
-reference = "v29.0.1"
-resolved_reference = "ac9cb94d1d63944d75dad2af56c5c59d5fa82e39"
+reference = "v29.0.3"
+resolved_reference = "8189a62d00ac6085586efe572b1b0ff8d5810445"
 subdirectory = "python/pytest_plugins/pytest_operator_groups"
 
 [[package]]
@@ -1807,4 +1807,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.10"
-content-hash = "365ed6e1266fc2cc6e2e991396ffd68d9ee5adbfc08dc8b2bfa6eb8a8b71feb0"
+content-hash = "7a08aff8fc95cc1008960aebf6460d03c4b057801e5dc75271a91a9eba3c3e32"
