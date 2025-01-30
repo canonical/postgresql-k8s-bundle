@@ -1,0 +1,278 @@
+[32mINFO    [0m pytest_operator.plugin:plugin.py:787 Connecting to existing model microk8s-localhost:test on unspecified cloud
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm data-integrator from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm postgresql-test-app from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm s3-integrator from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm self-signed-certificates from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm sysbench from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm grafana-agent-k8s from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm pgbouncer-k8s from channel 1/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm postgresql-k8s from channel 14/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application data-integrator with 1 unit using $addCharm-0
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/data-integrator-88
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application postgresql-k8s with 2 units using $addCharm-9
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/postgresql-k8s-491
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application postgresql-test-app with 1 unit using $addCharm-12
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/postgresql-test-app-342
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application s3-integrator with 1 unit using $addCharm-15
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/s3-integrator-108
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application self-signed-certificates with 1 unit using $addCharm-18
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/self-signed-certificates-234
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application sysbench with 1 unit using $addCharm-21
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/sysbench-123
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application grafana-agent-k8s with 1 unit using $addCharm-3
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/grafana-agent-k8s-104
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application pgbouncer-k8s with 1 unit using $addCharm-6
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/pgbouncer-k8s-392
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:backend-database - $deploy-10:database
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:backend-database <-> postgresql-k8s:database
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:certificates - $deploy-19:certificates
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:certificates <-> self-signed-certificates:certificates
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:certificates - $deploy-19:certificates
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:certificates <-> self-signed-certificates:certificates
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:metrics-endpoint - $deploy-4:metrics-endpoint
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:metrics-endpoint <-> grafana-agent-k8s:metrics-endpoint
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:metrics-endpoint - $deploy-4:metrics-endpoint
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:metrics-endpoint <-> grafana-agent-k8s:metrics-endpoint
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:logging - $deploy-4:logging-provider
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:logging <-> grafana-agent-k8s:logging-provider
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:logging - $deploy-4:logging-provider
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:logging <-> grafana-agent-k8s:logging-provider
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:grafana-dashboard - $deploy-4:grafana-dashboards-consumer
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:grafana-dashboard <-> grafana-agent-k8s:grafana-dashboards-consumer
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:grafana-dashboard - $deploy-4:grafana-dashboards-consumer
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:grafana-dashboard <-> grafana-agent-k8s:grafana-dashboards-consumer
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:database - $deploy-1:postgresql
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:database <-> data-integrator:postgresql
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:database - $deploy-13:database
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:database <-> postgresql-test-app:database
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:database - $deploy-22:postgresql
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:database <-> sysbench:postgresql
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-10
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-13
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-16
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-1
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-19
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-22
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-4
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-7
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: installing agent
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: agent initialising
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: agent initialising
+  postgresql-k8s/0 [executing] maintenance: installing charm software
+  postgresql-k8s/1 [executing] maintenance: installing charm software
+  self-signed-certificates/0 [executing] maintenance: installing charm software
+  sysbench/0 [idle] maintenance: Installing...
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [executing] maintenance: installing charm software
+  postgresql-k8s/0 [executing] maintenance: installing charm software
+  postgresql-k8s/1 [executing] maintenance: installing charm software
+  self-signed-certificates/0 [executing] active: 
+  sysbench/0 [idle] maintenance: Installing...
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [executing] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [executing] waiting: awaiting for cluster to start
+  postgresql-k8s/1 [executing] unknown: 
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [executing] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [executing] waiting: awaiting for primary endpoint to be ready
+  postgresql-k8s/1 [executing] unknown: 
+  self-signed-certificates/0 [idle] active: 
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [idle] blocked: waiting for backend database relation to initialise
+  postgresql-k8s/0 [idle] waiting: awaiting for primary endpoint to be ready
+  postgresql-k8s/1 [idle] unknown: 
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [idle] blocked: waiting for backend database relation to initialise
+  postgresql-k8s/0 [idle] active: Primary
+  postgresql-k8s/1 [idle] waiting: awaiting for cluster to start
+  sysbench/0 [idle] waiting: Waiting on data from relation
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [idle] active: 
+  postgresql-k8s/0 [idle] maintenance: Executing restart operation
+  postgresql-k8s/1 [executing] waiting: awaiting for cluster to start
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [idle] active: 
+  postgresql-k8s/0 [idle] active: Primary
+  postgresql-k8s/1 [idle] waiting: awaiting for cluster to start
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  postgresql-k8s/0 [idle] active: Primary
+  postgresql-k8s/1 [idle] waiting: awaiting for cluster to start
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  postgresql-k8s/0 [executing] active: Primary
+  postgresql-k8s/1 [idle] waiting: awaiting for cluster to start
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  postgresql-k8s/0 [executing] active: Primary
+  postgresql-k8s/1 [idle] waiting: awaiting for cluster to start
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [idle] active: 
+  postgresql-k8s/0 [idle] active: Primary
+  postgresql-k8s/1 [executing] waiting: awaiting for member to start
+  sysbench/0 [idle] active: 
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  postgresql-k8s/0 [idle] active: Primary
+  postgresql-k8s/1 [idle] active: 
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  data-integrator/0 [idle] blocked: Please specify either topic, index, or database name
+  grafana-agent-k8s/0 [idle] blocked: Missing ['grafana-cloud-config']|['grafana-dashboards-provider'] for grafana-dashboards-consumer; ['grafana-cloud-config']|['logging-consumer'] for logging-provider; ['grafana-cloud-config']|['send-remote-write'] for metrics-endpoint
+  s3-integrator/0 [idle] blocked: Missing parameters: ['access-key', 'secret-key']
+[32mINFO    [0m integration.test_smoke:test_smoke.py:44 Test continuous writes
+[32mINFO    [0m pytest_operator.plugin:plugin.py:929 Model status:
+
+Model  Controller          Cloud/Region        Version  SLA          Timestamp
+test   microk8s-localhost  microk8s/localhost  3.6.2    unsupported  01:31:56Z
+
+App                       Version  Status   Scale  Charm                     Channel      Rev  Address         Exposed  Message
+data-integrator                    blocked      1  data-integrator           latest/edge   88  10.152.183.207  no       Please specify either topic, index, or database name
+grafana-agent-k8s         0.40.4   blocked      1  grafana-agent-k8s         latest/edge  104  10.152.183.105  no       Missing ['grafana-cloud-config']|['grafana-dashboards-provider'] for grafana-dashboards-consumer; ['grafana-cloud-con...
+pgbouncer-k8s             1.21.0   active       1  pgbouncer-k8s             1/edge       392  10.152.183.115  no       
+postgresql-k8s            14.15    active       2  postgresql-k8s            14/edge      491  10.152.183.182  no       
+postgresql-test-app                active       1  postgresql-test-app       latest/edge  342  10.152.183.32   no       received database credentials of the first database
+s3-integrator                      blocked      1  s3-integrator             latest/edge  108  10.152.183.163  no       Missing parameters: ['access-key', 'secret-key']
+self-signed-certificates           active       1  self-signed-certificates  latest/edge  234  10.152.183.212  no       
+sysbench                           active       1  sysbench                  latest/edge  123  10.152.183.141  no       
+
+Unit                         Workload  Agent  Address      Ports  Message
+data-integrator/0*           blocked   idle   10.1.215.72         Please specify either topic, index, or database name
+grafana-agent-k8s/0*         blocked   idle   10.1.215.83         Missing ['grafana-cloud-config']|['grafana-dashboards-provider'] for grafana-dashboards-consumer; ['grafana-cloud-con...
+pgbouncer-k8s/0*             active    idle   10.1.215.82         
+postgresql-k8s/0*            active    idle   10.1.215.77         Primary
+postgresql-k8s/1             active    idle   10.1.215.78         
+postgresql-test-app/0*       active    idle   10.1.215.73         received database credentials of the first database
+s3-integrator/0*             blocked   idle   10.1.215.76         Missing parameters: ['access-key', 'secret-key']
+self-signed-certificates/0*  active    idle   10.1.215.79         
+sysbench/0*                  active    idle   10.1.215.80         
+
+[32mINFO    [0m pytest_operator.plugin:plugin.py:935 Juju error logs:
+
+unit-postgresql-k8s-0: 01:25:46 ERROR unit.postgresql-k8s/0.juju-log Uncaught exception while in charm code:
+Traceback (most recent call last):
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/charm.py", line 2252, in <module>
+    main(PostgresqlOperatorCharm, use_juju_for_storage=True)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/__init__.py", line 343, in __call__
+    return _main.main(charm_class=charm_class, use_juju_for_storage=use_juju_for_storage)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 543, in main
+    manager.run()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 529, in run
+    self._emit()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 518, in _emit
+    _emit_charm_event(self.charm, self.dispatcher.event_name, self._juju_context)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 134, in _emit_charm_event
+    event_to_emit.emit(*args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/framework.py", line 347, in emit
+    framework._emit(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/framework.py", line 857, in _emit
+    self._reemit(event_path)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/framework.py", line 947, in _reemit
+    custom_handler(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 1064, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/charm.py", line 952, in _on_postgresql_pebble_ready
+    self.push_tls_files_to_workload(container)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 1064, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/charm.py", line 1785, in push_tls_files_to_workload
+    return self.update_config()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 1064, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/charm.py", line 1883, in update_config
+    self.postgresql_client_relation.update_tls_flag(
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 1064, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/relations/postgresql_provider.py", line 224, in update_tls_flag
+    self.database_provides.set_tls(relation.id, tls)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1683, in set_tls
+    self.update_relation_data(relation_id, {"tls": tls})
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 496, in wrapper
+    return f(self, *args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1407, in update_relation_data
+    return self._update_relation_data(relation, data)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1632, in _update_relation_data
+    raise PrematureDataAccessError(
+charms.data_platform_libs.v0.data_interfaces.PrematureDataAccessError: Premature access to relation data, update is forbidden before the connection is initialized.
+unit-postgresql-k8s-0: 01:25:47 ERROR juju.worker.uniter.operation hook "postgresql-pebble-ready" (via hook dispatching script: dispatch) failed: exit status 1
+unit-postgresql-k8s-0: 01:25:47 ERROR juju.worker.uniter pebble poll failed for container "postgresql": failed to send pebble-ready event: hook failed
+unit-postgresql-k8s-0: 01:25:51 ERROR unit.postgresql-k8s/0.juju-log Uncaught exception while in charm code:
+Traceback (most recent call last):
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/charm.py", line 2252, in <module>
+    main(PostgresqlOperatorCharm, use_juju_for_storage=True)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/__init__.py", line 343, in __call__
+    return _main.main(charm_class=charm_class, use_juju_for_storage=use_juju_for_storage)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 543, in main
+    manager.run()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 529, in run
+    self._emit()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 518, in _emit
+    _emit_charm_event(self.charm, self.dispatcher.event_name, self._juju_context)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 134, in _emit_charm_event
+    event_to_emit.emit(*args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/framework.py", line 347, in emit
+    framework._emit(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/framework.py", line 857, in _emit
+    self._reemit(event_path)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/venv/lib/python3.10/site-packages/ops/framework.py", line 947, in _reemit
+    custom_handler(event)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 1064, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/charm.py", line 952, in _on_postgresql_pebble_ready
+    self.push_tls_files_to_workload(container)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 1064, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/charm.py", line 1785, in push_tls_files_to_workload
+    return self.update_config()
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 1064, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/charm.py", line 1883, in update_config
+    self.postgresql_client_relation.update_tls_flag(
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/tempo_coordinator_k8s/v0/charm_tracing.py", line 1064, in wrapped_function
+    return callable(*args, **kwargs)  # type: ignore
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/src/relations/postgresql_provider.py", line 224, in update_tls_flag
+    self.database_provides.set_tls(relation.id, tls)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1683, in set_tls
+    self.update_relation_data(relation_id, {"tls": tls})
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 496, in wrapper
+    return f(self, *args, **kwargs)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1407, in update_relation_data
+    return self._update_relation_data(relation, data)
+  File "/var/lib/juju/agents/unit-postgresql-k8s-0/charm/lib/charms/data_platform_libs/v0/data_interfaces.py", line 1632, in _update_relation_data
+    raise PrematureDataAccessError(
+charms.data_platform_libs.v0.data_interfaces.PrematureDataAccessError: Premature access to relation data, update is forbidden before the connection is initialized.
+unit-postgresql-k8s-0: 01:25:52 ERROR juju.worker.uniter.operation hook "postgresql-pebble-ready" (via hook dispatching script: dispatch) failed: exit status 1
+unit-postgresql-k8s-0: 01:25:52 ERROR juju.worker.uniter pebble poll failed for container "postgresql": failed to send pebble-ready event: hook failed
+unit-postgresql-k8s-1: 01:28:37 ERROR unit.postgresql-k8s/1.juju-log pgdata folder not found in /var/lib/postgresql/data/pgdata
+unit-postgresql-k8s-1: 01:29:05 ERROR unit.postgresql-k8s/1.juju-log pgdata folder not found in /var/lib/postgresql/data/pgdata
+unit-postgresql-k8s-1: 01:29:14 ERROR unit.postgresql-k8s/1.juju-log pgdata folder not found in /var/lib/postgresql/data/pgdata
+unit-postgresql-k8s-1: 01:29:25 ERROR unit.postgresql-k8s/1.juju-log pgdata folder not found in /var/lib/postgresql/data/pgdata
+unit-postgresql-k8s-1: 01:29:34 ERROR unit.postgresql-k8s/1.juju-log pgdata folder not found in /var/lib/postgresql/data/pgdata
+unit-postgresql-k8s-1: 01:29:46 ERROR unit.postgresql-k8s/1.juju-log pgdata folder not found in /var/lib/postgresql/data/pgdata
+unit-postgresql-k8s-1: 01:30:08 ERROR unit.postgresql-k8s/1.juju-log pgdata folder not found in /var/lib/postgresql/data/pgdata
+unit-postgresql-k8s-1: 01:30:19 ERROR unit.postgresql-k8s/1.juju-log pgdata folder not found in /var/lib/postgresql/data/pgdata
+
+[32mINFO    [0m pytest_operator.plugin:plugin.py:1017 Forgetting model main...
