@@ -64,7 +64,7 @@ applications:
     channel: latest/edge
     charm: sysbench
     constraints: arch=amd64
-    revision: 125
+    revision: 129
     scale: 1
 bundle: kubernetes
 name: postgresql-k8s-bundle
