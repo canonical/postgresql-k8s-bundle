@@ -14,7 +14,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/dur5nnqi3zshmzyd98mvfj0x59lc2rznocih8/agent-image@sha256:cdd46dd3158cb40771de30add579630baad72b14f8fe3dabe230c7cf20f02c31
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA0ZmNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9kdXI1bm5xaTN6c2htenlkOThtdmZqMHg1OWxjMnJ6bm9jaWg4L2FnZW50LWltYWdlCjAwMTNjaWQgYWxsb3cgcHVsbAowMDJmc2lnbmF0dXJlIO8xfo24bV2QBmGV8Sn+QfDsZhnE1XNANV1b7aLutZ/DCg
         # oci-username: docker-registry
-    revision: 105
+    revision: 106
     scale: 1
   pgbouncer-k8s:
     channel: 1/edge
@@ -25,7 +25,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/6csu52zi28bn8u93up1myup3utcp7b1z87zmd/pgbouncer-image@sha256:604402b8a61e6d5a25af7617462ea5c81d58b669a9e7af13c5ad5acf72b9defc
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1M2NpZCBpcy1kb2NrZXItcmVwbyBjaGFybS82Y3N1NTJ6aTI4Ym44dTkzdXAxbXl1cDN1dGNwN2Ixejg3em1kL3BnYm91bmNlci1pbWFnZQowMDEzY2lkIGFsbG93IHB1bGwKMDAyZnNpZ25hdHVyZSABcZZMXjxOaGudEiksuN29glKrRqThNJKRcWrUMkMy4wo
         # oci-username: docker-registry
-    revision: 402
+    revision: 404
     scale: 1
     trust: true
   postgresql-k8s:
@@ -37,7 +37,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:7e41d7f60e45ee2f5463aa9aafcd3c35121423423ee08c26a174b99ad0235b7e
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1NGNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9rb3RjZnJvaGVhNjJ4cmVlbnExcTc1bjFseXNwa2UwcWt1cmhrL3Bvc3RncmVzcWwtaW1hZ2UKMDAxM2NpZCBhbGxvdyBwdWxsCjAwMmZzaWduYXR1cmUghzwoR8THj8usK6ytvyxvGT7UbLKl/fS9K16+68B6wUEK
         # oci-username: docker-registry
-    revision: 493
+    revision: 495
     scale: 2
     trust: true
   postgresql-test-app:
@@ -50,7 +50,7 @@ applications:
     channel: latest/edge
     charm: s3-integrator
     constraints: arch=amd64
-    revision: 120
+    revision: 122
     scale: 1
   self-signed-certificates:
     channel: latest/edge
