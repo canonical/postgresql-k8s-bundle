@@ -1309,13 +1309,13 @@ subdirectory = "python/pytest_plugins/github_secrets"
 
 [[package]]
 name = "pytest-operator"
-version = "0.39.0"
+version = "0.40.0"
 description = "Fixtures for Operators"
 optional = false
 python-versions = "*"
 files = [
-    {file = "pytest_operator-0.39.0-py3-none-any.whl", hash = "sha256:ade76e1896eaf7f71704b537fd6661a705d81a045b8db71531d9e4741913fa19"},
-    {file = "pytest_operator-0.39.0.tar.gz", hash = "sha256:b66bd8c6d161593c258a5714118a51e9f37721e7cd9e503299423d8a7d900f90"},
+    {file = "pytest_operator-0.40.0-py3-none-any.whl", hash = "sha256:1cfa93ab61b11e8d7bf58dbb1a39e75fcbfcc084781bb571fde08fda7e236713"},
+    {file = "pytest_operator-0.40.0.tar.gz", hash = "sha256:45394ade32b7765b6ba89871b676d1fb8aa7578589f74df26ff0fca4692d1c7b"},
 ]
 
 [package.dependencies]
@@ -1807,4 +1807,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.10"
-content-hash = "24d191de39ead1d57f5a0c0c88f1b9c84a03c4d4dbba03af777dc8a455d56fa4"
+content-hash = "7aed4a3ba356a4d6050957e1409c6e83d2c49c7517c5c909084907706fe041a1"
