@@ -14,7 +14,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/dur5nnqi3zshmzyd98mvfj0x59lc2rznocih8/agent-image@sha256:cdd46dd3158cb40771de30add579630baad72b14f8fe3dabe230c7cf20f02c31
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA0ZmNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9kdXI1bm5xaTN6c2htenlkOThtdmZqMHg1OWxjMnJ6bm9jaWg4L2FnZW50LWltYWdlCjAwMTNjaWQgYWxsb3cgcHVsbAowMDJmc2lnbmF0dXJlIO8xfo24bV2QBmGV8Sn+QfDsZhnE1XNANV1b7aLutZ/DCg
         # oci-username: docker-registry
-    revision: 112
+    revision: 113
     scale: 1
   pgbouncer-k8s:
     channel: 1/edge
@@ -25,7 +25,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/6csu52zi28bn8u93up1myup3utcp7b1z87zmd/pgbouncer-image@sha256:604402b8a61e6d5a25af7617462ea5c81d58b669a9e7af13c5ad5acf72b9defc
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1M2NpZCBpcy1kb2NrZXItcmVwbyBjaGFybS82Y3N1NTJ6aTI4Ym44dTkzdXAxbXl1cDN1dGNwN2Ixejg3em1kL3BnYm91bmNlci1pbWFnZQowMDEzY2lkIGFsbG93IHB1bGwKMDAyZnNpZ25hdHVyZSABcZZMXjxOaGudEiksuN29glKrRqThNJKRcWrUMkMy4wo
         # oci-username: docker-registry
-    revision: 429
+    revision: 435
     scale: 1
     trust: true
   postgresql-k8s:
@@ -33,18 +33,18 @@ applications:
     charm: postgresql-k8s
     constraints: arch=amd64
     resources:
-      postgresql-image: 167
-        # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:71d49b632c8d9aa1bee79bd36c2ba793950fb22986fbb414e8b1ce0aa33b4922
+      postgresql-image: 168
+        # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:90b7aa44cfbae32ba060a761f8ec31e35d7cd28bb845b69b3f78a3781153932f
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1NGNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9rb3RjZnJvaGVhNjJ4cmVlbnExcTc1bjFseXNwa2UwcWt1cmhrL3Bvc3RncmVzcWwtaW1hZ2UKMDAxM2NpZCBhbGxvdyBwdWxsCjAwMmZzaWduYXR1cmUghzwoR8THj8usK6ytvyxvGT7UbLKl/fS9K16+68B6wUEK
         # oci-username: docker-registry
-    revision: 519
+    revision: 521
     scale: 2
     trust: true
   postgresql-test-app:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 367
+    revision: 369
     scale: 1
   s3-integrator:
     channel: latest/edge
@@ -59,7 +59,7 @@ applications:
     num_units: 1
     options:
       ca-common-name: postgresql_k8s_bundle_ca
-    revision: 264
+    revision: 266
   sysbench:
     channel: latest/edge
     charm: sysbench
