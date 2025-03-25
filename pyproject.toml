@@ -11,7 +11,7 @@ python = "^3.8.10"
 optional = true
 
 [tool.poetry.group.format.dependencies]
-ruff = "^0.11.0"
+ruff = "^0.11.2"
 
 [tool.poetry.group.lint]
 optional = true
@@ -30,7 +30,7 @@ pytest-operator-cache = {git = "https://github.com/canonical/data-platform-workf
 pytest-operator-groups = {git = "https://github.com/canonical/data-platform-workflows", tag = "v31.0.1", subdirectory = "python/pytest_plugins/pytest_operator_groups"}
 allure-pytest-collection-report = {git = "https://github.com/canonical/data-platform-workflows", tag = "v31.0.1", subdirectory = "python/pytest_plugins/allure_pytest_collection_report"}
 # renovate caret doesn't work: https://github.com/renovatebot/renovate/issues/26940
-juju = "<=3.6.1.0"
+juju = "<=3.6.1.1"
 psycopg2-binary = "^2.9.10"
 lightkube = "0.17.1"
 allure-pytest = "^2.13.5"
