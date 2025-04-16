@@ -3,7 +3,7 @@ applications:
     channel: latest/edge
     charm: data-integrator
     constraints: arch=amd64
-    revision: 129
+    revision: 133
     scale: 1
   grafana-agent-k8s:
     channel: latest/edge
@@ -25,7 +25,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/6csu52zi28bn8u93up1myup3utcp7b1z87zmd/pgbouncer-image@sha256:604402b8a61e6d5a25af7617462ea5c81d58b669a9e7af13c5ad5acf72b9defc
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1M2NpZCBpcy1kb2NrZXItcmVwbyBjaGFybS82Y3N1NTJ6aTI4Ym44dTkzdXAxbXl1cDN1dGNwN2Ixejg3em1kL3BnYm91bmNlci1pbWFnZQowMDEzY2lkIGFsbG93IHB1bGwKMDAyZnNpZ25hdHVyZSABcZZMXjxOaGudEiksuN29glKrRqThNJKRcWrUMkMy4wo
         # oci-username: docker-registry
-    revision: 447
+    revision: 449
     scale: 1
     trust: true
   postgresql-k8s:
@@ -37,20 +37,20 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:5f8d51aeef07a686c4ca4b2c873c890ffed3699b3ed105add5df02681b3e0953
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1NGNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9rb3RjZnJvaGVhNjJ4cmVlbnExcTc1bjFseXNwa2UwcWt1cmhrL3Bvc3RncmVzcWwtaW1hZ2UKMDAxM2NpZCBhbGxvdyBwdWxsCjAwMmZzaWduYXR1cmUghzwoR8THj8usK6ytvyxvGT7UbLKl/fS9K16+68B6wUEK
         # oci-username: docker-registry
-    revision: 557
+    revision: 559
     scale: 2
     trust: true
   postgresql-test-app:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 375
+    revision: 377
     scale: 1
   s3-integrator:
     channel: latest/edge
     charm: s3-integrator
     constraints: arch=amd64
-    revision: 147
+    revision: 149
     scale: 1
   self-signed-certificates:
     channel: latest/edge
@@ -64,7 +64,7 @@ applications:
     channel: latest/edge
     charm: sysbench
     constraints: arch=amd64
-    revision: 171
+    revision: 175
     scale: 1
 bundle: kubernetes
 name: postgresql-k8s-bundle
