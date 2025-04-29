@@ -11,7 +11,7 @@ python = "^3.8.10"
 optional = true
 
 [tool.poetry.group.format.dependencies]
-ruff = "^0.11.6"
+ruff = "^0.11.7"
 
 [tool.poetry.group.lint]
 optional = true
@@ -33,7 +33,7 @@ allure-pytest-collection-report = {git = "https://github.com/canonical/data-plat
 juju = "<=3.6.1.1"
 psycopg2-binary = "^2.9.10"
 lightkube = "0.17.1"
-allure-pytest = "^2.14.0"
+allure-pytest = "^2.14.1"
 
 # Testing tools configuration
 [tool.coverage.run]
