@@ -50,7 +50,7 @@ applications:
     channel: latest/edge
     charm: s3-integrator
     constraints: arch=amd64
-    revision: 153
+    revision: 155
     scale: 1
   self-signed-certificates:
     channel: latest/edge
