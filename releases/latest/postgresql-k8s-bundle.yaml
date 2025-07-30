@@ -6,7 +6,7 @@ applications:
     revision: 160
     scale: 1
   grafana-agent-k8s:
-    channel: latest/edge
+    channel: 1/edge
     charm: grafana-agent-k8s
     constraints: arch=amd64
     resources:
