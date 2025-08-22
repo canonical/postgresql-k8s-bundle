@@ -59,7 +59,7 @@ applications:
     num_units: 1
     options:
       ca-common-name: postgresql_k8s_bundle_ca
-    revision: 342
+    revision: 344
   sysbench:
     channel: latest/edge
     charm: sysbench
