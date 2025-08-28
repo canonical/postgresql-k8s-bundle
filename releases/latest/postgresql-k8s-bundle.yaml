@@ -14,7 +14,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/dur5nnqi3zshmzyd98mvfj0x59lc2rznocih8/agent-image@sha256:43ba7e450dff746408475b455fe4bd7b49af3ceefd3208c18093aace1d288b06
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA0ZmNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9kdXI1bm5xaTN6c2htenlkOThtdmZqMHg1OWxjMnJ6bm9jaWg4L2FnZW50LWltYWdlCjAwMTNjaWQgYWxsb3cgcHVsbAowMDJmc2lnbmF0dXJlIO8xfo24bV2QBmGV8Sn+QfDsZhnE1XNANV1b7aLutZ/DCg
         # oci-username: docker-registry
-    revision: 156
+    revision: 164
     scale: 1
   pgbouncer-k8s:
     channel: 1/edge
