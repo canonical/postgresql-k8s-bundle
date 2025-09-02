@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","562241","test_setup","tests.integration","Tue Sep 02 01:24:31 UTC 2025","passed","Tue Sep 02 01:33:53 UTC 2025","","test_smoke","",""
