@@ -1,0 +1,207 @@
+[33mWARNING [0m juju.client.connection:connection.py:858 unexpected facade SSHServer received from the controller
+[32mINFO    [0m pytest_operator.plugin:plugin.py:806 Connecting to existing model microk8s-localhost:test on unspecified cloud
+[33mWARNING [0m juju.client.connection:connection.py:858 unexpected facade SSHServer received from the controller
+[33mWARNING [0m juju.client.connection:connection.py:858 unexpected facade SSHSession received from the controller
+[33mWARNING [0m juju.client.connection:connection.py:858 unexpected facade SSHTunneler received from the controller
+[33mWARNING [0m juju.client.connection:connection.py:858 unexpected facade SSHServer received from the controller
+[33mWARNING [0m juju.client.connection:connection.py:858 unexpected facade SSHServer received from the controller
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm data-integrator from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm postgresql-test-app from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm s3-integrator from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm self-signed-certificates from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm sysbench from channel latest/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm grafana-agent-k8s from channel 1/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm pgbouncer-k8s from channel 1/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: upload charm postgresql-k8s from channel 14/edge
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application data-integrator with 1 unit using $addCharm-0
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/noble/data-integrator-248
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application postgresql-k8s with 2 units using $addCharm-9
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/postgresql-k8s-663
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application postgresql-test-app with 1 unit using $addCharm-12
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/postgresql-test-app-406
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application s3-integrator with 1 unit using $addCharm-15
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/noble/s3-integrator-188
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application self-signed-certificates with 1 unit using $addCharm-18
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/self-signed-certificates-346
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application sysbench with 1 unit using $addCharm-21
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/sysbench-209
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application grafana-agent-k8s with 1 unit using $addCharm-3
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/grafana-agent-k8s-164
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: deploy application pgbouncer-k8s with 1 unit using $addCharm-6
+[32mINFO    [0m juju.model:__init__.py:2301 Deploying ch:amd64/jammy/pgbouncer-k8s-484
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:backend-database - $deploy-10:database
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:backend-database <-> postgresql-k8s:database
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:certificates - $deploy-19:certificates
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:certificates <-> self-signed-certificates:certificates
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:certificates - $deploy-19:certificates
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:certificates <-> self-signed-certificates:certificates
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:metrics-endpoint - $deploy-4:metrics-endpoint
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:metrics-endpoint <-> grafana-agent-k8s:metrics-endpoint
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:metrics-endpoint - $deploy-4:metrics-endpoint
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:metrics-endpoint <-> grafana-agent-k8s:metrics-endpoint
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:logging - $deploy-4:logging-provider
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:logging <-> grafana-agent-k8s:logging-provider
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:logging - $deploy-4:logging-provider
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:logging <-> grafana-agent-k8s:logging-provider
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:grafana-dashboard - $deploy-4:grafana-dashboards-consumer
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:grafana-dashboard <-> grafana-agent-k8s:grafana-dashboards-consumer
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:grafana-dashboard - $deploy-4:grafana-dashboards-consumer
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:grafana-dashboard <-> grafana-agent-k8s:grafana-dashboards-consumer
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:database - $deploy-1:postgresql
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:database <-> data-integrator:postgresql
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-7:database - $deploy-13:database
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating pgbouncer-k8s:database <-> postgresql-test-app:database
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: add relation $deploy-10:database - $deploy-22:postgresql
+[32mINFO    [0m juju.bundle:bundle.py:929 Relating postgresql-k8s:database <-> sysbench:postgresql
+[33mWARNING [0m juju.model:__init__.py:1683 relate is deprecated and will be removed. Use integrate instead.
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-10
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-13
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-16
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-1
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-19
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-22
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-4
+[32mINFO    [0m juju.bundle:bundle.py:461 Applying change: set annotations for $deploy-7
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: installing agent
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/0 [allocating] waiting: installing agent
+  postgresql-k8s/1 [allocating] waiting: installing agent
+  postgresql-test-app/0 [allocating] waiting: installing agent
+  self-signed-certificates/0 [allocating] waiting: installing agent
+  sysbench/0 [allocating] waiting: installing agent
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [executing] maintenance: installing charm software
+  postgresql-k8s/0 [executing] maintenance: installing charm software
+  postgresql-k8s/1 [executing] maintenance: installing charm software
+  postgresql-test-app/0 [idle] blocked: No database integration available
+  self-signed-certificates/0 [executing] active: 
+  sysbench/0 [executing] maintenance: Installing...
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [executing] maintenance: installing charm software
+  postgresql-k8s/0 [executing] unknown: 
+  postgresql-k8s/1 [executing] unknown: 
+  postgresql-test-app/0 [idle] blocked: No database integration available
+  sysbench/0 [idle] maintenance: Installing...
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [executing] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [idle] waiting: awaiting for cluster to start
+  postgresql-k8s/1 [executing] unknown: 
+  postgresql-test-app/0 [idle] blocked: No database integration available
+  self-signed-certificates/0 [idle] active: 
+  sysbench/0 [idle] maintenance: Installing...
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [idle] waiting: waiting for backend-database relation to connect
+  postgresql-k8s/0 [executing] active: Primary (degraded)
+  postgresql-k8s/1 [executing] waiting: awaiting for cluster to start
+  postgresql-test-app/0 [idle] blocked: No database integration available
+  sysbench/0 [idle] maintenance: Installing...
+[32mINFO    [0m juju.model:__init__.py:3254 Waiting for model:
+  pgbouncer-k8s/0 [executing] active: 
+  postgresql-k8s/0 [executing] active: Primary (degraded)
+  postgresql-k8s/1 [executing] waiting: awaiting for cluster to start
+  postgresql-test-app/0 [idle] blocked: No database integration available
+  sysbench/0 [idle] maintenance: Installing...
+[32mINFO    [0m pytest_operator.plugin:plugin.py:951 Model status:
+
+Model  Controller          Cloud/Region        Version  SLA          Timestamp
+test   microk8s-localhost  microk8s/localhost  3.6.9    unsupported  01:27:39Z
+
+App                       Version  Status   Scale  Charm                     Channel      Rev  Address         Exposed  Message
+data-integrator                    blocked      1  data-integrator           latest/edge  248  10.152.183.166  no       Please specify either topic, index, database name, or prefix
+grafana-agent-k8s         0.40.4   blocked      1  grafana-agent-k8s         1/edge       164  10.152.183.98   no       Missing ['grafana-cloud-config']|['grafana-dashboards-provider'] for grafana-dashboards-consumer; ['grafana-cloud-con...
+pgbouncer-k8s             1.21.0   active       1  pgbouncer-k8s             1/edge       484  10.152.183.40   no       
+postgresql-k8s            14.18    waiting      2  postgresql-k8s            14/edge      663  10.152.183.153  no       awaiting for cluster to start
+postgresql-test-app                blocked      1  postgresql-test-app       latest/edge  406  10.152.183.73   no       No database integration available
+s3-integrator                      blocked      1  s3-integrator             latest/edge  188  10.152.183.199  no       Missing parameters: ['access-key', 'secret-key']
+self-signed-certificates           active       1  self-signed-certificates  latest/edge  346  10.152.183.247  no       
+sysbench                           error        1  sysbench                  latest/edge  209  10.152.183.242  no       hook failed: "install"
+
+Unit                         Workload  Agent      Address     Ports  Message
+data-integrator/0*           blocked   idle       10.1.22.72         Please specify either topic, index, database name, or prefix
+grafana-agent-k8s/0*         blocked   idle       10.1.22.83         Missing ['grafana-cloud-config']|['grafana-dashboards-provider'] for grafana-dashboards-consumer; ['grafana-cloud-con...
+pgbouncer-k8s/0*             active    executing  10.1.22.81         
+postgresql-k8s/0*            active    executing  10.1.22.77         Primary (degraded)
+postgresql-k8s/1             waiting   idle       10.1.22.78         awaiting for cluster to start
+postgresql-test-app/0*       blocked   idle       10.1.22.73         No database integration available
+s3-integrator/0*             blocked   idle       10.1.22.76         Missing parameters: ['access-key', 'secret-key']
+self-signed-certificates/0*  active    idle       10.1.22.79         
+sysbench/0*                  error     idle       10.1.22.80         hook failed: "install"
+
+[32mINFO    [0m pytest_operator.plugin:plugin.py:957 Juju error logs:
+
+unit-sysbench-0: 01:27:38 ERROR unit.sysbench/0.juju-log apt-get update --error-on=any:
+stdout:
+Ign:1 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Ign:1 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Ign:1 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Err:1 http://security.ubuntu.com/ubuntu jammy-security InRelease
+  Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4002:1::103). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4000:1::102). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4002:1::101). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4002:1::102). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4000:1::103). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4000:1::101). - connect (101: Network is unreachable) Could not connect to security.ubuntu.com:80 (185.125.190.83), connection timed out Could not connect to security.ubuntu.com:80 (91.189.91.83), connection timed out Could not connect to security.ubuntu.com:80 (185.125.190.81), connection timed out Could not connect to security.ubuntu.com:80 (91.189.91.81), connection timed out Could not connect to security.ubuntu.com:80 (185.125.190.82), connection timed out Could not connect to security.ubuntu.com:80 (91.189.91.82), connection timed out
+Ign:2 http://archive.ubuntu.com/ubuntu jammy InRelease
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [75.9 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [5560 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3623 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1580 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.2 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Fetched 31.2 MB in 2min 21s (221 kB/s)
+Reading package lists...
+
+stderr:
+E: Failed to fetch http://security.ubuntu.com/ubuntu/dists/jammy-security/InRelease  Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4002:1::103). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4000:1::102). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4002:1::101). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4002:1::102). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4000:1::103). - connect (101: Network is unreachable) Cannot initiate the connection to security.ubuntu.com:80 (2620:2d:4000:1::101). - connect (101: Network is unreachable) Could not connect to security.ubuntu.com:80 (185.125.190.83), connection timed out Could not connect to security.ubuntu.com:80 (91.189.91.83), connection timed out Could not connect to security.ubuntu.com:80 (185.125.190.81), connection timed out Could not connect to security.ubuntu.com:80 (91.189.91.81), connection timed out Could not connect to security.ubuntu.com:80 (185.125.190.82), connection timed out Could not connect to security.ubuntu.com:80 (91.189.91.82), connection timed out
+E: Some index files failed to download. They have been ignored, or old ones used instead.
+
+unit-sysbench-0: 01:27:38 ERROR unit.sysbench/0.juju-log Uncaught exception while in charm code:
+Traceback (most recent call last):
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/src/charm.py", line 322, in <module>
+    main(SysbenchOperator)
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/venv/lib/python3.10/site-packages/ops/__init__.py", line 356, in __call__
+    return _main.main(charm_class=charm_class, use_juju_for_storage=use_juju_for_storage)
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 502, in main
+    manager.run()
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 486, in run
+    self._emit()
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 421, in _emit
+    self._emit_charm_event(self.dispatcher.event_name)
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/venv/lib/python3.10/site-packages/ops/_main.py", line 465, in _emit_charm_event
+    event_to_emit.emit(*args, **kwargs)
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/venv/lib/python3.10/site-packages/ops/framework.py", line 351, in emit
+    framework._emit(event)
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/venv/lib/python3.10/site-packages/ops/framework.py", line 924, in _emit
+    self._reemit(event_path)
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/venv/lib/python3.10/site-packages/ops/framework.py", line 1030, in _reemit
+    custom_handler(event)
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/src/charm.py", line 158, in _on_install
+    apt.update()
+  File "/var/lib/juju/agents/unit-sysbench-0/charm/lib/charms/operator_libs_linux/v0/apt.py", line 883, in update
+    subprocess.run(cmd, capture_output=True, check=True)
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['apt-get', 'update', '--error-on=any']' returned non-zero exit status 100.
+unit-sysbench-0: 01:27:39 ERROR juju.worker.uniter.operation hook "install" (via hook dispatching script: dispatch) failed: exit status 1
+
+[32mINFO    [0m pytest_operator.plugin:plugin.py:1039 Forgetting model main...
