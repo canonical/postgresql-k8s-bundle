@@ -11,7 +11,7 @@ python = "^3.12"
 optional = true
 
 [tool.poetry.group.format.dependencies]
-ruff = "^0.12.11"
+ruff = "^0.12.12"
 
 [tool.poetry.group.lint]
 optional = true
@@ -23,7 +23,7 @@ codespell = "2.4.1"
 optional = true
 
 [tool.poetry.group.integration.dependencies]
-pytest = "^8.4.1"
+pytest = "^8.4.2"
 pytest-github-secrets = {git = "https://github.com/canonical/data-platform-workflows", tag = "v35.0.2", subdirectory = "python/pytest_plugins/github_secrets"}
 pytest-operator = "^0.43.1"
 pytest-operator-cache = {git = "https://github.com/canonical/data-platform-workflows", tag = "v35.0.2", subdirectory = "python/pytest_plugins/pytest_operator_cache"}
