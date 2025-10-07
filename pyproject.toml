@@ -11,7 +11,7 @@ python = "^3.12"
 optional = true
 
 [tool.poetry.group.format.dependencies]
-ruff = "^0.13.2"
+ruff = "^0.13.3"
 
 [tool.poetry.group.lint]
 optional = true
@@ -25,7 +25,7 @@ optional = true
 [tool.poetry.group.integration.dependencies]
 pytest = "^8.4.2"
 pytest-github-secrets = {git = "https://github.com/canonical/data-platform-workflows", tag = "v35.0.2", subdirectory = "python/pytest_plugins/github_secrets"}
-pytest-operator = "^0.43.1"
+pytest-operator = "^0.43.2"
 pytest-operator-cache = {git = "https://github.com/canonical/data-platform-workflows", tag = "v35.0.2", subdirectory = "python/pytest_plugins/pytest_operator_cache"}
 pytest-operator-groups = {git = "https://github.com/canonical/data-platform-workflows", tag = "v35.0.2", subdirectory = "python/pytest_plugins/pytest_operator_groups"}
 allure-pytest-collection-report = {git = "https://github.com/canonical/data-platform-workflows", tag = "v35.0.2", subdirectory = "python/pytest_plugins/allure_pytest_collection_report"}
