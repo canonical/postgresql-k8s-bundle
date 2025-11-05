@@ -3,7 +3,7 @@ applications:
     channel: latest/edge
     charm: data-integrator
     constraints: arch=amd64
-    revision: 283
+    revision: 289
     scale: 1
   grafana-agent-k8s:
     channel: 1/edge
