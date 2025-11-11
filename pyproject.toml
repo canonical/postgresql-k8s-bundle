@@ -23,7 +23,7 @@ codespell = "2.4.1"
 optional = true
 
 [tool.poetry.group.integration.dependencies]
-pytest = "^8.4.2"
+pytest = "^9.0.0"
 pytest-github-secrets = {git = "https://github.com/canonical/data-platform-workflows", tag = "v36.0.2", subdirectory = "python/pytest_plugins/github_secrets"}
 pytest-operator = "^0.43.2"
 pytest-operator-cache = {git = "https://github.com/canonical/data-platform-workflows", tag = "v36.0.2", subdirectory = "python/pytest_plugins/pytest_operator_cache"}
