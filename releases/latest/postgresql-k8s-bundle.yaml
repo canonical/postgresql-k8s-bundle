@@ -3,7 +3,7 @@ applications:
     channel: latest/edge
     charm: data-integrator
     constraints: arch=amd64
-    revision: 289
+    revision: 295
     scale: 1
   grafana-agent-k8s:
     channel: 1/edge
@@ -44,7 +44,7 @@ applications:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 414
+    revision: 416
     scale: 1
   s3-integrator:
     channel: latest/edge
