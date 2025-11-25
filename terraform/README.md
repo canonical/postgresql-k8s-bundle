@@ -9,7 +9,7 @@ This is a Terraform module facilitating the deployment of Charmed Postgresql K8s
 | Name | Description | Type | Default | Required |
 | - | - | - | - | - |
 | `arch` | Architecture of the deployed model | `string` | `"amd64"` | no |
-| `certificates_charm_channel` | Channel for certificates charm | `string` | `"latest/stable"` | no |
+| `certificates_charm_channel` | Channel for certificates charm | `string` | `"1/stable"` | no |
 | `certificates_charm_config` | Configuration options for the certificates charm | `map(string)` | `{ca-common-name = "MySQL CA"}` | no |
 | `certificates_charm_name` | Name of the certificates charm to use | `string` | `"self-signed-certificates"` | no |
 | `certificates_charm_revision` | Charm revision number override for self-signed-certificates | `number` | `null` | no |
