@@ -116,7 +116,7 @@ variable "s3_integrator_charm_channel" {
 variable "certificates_charm_channel" {
   description = "Certificates Operator charm channel"
   type        = string
-  default     = "latest/stable"
+  default     = "1/stable"
 }
 
 variable "postgresql_charm_revision" {
