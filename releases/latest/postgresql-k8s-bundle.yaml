@@ -33,11 +33,11 @@ applications:
     charm: postgresql-k8s
     constraints: arch=amd64
     resources:
-      postgresql-image: 183
-        # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:e2283194f7f8d9997fb06f0fd1ab0ec3938ce73ac001133bd8fd393ebe83acc7
+      postgresql-image: 184
+        # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:876a6efcfd9093d6a02d992f3c6f0b9948dcf17ec6d87fa40f19b9d1db5b0b12
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1NGNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9rb3RjZnJvaGVhNjJ4cmVlbnExcTc1bjFseXNwa2UwcWt1cmhrL3Bvc3RncmVzcWwtaW1hZ2UKMDAxM2NpZCBhbGxvdyBwdWxsCjAwMmZzaWduYXR1cmUghzwoR8THj8usK6ytvyxvGT7UbLKl/fS9K16+68B6wUEK
         # oci-username: docker-registry
-    revision: 701
+    revision: 711
     scale: 2
     trust: true
   postgresql-test-app:
