@@ -43,7 +43,8 @@ async def test_setup(ops_test: OpsTest):
 
     logger.info("Test continuous writes")
     await (
-        await ops_test.model.applications[TEST_APP_NAME]
+        await ops_test.model
+        .applications[TEST_APP_NAME]
         .units[0]
         .run_action("start-continuous-writes")
     ).wait()
@@ -51,7 +52,8 @@ async def test_setup(ops_test: OpsTest):
     time.sleep(10)
 
     results = await (
-        await ops_test.model.applications[TEST_APP_NAME]
+        await ops_test.model
+        .applications[TEST_APP_NAME]
         .units[0]
         .run_action("stop-continuous-writes")
     ).wait()
