@@ -25,7 +25,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/6csu52zi28bn8u93up1myup3utcp7b1z87zmd/pgbouncer-image@sha256:872d99798edabdf67983789e5ae8d100e1e502f635767a307a14047768f35088
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1M2NpZCBpcy1kb2NrZXItcmVwbyBjaGFybS82Y3N1NTJ6aTI4Ym44dTkzdXAxbXl1cDN1dGNwN2Ixejg3em1kL3BnYm91bmNlci1pbWFnZQowMDEzY2lkIGFsbG93IHB1bGwKMDAyZnNpZ25hdHVyZSABcZZMXjxOaGudEiksuN29glKrRqThNJKRcWrUMkMy4wo
         # oci-username: docker-registry
-    revision: 500
+    revision: 502
     scale: 1
     trust: true
   postgresql-k8s:
@@ -37,7 +37,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:876a6efcfd9093d6a02d992f3c6f0b9948dcf17ec6d87fa40f19b9d1db5b0b12
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1NGNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9rb3RjZnJvaGVhNjJ4cmVlbnExcTc1bjFseXNwa2UwcWt1cmhrL3Bvc3RncmVzcWwtaW1hZ2UKMDAxM2NpZCBhbGxvdyBwdWxsCjAwMmZzaWduYXR1cmUghzwoR8THj8usK6ytvyxvGT7UbLKl/fS9K16+68B6wUEK
         # oci-username: docker-registry
-    revision: 711
+    revision: 715
     scale: 2
     trust: true
   postgresql-test-app:
