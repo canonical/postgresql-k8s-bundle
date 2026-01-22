@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Install dependencies
-        run: sudo snap install charmcraft --classic
+        run: sudo snap install charmcraft --classic --channel=3.x/stable
       - name: Pack and publish bundle
         run: |
           set -ex
