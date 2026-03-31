@@ -21,11 +21,11 @@ applications:
     charm: pgbouncer-k8s
     constraints: arch=amd64
     resources:
-      pgbouncer-image: 89
-        # oci-image: docker://registry.jujucharms.com/charm/6csu52zi28bn8u93up1myup3utcp7b1z87zmd/pgbouncer-image@sha256:d046f5d82c356de8933e1e5423e97c51100fa259e7fbc4da075c619b3eeb5f52
+      pgbouncer-image: 90
+        # oci-image: docker://registry.jujucharms.com/charm/6csu52zi28bn8u93up1myup3utcp7b1z87zmd/pgbouncer-image@sha256:0dd9e343602bb617dabd7002e3b93b9df4fa8e09af624eeb692847c4fc93ccb5
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1M2NpZCBpcy1kb2NrZXItcmVwbyBjaGFybS82Y3N1NTJ6aTI4Ym44dTkzdXAxbXl1cDN1dGNwN2Ixejg3em1kL3BnYm91bmNlci1pbWFnZQowMDEzY2lkIGFsbG93IHB1bGwKMDAyZnNpZ25hdHVyZSABcZZMXjxOaGudEiksuN29glKrRqThNJKRcWrUMkMy4wo
         # oci-username: docker-registry
-    revision: 525
+    revision: 533
     scale: 1
     trust: true
   postgresql-k8s:
@@ -33,18 +33,18 @@ applications:
     charm: postgresql-k8s
     constraints: arch=amd64
     resources:
-      postgresql-image: 190
-        # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:afe1741907069df0f5181e9c9020978ac6e813ff0f39c6acab96af5f7b06f431
+      postgresql-image: 193
+        # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:b83a6c013532c9c4abb6b30415dfdb083b5453ba1d6bbab4bcc111b39232b6b3
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1NGNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9rb3RjZnJvaGVhNjJ4cmVlbnExcTc1bjFseXNwa2UwcWt1cmhrL3Bvc3RncmVzcWwtaW1hZ2UKMDAxM2NpZCBhbGxvdyBwdWxsCjAwMmZzaWduYXR1cmUghzwoR8THj8usK6ytvyxvGT7UbLKl/fS9K16+68B6wUEK
         # oci-username: docker-registry
-    revision: 814
+    revision: 824
     scale: 2
     trust: true
   postgresql-test-app:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 460
+    revision: 469
     scale: 1
   s3-integrator:
     channel: latest/edge
@@ -59,12 +59,12 @@ applications:
     num_units: 1
     options:
       ca-common-name: postgresql_k8s_bundle_ca
-    revision: 604
+    revision: 619
   sysbench:
     channel: latest/edge
     charm: sysbench
     constraints: arch=amd64
-    revision: 252
+    revision: 255
     scale: 1
 bundle: kubernetes
 name: postgresql-k8s-bundle
