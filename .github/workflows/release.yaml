@@ -8,17 +8,24 @@ on:
 jobs:
   integration-test:
     uses: ./.github/workflows/ci.yaml
+    permissions:
+      contents: read
 
   publish-bundle:
     name: Publish bundle
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
     needs:
       - integration-test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    environment:
+      name: edge
+      deployment: true
     env:
-      CHARMCRAFT_AUTH: ${{ secrets.CHARMHUB_TOKEN }}
+      CHARMCRAFT_AUTH: ${{ secrets.CHARMHUB_TOKEN_EDGE }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Install dependencies
         run: sudo snap install charmcraft --classic --channel=3.x/stable
       - name: Pack and publish bundle
@@ -35,4 +42,4 @@ jobs:
           charmcraft upload ./*.zip
           REVISION=$(charmcraft revisions postgresql-k8s-bundle 2>&1 | awk 'NR==2 {print $1}')
           charmcraft release postgresql-k8s-bundle --revision "$REVISION" --channel=14/edge
-
+    permissions: {}
