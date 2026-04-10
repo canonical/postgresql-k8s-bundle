@@ -14,7 +14,7 @@ jobs:
       path-to-bundle-file: releases/latest/postgresql-k8s-bundle.yaml
       reviewers: canonical/data-postgresql
     secrets:
-      token: ${{ secrets.CREATE_PR_APP_TOKEN }}
+      token: ${{ secrets.CREATE_PR_PAT }}
     permissions:
       actions: read  # Needed for GitHub API call to get workflow version
       contents: write  # Needed to push branch
