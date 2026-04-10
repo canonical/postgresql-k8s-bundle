@@ -9,7 +9,7 @@ jobs:
   integration-test:
     uses: ./.github/workflows/ci.yaml
     permissions:
-      contents: read
+      contents: write  # Needed for Allure Report
 
   publish-bundle:
     name: Publish bundle
