@@ -24,16 +24,13 @@ optional = true
 
 [tool.poetry.group.integration.dependencies]
 pytest = "^9.0.2"
-pytest-github-secrets = {git = "https://github.com/canonical/data-platform-workflows", tag = "v42.1.0", subdirectory = "python/pytest_plugins/github_secrets"}
 pytest-operator = "^0.43.2"
-pytest-operator-cache = {git = "https://github.com/canonical/data-platform-workflows", tag = "v42.1.0", subdirectory = "python/pytest_plugins/pytest_operator_cache"}
-pytest-operator-groups = {git = "https://github.com/canonical/data-platform-workflows", tag = "v42.1.0", subdirectory = "python/pytest_plugins/pytest_operator_groups"}
-allure-pytest-collection-report = {git = "https://github.com/canonical/data-platform-workflows", tag = "v42.1.0", subdirectory = "python/pytest_plugins/allure_pytest_collection_report"}
 # renovate caret doesn't work: https://github.com/renovatebot/renovate/issues/26940
 juju = "<=3.6.1.3"
 psycopg2-binary = "^2.9.11"
 lightkube = "0.19.1"
 allure-pytest = "^2.15.3"
+allure-pytest-default-results = "^0.1.4"
 
 # Testing tools configuration
 [tool.coverage.run]

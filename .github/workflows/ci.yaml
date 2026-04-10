@@ -25,24 +25,9 @@ jobs:
     uses: canonical/data-platform-workflows/.github/workflows/lint.yaml@v42.1.0
 
   integration-test:
-    strategy:
-      fail-fast: false
-      matrix:
-        juju:
-          - agent: 3.6.19  # renovate: juju-agent-pin-minor
-            allure_on_amd64: true
-        architecture:
-          - amd64
-    name: Integration test charm | ${{ matrix.juju.agent }}
+    name: Integration test
     needs:
       - lint
-    uses: canonical/data-platform-workflows/.github/workflows/integration_test_charm.yaml@v42.1.0
-    with:
-      artifact-prefix: packed-charm-
-      architecture: ${{ matrix.architecture }}
-      cloud: microk8s
-      microk8s-snap-channel: 1.35-strict/stable  # renovate: latest microk8s
-      juju-agent-version: ${{ matrix.juju.agent }}
-      _beta_allure_report: ${{ matrix.juju.allure_on_amd64 && matrix.architecture == 'amd64' }}
+    uses: ./.github/workflows/integration_test.yaml
     permissions:
       contents: write  # Needed for Allure Report beta

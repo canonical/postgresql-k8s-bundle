@@ -24,7 +24,6 @@ BLOCKED_APPS = [
 ]
 
 
-@pytest.mark.group(1)
 @pytest.mark.abort_on_fail
 async def test_setup(ops_test: OpsTest):
     async with ops_test.fast_forward():
