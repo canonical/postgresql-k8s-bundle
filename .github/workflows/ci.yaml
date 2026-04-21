@@ -22,7 +22,7 @@ on:
 jobs:
   lint-workflows:
     name: Lint .github/workflows/
-    uses: canonical/data-platform-workflows/.github/workflows/lint_workflows.yaml@v48.1.1
+    uses: canonical/data-platform-workflows/.github/workflows/lint_workflows.yaml@v48.1.2
     permissions:
       contents: read
 
