@@ -11,7 +11,7 @@ python = "^3.12"
 optional = true
 
 [tool.poetry.group.format.dependencies]
-ruff = "^0.15.12"
+ruff = "^0.15.13"
 
 [tool.poetry.group.lint]
 optional = true
@@ -28,7 +28,7 @@ pytest-operator = "^0.43.2"
 # renovate caret doesn't work: https://github.com/renovatebot/renovate/issues/26940
 juju = "<=3.6.1.3"
 psycopg2-binary = "^2.9.12"
-lightkube = "0.19.1"
+lightkube = "0.21.0"
 allure-pytest = "^2.16.0"
 allure-pytest-default-results = "^0.1.4"
 
