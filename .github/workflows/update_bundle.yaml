@@ -9,13 +9,12 @@ on:
 jobs:
   update-bundle:
     name: Update bundle
-    uses: canonical/data-platform-workflows/.github/workflows/_update_bundle.yaml@v49.0.4
+    uses: canonical/data-platform-workflows/.github/workflows/_update_bundle.yaml@v50.0.0
     with:
       path-to-bundle-file: releases/latest/postgresql-k8s-bundle.yaml
       reviewers: canonical/data-postgresql
     secrets:
       token: ${{ secrets.CREATE_PR_PAT }}
     permissions:
-      actions: read  # Needed for GitHub API call to get workflow version
       contents: write  # Needed to push branch
       pull-requests: write  # Needed to create PR
