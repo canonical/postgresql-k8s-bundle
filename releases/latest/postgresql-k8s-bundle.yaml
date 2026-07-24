@@ -37,7 +37,7 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:e77fc5952a661ea8c4ecf1cc50989011e69925335e2cca85e3f4b70ceba41a47
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1NGNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9rb3RjZnJvaGVhNjJ4cmVlbnExcTc1bjFseXNwa2UwcWt1cmhrL3Bvc3RncmVzcWwtaW1hZ2UKMDAxM2NpZCBhbGxvdyBwdWxsCjAwMmZzaWduYXR1cmUghzwoR8THj8usK6ytvyxvGT7UbLKl/fS9K16+68B6wUEK
         # oci-username: docker-registry
-    revision: 935
+    revision: 937
     scale: 2
     trust: true
   postgresql-test-app:
@@ -59,7 +59,7 @@ applications:
     num_units: 1
     options:
       ca-common-name: postgresql_k8s_bundle_ca
-    revision: 652
+    revision: 655
   sysbench:
     channel: latest/edge
     charm: sysbench
