@@ -28,7 +28,6 @@ pytest-operator = "^0.43.2"
 # renovate caret doesn't work: https://github.com/renovatebot/renovate/issues/26940
 juju = "<=3.6.1.3"
 psycopg2-binary = "^2.9.12"
-lightkube = "0.22.0"
 allure-pytest = "^2.16.0"
 allure-pytest-default-results = "^0.1.4"
 
