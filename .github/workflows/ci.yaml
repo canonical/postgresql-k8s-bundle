@@ -47,6 +47,6 @@ jobs:
     name: Integration test
     needs:
       - lint
-    uses: ./.github/workflows/integration_test.yaml
+    uses: $/.github/workflows/integration_test.yaml
     permissions:
       contents: write  # Needed for Allure Report
