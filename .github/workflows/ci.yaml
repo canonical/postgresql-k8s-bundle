@@ -25,6 +25,7 @@ jobs:
     uses: canonical/data-platform-workflows/.github/workflows/lint_workflows.yaml@v53.0.0
     permissions:
       contents: read
+    cache-mode: none
 
   lint:
     name: Lint
@@ -42,6 +43,7 @@ jobs:
       - name: tox run -e lint
         run: tox run -e lint
     permissions: {}
+    cache-mode: none
 
   integration-test:
     name: Integration test
@@ -50,3 +52,4 @@ jobs:
     uses: $/.github/workflows/integration_test.yaml
     permissions:
       contents: write  # Needed for Allure Report
+    cache-mode: none
