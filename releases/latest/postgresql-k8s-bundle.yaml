@@ -37,14 +37,14 @@ applications:
         # oci-image: docker://registry.jujucharms.com/charm/kotcfrohea62xreenq1q75n1lyspke0qkurhk/postgresql-image@sha256:11db80a0b5a2fb24cee833b22bf337cbb6d6f4d3eab2328648320c020644d21e
         # oci-password: MDAxOGxvY2F0aW9uIGNoYXJtc3RvcmUKMDAzMGlkZW50aWZpZXIgOTBlODUwYWU2MzllNTZmMGU2OTc5MmYyOTQzZWY4ZDYKMDA1NGNpZCBpcy1kb2NrZXItcmVwbyBjaGFybS9rb3RjZnJvaGVhNjJ4cmVlbnExcTc1bjFseXNwa2UwcWt1cmhrL3Bvc3RncmVzcWwtaW1hZ2UKMDAxM2NpZCBhbGxvdyBwdWxsCjAwMmZzaWduYXR1cmUghzwoR8THj8usK6ytvyxvGT7UbLKl/fS9K16+68B6wUEK
         # oci-username: docker-registry
-    revision: 962
+    revision: 971
     scale: 2
     trust: true
   postgresql-test-app:
     channel: latest/edge
     charm: postgresql-test-app
     constraints: arch=amd64
-    revision: 599
+    revision: 604
     scale: 1
   s3-integrator:
     channel: latest/edge
@@ -59,12 +59,12 @@ applications:
     num_units: 1
     options:
       ca-common-name: postgresql_k8s_bundle_ca
-    revision: 695
+    revision: 705
   sysbench:
     channel: latest/edge
     charm: sysbench
     constraints: arch=amd64
-    revision: 319
+    revision: 325
     scale: 1
 bundle: kubernetes
 name: postgresql-k8s-bundle
