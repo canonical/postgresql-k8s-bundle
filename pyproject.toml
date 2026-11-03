@@ -11,7 +11,7 @@ python = "^3.12"
 optional = true
 
 [tool.poetry.group.format.dependencies]
-ruff = "^0.17.0"
+ruff = "^0.17.3"
 
 [tool.poetry.group.lint]
 optional = true
@@ -23,7 +23,7 @@ codespell = "2.4.3"
 optional = true
 
 [tool.poetry.group.integration.dependencies]
-pytest = "^9.1.1"
+pytest = "^9.2.0"
 pytest-operator = "^0.43.2"
 # renovate caret doesn't work: https://github.com/renovatebot/renovate/issues/26940
 juju = "<=3.6.1.3"
